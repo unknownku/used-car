@@ -8,5 +8,7 @@ public class UsedCarApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(UsedCarApplication.class, args);
+	
 	}
 }
+//pppp
