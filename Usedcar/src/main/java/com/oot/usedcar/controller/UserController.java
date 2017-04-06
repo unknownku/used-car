@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.oot.usedcar.domain.User;
 import com.oot.usedcar.form.UserLoginForm;
-import com.oot.usedcar.service.SecurityService;
-import com.oot.usedcar.service.UserService;
+import com.oot.usedcar.service.security.SecurityService;
+import com.oot.usedcar.service.user.UserService;
 
 @Controller
 public class UserController {

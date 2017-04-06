@@ -1,4 +1,4 @@
-package com.oot.usedcar.service;
+package com.oot.usedcar.service.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.oot.usedcar.service;
+package com.oot.usedcar.service.security;
 
 public interface SecurityService {
 	public String findLoggedInUsername();

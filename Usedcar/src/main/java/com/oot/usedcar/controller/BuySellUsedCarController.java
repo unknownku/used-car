@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.oot.usedcar.domain.Car;
 import com.oot.usedcar.form.EstimatePriceForm;
-import com.oot.usedcar.service.CarService;
-import com.oot.usedcar.service.EstimatePriceService;
 import com.oot.usedcar.service.InitialDataService;
+import com.oot.usedcar.service.car.CarService;
+import com.oot.usedcar.service.estimate.EstimatePriceService;
 
 @Controller
 public class BuySellUsedCarController {

@@ -1,4 +1,4 @@
-package com.oot.usedcar.service;
+package com.oot.usedcar.service.car;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

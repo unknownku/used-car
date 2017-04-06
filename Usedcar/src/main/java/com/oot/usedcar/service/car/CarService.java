@@ -1,4 +1,4 @@
-package com.oot.usedcar.service;
+package com.oot.usedcar.service.car;
 
 import com.oot.usedcar.domain.Car;
 

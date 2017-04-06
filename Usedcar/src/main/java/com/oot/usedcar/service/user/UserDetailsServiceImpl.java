@@ -1,4 +1,4 @@
-package com.oot.usedcar.service;
+package com.oot.usedcar.service.user;
 
 import java.util.HashSet;
 import java.util.Set;
