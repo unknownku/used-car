@@ -1,6 +1,7 @@
 package com.oot.usedcar.service.car;
 
 import com.oot.usedcar.domain.Car;
+import com.oot.usedcar.domain.UsedCar;
 
 public interface CarService {
 	
@@ -11,4 +12,5 @@ public interface CarService {
 	public Car findByYear(int year);
 	public Car findByBrandAndModelAndYear(String brand, String model, int year);
 
+	public UsedCar findUsedCars(String brand, String model, String subModel, int year, int kilometer);
 }

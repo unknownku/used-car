@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.oot.usedcar.domain.Car;
+import com.oot.usedcar.domain.UsedCar;
 import com.oot.usedcar.repository.CarRepository;
 
 @Service
@@ -40,6 +41,12 @@ public class CarServiceImplement implements CarService {
 	@Override
 	public Car findByBrandAndModelAndYear(String brand, String model, int year) {
 		return carRepository.findByBrandAndModelAndYear(brand, model, year);
+	}
+
+	@Override
+	public UsedCar findUsedCars(String brand, String model, String subModel, int year, int kilometer) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

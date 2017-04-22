@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.oot.usedcar.domain.Car;
+import com.oot.usedcar.domain.UsedCar;
+import com.oot.usedcar.form.CarSearchForm;
 import com.oot.usedcar.form.EstimatePriceForm;
 import com.oot.usedcar.service.InitialDataService;
 import com.oot.usedcar.service.car.CarService;
@@ -80,9 +82,31 @@ public class BuySellUsedCarController {
 		return "index";
 	}
 
-	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String search(Model model, String t, String t2) {
+	@RequestMapping(value = { "/carSearch" }, method = RequestMethod.GET)
+	public String carSearch(Model model, String t) {
+		model.addAttribute("carSearch", new CarSearchForm());
+		System.out.println("get estimatePrice");
+		return "carsearchform";
+	}
+
+	@RequestMapping(value = { "/carSearch" }, method = RequestMethod.POST)
+	public String search(@Valid CarSearchForm carSearchForm) {
 		System.out.println("search");
+		
+		String car_brand = carSearchForm.getBrand();
+		String car_model = carSearchForm.getModel();
+		String car_submodel = carSearchForm.getSubModel();
+		int car_year = carSearchForm.getYear();
+		int car_kilometer = carSearchForm.getKilometer();
+		
+		UsedCar used_car = carService.findUsedCars(car_brand, car_model, car_submodel, car_year, car_kilometer);
+		System.out.println(used_car.getId().toString());
+		System.out.println(used_car.getColor());
+		System.out.println(used_car.getCarId());
+		System.out.println(used_car.getPrice().toString());
+		System.out.println(used_car.getYear());
+		System.out.println(used_car.getStatus());
+		System.out.println(used_car.getReceivingDate());
 		return "index";
 	}
 

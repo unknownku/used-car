@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Search | Used Car</title>
+    </head>
+    <body>
+
+        <form th:action="@{~/carSearch}" th:object="${carSearch}" method="post">
+            <table>
+			<tr>
+				<td>Brand:</td>
+				<td><input type="text" th:field="*{brand}" /></td>
+				<td th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}">brand
+					error message</td>
+			</tr>
+			<tr>
+				<td>Model:</td>
+				<td><input type="text" th:field="*{model}" /></td>
+				<td th:if="${#fields.hasErrors('model')}" th:errors="*{model}">model
+					error message</td>
+			</tr>
+			<tr>
+				<td>Sub Model:</td>
+				<td><input type="text" th:field="*{subModel}" /></td>
+				<td th:if="${#fields.hasErrors('subModel')}" th:errors="*{subModel}">sub model
+					error message</td>
+			</tr>
+			<tr>
+				<td>Year:</td>
+				<td><input type="text" th:field="*{subModel}" /></td>
+				<td th:if="${#fields.hasErrors('subModel')}" th:errors="*{subModel}">sub model
+					error message</td>
+			</tr>
+			<tr>
+				<td>Kilometer Amount:</td>
+				<td><input type="text" th:field="*{kilometer}" /></td>
+				<td th:if="${#fields.hasErrors('kilometer')}" th:errors="*{kilometer}">kilometer
+					error message</td>
+			</tr>
+			<tr>
+				<td><button type="submit">Search</button></td>
+			</tr>
+		</table>
+        </form>
+        
+    </body>
+</html>
