@@ -43,10 +43,4 @@ public class CarServiceImplement implements CarService {
 		return carRepository.findByBrandAndModelAndYear(brand, model, year);
 	}
 
-	@Override
-	public UsedCar findUsedCars(String brand, String model, String subModel, int year, int kilometer) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

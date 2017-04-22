@@ -8,17 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.oot.usedcar.domain.Car;
 import com.oot.usedcar.domain.CarReservation;
 import com.oot.usedcar.domain.UsedCar;
-import com.oot.usedcar.form.CarSearchForm;
+import com.oot.usedcar.form.UsedCarSearchForm;
 import com.oot.usedcar.form.EstimatePriceForm;
 import com.oot.usedcar.form.ReserveForm;
 import com.oot.usedcar.service.InitialDataService;
 import com.oot.usedcar.service.car.CarService;
+import com.oot.usedcar.service.car.UsedCarService;
 import com.oot.usedcar.service.estimate.EstimatePriceService;
 import com.oot.usedcar.service.reserve.ReserveService;
 
@@ -30,6 +32,9 @@ public class BuySellUsedCarController {
 
 	@Autowired
 	CarService carService;
+	
+	@Autowired
+	UsedCarService usedCarService;
 	
 	@Autowired
 	ReserveService reserveService;
@@ -104,34 +109,37 @@ public class BuySellUsedCarController {
 
 	@RequestMapping(value = { "/carSearch" }, method = RequestMethod.GET)
 	public String carSearch(Model model, String t) {
-		model.addAttribute("carSearch", new CarSearchForm());
-		System.out.println("get estimatePrice");
-		return "carsearchform";
+		model.addAttribute("carSearch", new UsedCarSearchForm());
+		System.out.println("get car search");
+		return "usedcarsearchform";
 	}
 
 	@RequestMapping(value = { "/carSearch" }, method = RequestMethod.POST)
-	public String search(@Valid CarSearchForm carSearchForm) {
+	public String search(@Valid UsedCarSearchForm carSearch, BindingResult result) {
 		System.out.println("search");
 		
-		//car id from search form
-		//set car detail to form
-		Car car = new Car();
-		car.setId(Long.parseLong("999"));
-		car.setBrand("Toyota");
-		String car_brand = carSearchForm.getBrand();
-		String car_model = carSearchForm.getModel();
-		String car_submodel = carSearchForm.getSubModel();
-		int car_year = carSearchForm.getYear();
-		int car_kilometer = carSearchForm.getKilometer();
+		String car_brand = carSearch.getBrand();
+		String car_model = carSearch.getModel();
+		String car_submodel = carSearch.getSubModel();
+		int car_year = carSearch.getYear();
+		int car_kilometer = carSearch.getKilometer();
+		 
+		UsedCar used_car = usedCarService.findByBrandAndModelAndSubmodelAndYearAndKilometer
+				(car_brand, car_model, car_submodel, car_year, car_kilometer);
+		if(used_car != null) {
+			System.out.println("Used car is null.");
+		} else {
+			System.out.println(used_car.getId().toString());
+			System.out.println(used_car.getColor());
+			System.out.println(used_car.getCarId());
+			System.out.println(used_car.getPrice().toString());
+			System.out.println(used_car.getYear());
+			System.out.println(used_car.getStatus());
+			System.out.println(used_car.getReceivingDate());
+		}
 		
-		UsedCar used_car = carService.findUsedCars(car_brand, car_model, car_submodel, car_year, car_kilometer);
-		System.out.println(used_car.getId().toString());
-		System.out.println(used_car.getColor());
-		System.out.println(used_car.getCarId());
-		System.out.println(used_car.getPrice().toString());
-		System.out.println(used_car.getYear());
-		System.out.println(used_car.getStatus());
-		System.out.println(used_car.getReceivingDate());
+		if (result.hasErrors())
+			System.out.println("hasError");
 		return "index";
 	}
  

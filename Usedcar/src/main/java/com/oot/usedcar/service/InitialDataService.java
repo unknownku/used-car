@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.oot.usedcar.domain.BuyCar;
 import com.oot.usedcar.domain.Car;
+import com.oot.usedcar.domain.UsedCar;
 import com.oot.usedcar.domain.User;
 import com.oot.usedcar.repository.CarRepository;
+import com.oot.usedcar.repository.UsedCarRepository;
 import com.oot.usedcar.service.user.UserService;
 import com.oot.usedcar.repository.BuyCarRepository;;
 
@@ -23,6 +25,9 @@ public class InitialDataService {
 	
 	@Autowired
 	private BuyCarRepository buyCarRepository;
+	
+	@Autowired
+	private UsedCarRepository usedCarRepository;
 	
 	
 	public void initailUser(){
@@ -39,6 +44,16 @@ public class InitialDataService {
 		car.setYear(2015);
 		car.setMiddlePrice(new BigDecimal("500000.00"));
 		carRepository.save(car);
+	}
+	
+	public void initailUsedCar(){
+		UsedCar used_car = new UsedCar();
+		used_car.setBrand("HONDA");
+		used_car.setModel("Jazz");
+		used_car.setSubmodel("E");
+		used_car.setYear(2015);
+		used_car.setKilometer(100000);
+		usedCarRepository.save(used_car);
 	}
 	
 

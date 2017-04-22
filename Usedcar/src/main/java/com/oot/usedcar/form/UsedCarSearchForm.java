@@ -3,7 +3,7 @@ package com.oot.usedcar.form;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-public class CarSearchForm {
+public class UsedCarSearchForm {
 	
 	@Pattern(regexp = "[a-zA-Z]{1,8}")
 	@NotNull
@@ -11,7 +11,7 @@ public class CarSearchForm {
 	
 	@Pattern(regexp = "[a-zA-Z]{1,8}")
 	private String model;
-	private String subModel;
+	private String submodel;
 	private int year;
 	private int kilometer;
 
@@ -33,11 +33,11 @@ public class CarSearchForm {
 	}
 
 	public String getSubModel() {
-		return subModel;
+		return submodel;
 	}
 
-	public void setSubModel(String subModel) {
-		this.subModel = subModel;
+	public void setSubModel(String submodel) {
+		this.submodel = submodel;
 	}
 
 	public int getYear() {
