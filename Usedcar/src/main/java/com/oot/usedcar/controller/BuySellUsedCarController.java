@@ -7,16 +7,20 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.oot.usedcar.domain.Car;
+import com.oot.usedcar.domain.CarReservation;
 import com.oot.usedcar.domain.UsedCar;
 import com.oot.usedcar.form.CarSearchForm;
 import com.oot.usedcar.form.EstimatePriceForm;
+import com.oot.usedcar.form.ReserveForm;
 import com.oot.usedcar.service.InitialDataService;
 import com.oot.usedcar.service.car.CarService;
 import com.oot.usedcar.service.estimate.EstimatePriceService;
+import com.oot.usedcar.service.reserve.ReserveService;
 
 @Controller
 public class BuySellUsedCarController {
@@ -26,6 +30,9 @@ public class BuySellUsedCarController {
 
 	@Autowired
 	CarService carService;
+	
+	@Autowired
+	ReserveService reserveService;
 
 	@Autowired
 	InitialDataService initialDataService;
@@ -99,6 +106,11 @@ public class BuySellUsedCarController {
 	public String search(@Valid CarSearchForm carSearchForm) {
 		System.out.println("search");
 		
+		//car id from search form
+		//set car detail to form
+		Car car = new Car();
+		car.setId(Long.parseLong("999"));
+		car.setBrand("Toyota");
 		String car_brand = carSearchForm.getBrand();
 		String car_model = carSearchForm.getModel();
 		String car_submodel = carSearchForm.getSubModel();
@@ -115,17 +127,48 @@ public class BuySellUsedCarController {
 		System.out.println(used_car.getReceivingDate());
 		return "index";
 	}
-
-	@RequestMapping(value = { "/reserve" }, method = RequestMethod.GET)
-	public String reserve(Model model, String t, String t2) {
-		System.out.println("reserve");
-		return "index";
-	}
-
+ 
 	@RequestMapping(value = { "/sell" }, method = RequestMethod.GET)
 	public String sell(Model model, String t, String t2) {
 		System.out.println("sell");
 		return "index";
 	}
 
+	@RequestMapping(value = { "/reserve/{carId}" }, method = RequestMethod.GET)
+	public String reserve(Model model, @PathVariable("carId") String carId) {
+		 
+		System.out.println("reserve car id = " + carId);
+		
+		//car id from search form
+		//set car detail to form
+		Car car = new Car();
+		car.setId(Long.parseLong("999"));
+		car.setBrand("Toyota");
+		
+		ReserveForm reserveForm = new ReserveForm();
+		
+		reserveForm.setName("Testname");
+		reserveForm.setAddress("address");
+		reserveForm.setPhoneNumber("000000");
+		reserveForm.setReserveCar(car);
+		
+		model.addAttribute("reserveForm", reserveForm);
+		
+		return "reserveForm";
+
+	}
+
+	@RequestMapping(value = { "/saveReserve" }, method = RequestMethod.POST)
+	public String saveReserve(Model model, @Valid ReserveForm reserveForm) {
+		
+		CarReservation carReserve = new CarReservation();
+		carReserve.setId(Long.parseLong("1"));
+		carReserve.setName("Test");
+		carReserve.setAddress("testtttttttt");
+		carReserve.setPhoneNumber("000000");
+		
+		reserveService.save(carReserve);
+		System.out.println("saveReserve");
+		return "index";
+	}
 }

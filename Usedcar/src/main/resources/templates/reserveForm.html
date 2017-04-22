@@ -7,7 +7,7 @@
 <body>
 	<h3>reserve</h3>
 
-	<form th:action="@{~/login}" th:object="${reserveForm}" method="post">
+	<form th:action="@{~/saveReserve}" th:object="${reserveForm}" method="post">
 		<table>
 			<tr>
 				<td>name:</td>
@@ -25,6 +25,18 @@
 				<td>phoneNumber:</td>
 				<td><input type="text" th:field="*{phoneNumber}" /></td>
 				<td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">phoneNumber
+					error message</td>
+			</tr>
+			<tr>
+				<td>car:</td>
+				<td><input type="text" th:field="*{reserveCar.id}" /></td>
+				<td th:if="${#fields.hasErrors('reserveCar.id')}" th:errors="*{reserveCar.id}">reserveCar.id
+					error message</td>
+			</tr>
+			<tr>
+				<td>carBrand:</td>
+				<td><input type="text" th:field="*{reserveCar.brand}" /></td>
+				<td th:if="${#fields.hasErrors('reserveCar.brand')}" th:errors="*{reserveCar.brand}">reserveCar.id
 					error message</td>
 			</tr>
 			<tr>
