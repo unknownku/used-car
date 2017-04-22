@@ -52,6 +52,16 @@ public class BuySellUsedCarController {
 		return "initial";
 	}
 
+	@RequestMapping(value = { "/init" }, method = RequestMethod.GET) 
+	  public String initial(Model model) { 
+	    System.out.println("initial"); 
+	    initialDataService.initailUser(); 
+	    initialDataService.initailCar(); 
+	    initialDataService.initailBuyCar(); 
+	    
+	    return "initial"; 
+	  } 
+	
 	@RequestMapping(value = { "/dashboard" }, method = RequestMethod.GET)
 	public String dashboard(Model model) {
 		System.out.println("dashboard");
