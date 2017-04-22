@@ -9,24 +9,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "receipts")
-public class Receipt {
-	
+@Table(name = "sell_cars")
+public class SellCar {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@NotNull
+	private Long reservationId;
+	private String saleBy;
 	private Double amount;
-	
-	@NotNull
-	private Long carId;
-	
-	@NotNull
-	private String createBy;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date transDate;
@@ -39,28 +31,28 @@ public class Receipt {
 		this.id = id;
 	}
 
+	public Long getReservationId() {
+		return reservationId;
+	}
+
+	public void setReservationId(Long reservationId) {
+		this.reservationId = reservationId;
+	}
+
+	public String getSaleBy() {
+		return saleBy;
+	}
+
+	public void setSaleBy(String saleBy) {
+		this.saleBy = saleBy;
+	}
+
 	public Double getAmount() {
 		return amount;
 	}
 
 	public void setAmount(Double amount) {
 		this.amount = amount;
-	}
-
-	public Long getCarId() {
-		return carId;
-	}
-
-	public void setCarId(Long carId) {
-		this.carId = carId;
-	}
-
-	public String getCreateBy() {
-		return createBy;
-	}
-
-	public void setCreateBy(String createBy) {
-		this.createBy = createBy;
 	}
 
 	public Date getTransDate() {
@@ -70,5 +62,4 @@ public class Receipt {
 	public void setTransDate(Date transDate) {
 		this.transDate = transDate;
 	}
-	
 }
