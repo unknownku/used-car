@@ -24,6 +24,8 @@ public class CarReservation {
     private BigDecimal reservAmount;
     private Date reservDate;
     private String reservNo;
+    
+    private String reserveCarId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,5 +37,78 @@ public class CarReservation {
         this.id = id;
     }
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getIdCard() {
+		return idCard;
+	}
+
+	public void setIdCard(String idCard) {
+		this.idCard = idCard;
+	}
+
+	public String getPayMethod() {
+		return payMethod;
+	}
+
+	public void setPayMethod(String payMethod) {
+		this.payMethod = payMethod;
+	}
+
+	public BigDecimal getReservAmount() {
+		return reservAmount;
+	}
+
+	public void setReservAmount(BigDecimal reservAmount) {
+		this.reservAmount = reservAmount;
+	}
+
+	public Date getReservDate() {
+		return reservDate;
+	}
+
+	public void setReservDate(Date reservDate) {
+		this.reservDate = reservDate;
+	}
+
+	public String getReservNo() {
+		return reservNo;
+	}
+
+	public void setReservNo(String reservNo) {
+		this.reservNo = reservNo;
+	}
+
+	public String getReserveCarId() {
+		return reserveCarId;
+	}
+
+	public void setReserveCarId(String reserveCarId) {
+		this.reserveCarId = reserveCarId;
+	}
+	
+	
     
 }
