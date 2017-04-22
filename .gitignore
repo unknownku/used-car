@@ -12,3 +12,4 @@ Usedcar/\.classpath
 Usedcar/\.project
 
 Usedcar/src/main/resources/application\.properties
+/.gradle/

@@ -18,7 +18,8 @@ public class InitialDataService {
 	
 	@Autowired
 	private CarRepository carRepository;
-		
+	
+	
 	public void initailUser(){
 		User user = new User();
     	user.setUsername("test");
