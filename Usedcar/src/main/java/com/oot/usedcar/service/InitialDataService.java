@@ -5,10 +5,12 @@ import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.oot.usedcar.domain.BuyCar;
 import com.oot.usedcar.domain.Car;
 import com.oot.usedcar.domain.User;
 import com.oot.usedcar.repository.CarRepository;
 import com.oot.usedcar.service.user.UserService;
+import com.oot.usedcar.repository.BuyCarRepository;;
 
 @Service
 public class InitialDataService {
@@ -19,9 +21,12 @@ public class InitialDataService {
 	@Autowired
 	private CarRepository carRepository;
 	
+	@Autowired
+	private BuyCarRepository buyCarRepository;
+	
 	
 	public void initailUser(){
-		User user = new User();
+		User user = new User(); 
     	user.setUsername("test");
     	user.setPassword("test");
     	userService.save(user);
@@ -37,4 +42,15 @@ public class InitialDataService {
 	}
 	
 
+	public void initailBuyCar(){
+		BuyCar buycar = new BuyCar();
+		buycar.setCustomerId("100101");
+		buycar.setName("KITTI");
+		buycar.setLastname("Hongsa");
+//		buycar.setBuyDate("");
+//		buycar.setBuyPrice(300000);
+		buyCarRepository.save(buycar);
+		
+		
+	}
 }

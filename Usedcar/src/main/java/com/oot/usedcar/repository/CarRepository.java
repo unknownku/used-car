@@ -1,7 +1,6 @@
 package com.oot.usedcar.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.oot.usedcar.domain.Car;
 
 public interface CarRepository extends JpaRepository<Car, Long> {

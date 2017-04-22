@@ -1,6 +1,8 @@
-/*package com.oot.usedcar.domain;
+package com.oot.usedcar.domain;
 
 import java.math.BigDecimal;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,55 +14,51 @@ import javax.persistence.Table;
 public class BuyCar {
 
 	private Long id;
-	private String BuyerID;
-	private String BuyerName;
-	private String BuyerLastName;
-	private int BuyDate;
-	private BigDecimal BuyPrice;
+	private String customerId;
+	private String name;
+	private String lastname;
+	private Date date;
+	private BigDecimal price;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	public Long getId(){
+	public Long getId() {
 		return id;
 	}
-	public void setID(Long id){
-		this.id= id;
+	public void setId(Long id) {
+		this.id = id;
 	}
-	
-	public String getBuyerID(){
-		return BuyerID;
+	public String getCustomerId() {
+		return customerId;
 	}
-	public void setBuyerID(String BuyerID){
-		this.BuyerID =BuyerID;
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
 	}
-	
-	public String BuyerName(){
-		return BuyerName;
+	public String getName() {
+		return name;
 	}
-	public void setBuyerName(String BuyerName) {
-		this.BuyerName = BuyerName;
+	public void setName(String name) {
+		this.name = name;
 	}
-	
-	public String BuyerLastName(){
-		return BuyerLastName;
+	public String getLastname() {
+		return lastname;
 	}
-	public void BuyerLastName(String BuyerLastName) {
-		this.BuyerLastName = BuyerLastName;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
-	
-	public int getBuyDate(){
-		return BuyDate;
+	public Date getDate() {
+		return date;
 	}
-	public void setBuyDate(int BuyDate) {
-		this.BuyDate = BuyDate;
+	public void setDate(Date date) {
+		this.date = date;
 	}
-	
-	public BigDecimal getBuyPrice(){
-		return BuyPrice;
+	public BigDecimal getPrice() {
+		return price;
 	}
-	public void getBuyPrice(BigDecimal BuyPrice) {
-		this.BuyPrice = BuyPrice;
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
+
 	
 }
-*/
+

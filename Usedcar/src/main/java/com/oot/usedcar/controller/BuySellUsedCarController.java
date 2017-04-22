@@ -42,6 +42,7 @@ public class BuySellUsedCarController {
 		System.out.println("init");
 		initialDataService.initailUser();
 		initialDataService.initailCar();
+		initialDataService.initailBuyCar();
 		return "init";
 	}
 
