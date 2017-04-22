@@ -39,6 +39,12 @@ public class BuySellUsedCarController {
 		return "index";
 	}
 
+	@RequestMapping(value = { "/dashboard" }, method = RequestMethod.GET)
+	public String dashboard(Model model) {
+		System.out.println("dashboard");
+		return "dashboard/index";
+	}
+	
 	@RequestMapping(value = { "/estimatePrice" }, method = RequestMethod.POST)
 	public String estimatePrice(Model model, String t) {
 		model.addAttribute("esitmatePriceForm", new EstimatePriceForm());
