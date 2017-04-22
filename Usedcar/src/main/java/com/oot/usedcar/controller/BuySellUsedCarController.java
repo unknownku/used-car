@@ -40,10 +40,16 @@ public class BuySellUsedCarController {
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public String index(Model model) {
 		System.out.println("index");
+		return "index";
+	}
+	
+	@RequestMapping(value = { "/init" }, method = RequestMethod.GET)
+	public String initial(Model model) {
+		System.out.println("initial");
 		initialDataService.initailUser();
 		initialDataService.initailCar();
 		initialDataService.initailBuyCar();
-		return "index";
+		return "initial";
 	}
 
 	@RequestMapping(value = { "/dashboard" }, method = RequestMethod.GET)
