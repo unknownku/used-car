@@ -7,14 +7,11 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.oot.usedcar.domain.Car;
 import com.oot.usedcar.form.EstimatePriceForm;
-import com.oot.usedcar.form.ReserveForm;
 import com.oot.usedcar.service.InitialDataService;
 import com.oot.usedcar.service.car.CarService;
 import com.oot.usedcar.service.estimate.EstimatePriceService;
@@ -34,16 +31,10 @@ public class BuySellUsedCarController {
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public String index(Model model) {
 		System.out.println("index");
-		return "index";
-	}
-	
-	@RequestMapping(value = { "/init" }, method = RequestMethod.GET)
-	public String initialData(Model model) {
-		System.out.println("init");
 		initialDataService.initailUser();
 		initialDataService.initailCar();
 		initialDataService.initailBuyCar();
-		return "init";
+		return "index";
 	}
 
 	@RequestMapping(value = { "/estimatePrice" }, method = RequestMethod.POST)
@@ -95,24 +86,10 @@ public class BuySellUsedCarController {
 		return "index";
 	}
 
-	@RequestMapping(value = { "/reserve/{carId}" }, method = RequestMethod.GET)
-	public String reserve(Model model, @PathVariable("carId") String carId) {
-		 
-		System.out.println("reserve car id = " + carId);
-		
-		//car id from search form
-		//set car detail to form
-		
-		ReserveForm reserveForm = new ReserveForm();
-		
-		reserveForm.setName("Testname");
-		reserveForm.setAddress("address");
-		reserveForm.setPhoneNumber("000000");
-		
-		model.addAttribute("reserveForm", reserveForm);
-		
-		return "reserveForm";
-
+	@RequestMapping(value = { "/reserve" }, method = RequestMethod.GET)
+	public String reserve(Model model, String t, String t2) {
+		System.out.println("reserve");
+		return "index";
 	}
 
 	@RequestMapping(value = { "/sell" }, method = RequestMethod.GET)
