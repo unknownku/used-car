@@ -31,9 +31,15 @@ public class BuySellUsedCarController {
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public String index(Model model) {
 		System.out.println("index");
+		return "index";
+	}
+	
+	@RequestMapping(value = { "/init" }, method = RequestMethod.GET)
+	public String initialData(Model model) {
+		System.out.println("init");
 		initialDataService.initailUser();
 		initialDataService.initailCar();
-		return "index";
+		return "init";
 	}
 
 	@RequestMapping(value = { "/estimatePrice" }, method = RequestMethod.POST)

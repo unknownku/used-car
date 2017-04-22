@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 import com.oot.usedcar.domain.Car;
 import com.oot.usedcar.domain.User;
 import com.oot.usedcar.repository.CarRepository;
-import com.oot.usedcar.repository.UserRepository;
+import com.oot.usedcar.service.user.UserService;
 
 @Service
 public class InitialDataService {
 	
 	@Autowired
-    private UserRepository userRepository;
+	private UserService userService;
 	
 	@Autowired
 	private CarRepository carRepository;
@@ -23,7 +23,7 @@ public class InitialDataService {
 		User user = new User();
     	user.setUsername("test");
     	user.setPassword("test");
-        userRepository.save(user);
+    	userService.save(user);
 	}
 	
 	public void initailCar(){

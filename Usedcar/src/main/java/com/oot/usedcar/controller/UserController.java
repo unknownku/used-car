@@ -31,6 +31,7 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registration(@Valid UserLoginForm userLoginForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+        	System.out.println("register error");
             return "register";
         }
 
@@ -39,16 +40,19 @@ public class UserController {
     	user.setPassword(userLoginForm.getPassword());
         userService.save(user);
         securityService.autologin(userLoginForm.getUsername(), userLoginForm.getPassword());
+        System.out.println("register welcome");
         return "redirect:/welcome";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@Valid UserLoginForm userLoginForm, BindingResult bindingResult, Model model) {
     	if (bindingResult.hasErrors()) {
+    		System.out.println("login error");
             return "login";
         }
     	
     	securityService.autologin(userLoginForm.getUsername(), userLoginForm.getPassword());
+    	System.out.println("login welcome");
         return "redirect:/welcome";
     }
     
@@ -60,6 +64,7 @@ public class UserController {
 
     @RequestMapping(value = {"/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) {
+    	System.out.println("welcome");
         return "welcome";
     }
 }
