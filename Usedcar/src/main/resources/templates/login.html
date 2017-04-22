@@ -1,35 +1,59 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-    <head>
-        <title>Log In | Used Car</title>
-    </head>
-    <body>
-         <div th:if="${param.error}">
-            Invalid username and password.
-        </div>
-        <div th:if="${param.logout}">
+<html xmlns="http://www.w3.org/1999/xhtml"
+ 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="loginlayout">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Used car</title>
+</head>
+<body class="hold-transition login-page">
+<div layout:fragment="content">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="../../index2.html"><b>Used car</b> 555</a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="login-box-body">
+
+    <p class="login-box-msg">Please sign in to the used car system</p>
+    <form th:action="@{~/login}" th:object="${userLoginForm}" method="post">
+      <div class="form-group has-feedback">
+        <input type="text" class="form-control" placeholder="Username" th:field="*{username}"/>
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="password" class="form-control" placeholder="Password" th:field="*{password}" />
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+      <span class="help-block" th:if="${param.error}">
+            Invalid username or password.
+     </span>
+     <span class="help-block" th:if="${param.logout}">
             You have been logged out.
+     </span>
+      <div class="row">
+        <div class="col-xs-8">
         </div>
-        <form th:action="@{~/login}" th:object="${userLoginForm}" method="post">
-            <table>
-			<tr>
-				<td>username:</td>
-				<td><input type="text" th:field="*{username}" /></td>
-				<td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username
-					error message</td>
-			</tr>
-			<tr>
-				<td>password:</td>
-				<td><input type="password" th:field="*{password}" /></td>
-				<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password
-					error message</td>
-			</tr>
-			<tr>
-				<td><button type="submit">Login</button></td>
-			</tr>
-		</table>
-        </form>
-        <a th:href="@{~/register}">Register</a>
-    </body>
+        <!-- /.col -->
+        <div class="col-xs-4">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+        </div>
+        <!-- /.col -->
+      </div>
+    </form> 
+  </div>
+  <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
+</div>
+<script>
+  $(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' // optional
+    });
+  });
+</script>
+</body>
 </html>
