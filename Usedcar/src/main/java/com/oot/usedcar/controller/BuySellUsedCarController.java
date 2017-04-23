@@ -65,14 +65,14 @@ public class BuySellUsedCarController {
 		return "dashboard/index";
 	}
 	
-	@RequestMapping(value = { "/estimatePrice" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/estimatePrice" }, method = RequestMethod.GET)
 	public String estimatePrice(Model model, String t) {
 		model.addAttribute("esitmatePriceForm", new EstimatePriceForm());
 		System.out.println("get estimatePrice");
-		return "index";
+		return "estimate";
 	}
 
-	@RequestMapping(value = "/estimatePrice", method = RequestMethod.GET)
+	@RequestMapping(value = "/estimatePrice", method = RequestMethod.POST)
 	public String estimatePrice(@Valid EstimatePriceForm estimatePriceForm) {
 		System.out.println("post estimatePrice");
 		// Start mockup data

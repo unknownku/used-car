@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head>
+<title>Used car</title>
+</head>
+<body>
+	<section layout:fragment="header">
+		<h1>Estimate price</h1>
+	</section>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-7">
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">Estimate price</h3>
+					</div>
+
+					<div class="box-body">
+						<form th:action="@{~/estimatePrice}" th:object="${esitmatePriceForm}" method="post">
+							<div class="form-group">
+								<label>Brand</label> <select class="form-control">
+									<option>option 1</option>
+									<option>option 2</option>
+									<option>option 3</option>
+									<option>option 4</option>
+									<option>option 5</option>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label>Model</label> <select class="form-control">
+									<option>option 1</option>
+									<option>option 2</option>
+									<option>option 3</option>
+									<option>option 4</option>
+									<option>option 5</option>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label>Year</label> <select class="form-control">
+									<option>option 1</option>
+									<option>option 2</option>
+									<option>option 3</option>
+									<option>option 4</option>
+									<option>option 5</option>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label>Flooding</label>
+								<div class="radio">
+									<label> <input type="radio" name="flooding" id="flooding1" value="0" /> Ever
+									</label>
+								</div>
+								<div class="radio">
+									<label> <input type="radio" name="flooding" id="flooding2" value="1" checked="" /> Never
+									</label>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label>Crashing</label>
+								<div class="radio">
+									<label> <input type="radio" name="crashing" id="crashing1" value="0" /> Ever
+									</label>
+								</div>
+								<div class="radio">
+									<label> <input type="radio" name="crashing" id="crashing2" value="1" checked="" /> Never
+									</label>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label>Using type</label>
+								<div class="radio">
+									<label> <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="" /> Personal
+									</label>
+								</div>
+								<div class="radio">
+									<label> <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" /> Carring
+									</label>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label>Kilometer usage</label>
+								<div class="input-group">
+									<input type="text" class="form-control" placeholder="100,000" /><span class="input-group-addon"><i class="fa fa-car"></i></span>
+								</div>
+							</div>
+							<div class="box-footer">
+								<button type="submit" class="btn btn-primary pull-right">Submit</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-5">
+				<div class="info-box">
+					<span class="info-box-icon bg-green"><i class="fa fa-money"></i></span>
+
+					<div class="info-box-content">
+						<span class="info-box-text">Price</span> <span class="info-box-number"><h3>329,000</h3></span>
+					</div>
+					<!-- /.info-box-content -->
+				</div>
+				<!-- /.info-box -->
+			</div>
+		</div>
+	</div>
+</body>
+</html>
