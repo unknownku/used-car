@@ -2,12 +2,19 @@ package com.oot.usedcar.form;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class EstimatePriceForm {
 
 	private String brand;
 	private String model;
 	private String subModel;
-	private int year;
+	private int year;	
+
+	@Min(value = 1, message = "The value must be positive")
 	private int kilometer;
 	private boolean isFlooding;
 	private boolean isCrashing;

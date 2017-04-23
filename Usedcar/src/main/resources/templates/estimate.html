@@ -17,57 +17,72 @@
 					</div>
 
 					<div class="box-body">
-						<form th:action="@{~/estimatePrice}" th:object="${esitmatePriceForm}" method="post">
-							<div class="form-group">
-								<label>Brand</label> <select class="form-control">
-									<option>option 1</option>
-									<option>option 2</option>
-									<option>option 3</option>
-									<option>option 4</option>
-									<option>option 5</option>
+						<form th:action="@{~/estimatePrice}" th:object="${estimatePriceForm}" method="post">
+							<!-- Brand -->
+							<label>Brands</label>
+							<div class="form-group" th:if="${carList != null and not #lists.isEmpty(carList)}">
+								<select class="form-control" th:field="*{brand}">
+									<option th:each="car : ${carList}" th:value="${car.brand}" th:text="${car.brand}" />
 								</select>
 							</div>
-
-							<div class="form-group">
-								<label>Model</label> <select class="form-control">
-									<option>option 1</option>
-									<option>option 2</option>
-									<option>option 3</option>
-									<option>option 4</option>
-									<option>option 5</option>
-								</select>
+							<div class="form-group" th:if="${carList == null or #lists.isEmpty(carList)}">
+								<label>"No Institutions were found, please create some first"</label>
 							</div>
 
-							<div class="form-group">
-								<label>Year</label> <select class="form-control">
-									<option>option 1</option>
-									<option>option 2</option>
-									<option>option 3</option>
-									<option>option 4</option>
-									<option>option 5</option>
+							<!-- Models -->
+							<label>Models</label>
+							<div class="form-group" th:if="${carList != null and not #lists.isEmpty(carList)}">
+								<select class="form-control" th:field="*{model}">
+									<option th:each="car : ${carList}" th:value="${car.model}" th:text="${car.model}" />
 								</select>
+							</div>
+							<div class="form-group" th:if="${carList == null or #lists.isEmpty(carList)}">
+								<label>"No Institutions were found, please create some first"</label>
+							</div>
+
+							<!-- Sub Models -->
+							<label>Sub Models</label>
+							<div class="form-group" th:if="${carList != null and not #lists.isEmpty(carList)}">
+								<select class="form-control" th:field="*{subModel}">
+									<option th:each="car : ${carList}" th:value="${car.model}" th:text="${car.model}" />
+								</select>
+							</div>
+							<div class="form-group" th:if="${carList == null or #lists.isEmpty(carList)}">
+								<label>"No Institutions were found, please create some first"</label>
+							</div>
+
+							<!-- Years -->
+							<label>Year</label>
+							<div class="form-group" th:if="${carList != null and not #lists.isEmpty(carList)}">
+								<select class="form-control" th:field="*{year}">
+									<option th:each="car : ${carList}" th:value="${car.year}" th:text="${car.year}" />
+								</select>
+							</div>
+							<div class="form-group" th:if="${carList == null or #lists.isEmpty(carList)}">
+								<label>"No Institutions were found, please create some first"</label>
 							</div>
 
 							<div class="form-group">
 								<label>Flooding</label>
 								<div class="radio">
-									<label> <input type="radio" name="flooding" id="flooding1" value="0" /> Ever
+									<label> <input type="radio" th:field="*{flooding}" name="flooding" id="flooding2" value="0" /> Never
 									</label>
 								</div>
 								<div class="radio">
-									<label> <input type="radio" name="flooding" id="flooding2" value="1" checked="" /> Never
+									<label> <input type="radio" th:field="*{flooding}" name="flooding" id="flooding1" value="1" /> Ever
 									</label>
 								</div>
+								
 							</div>
 
 							<div class="form-group">
-								<label>Crashing</label>
+								<label>Crashing</label>								
 								<div class="radio">
-									<label> <input type="radio" name="crashing" id="crashing1" value="0" /> Ever
+									<label> <input type="radio" th:field="*{crashing}" name="crashing" id="crashing2" value="0" /> Never
 									</label>
 								</div>
 								<div class="radio">
-									<label> <input type="radio" name="crashing" id="crashing2" value="1" checked="" /> Never
+									<label> <input type="radio" th:field="*{crashing}" name="crashing" id="crashing1" value="1" /> Ever
 									</label>
 								</div>
 							</div>
@@ -75,11 +90,11 @@
 							<div class="form-group">
 								<label>Using type</label>
 								<div class="radio">
-									<label> <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="" /> Personal
+									<label> <input type="radio" th:field="*{usingType}" name="usingType" id="optionsRadios1" value="0" th:checked="checked" /> Personal
 									</label>
 								</div>
 								<div class="radio">
-									<label> <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" /> Carring
+									<label> <input type="radio" th:field="*{usingType}" name="usingType" id="optionsRadios2" value="1" /> Carring
 									</label>
 								</div>
 							</div>
@@ -87,8 +102,9 @@
 							<div class="form-group">
 								<label>Kilometer usage</label>
 								<div class="input-group">
-									<input type="text" class="form-control" placeholder="100,000" /><span class="input-group-addon"><i class="fa fa-car"></i></span>
+									<input type="text" class="form-control" th:field="*{kilometer}" placeholder="100,000" /><span class="input-group-addon"><i class="fa fa-car"></i></span>
 								</div>
+								<span class="help-block" th:if="${#fields.hasErrors('kilometer')}" th:errors="*{kilometer}">kilometer error message</span>
 							</div>
 							<div class="box-footer">
 								<button type="submit" class="btn btn-primary pull-right">Submit</button>
@@ -102,8 +118,12 @@
 				<div class="info-box">
 					<span class="info-box-icon bg-green"><i class="fa fa-money"></i></span>
 
-					<div class="info-box-content">
-						<span class="info-box-text">Price</span> <span class="info-box-number"><h3>329,000</h3></span>
+					<div class="info-box-content" th:if="${price != null}">
+						<span class="info-box-text">Price</span> <span class="info-box-number"><h3 th:text="${price}"></h3></span>
+					</div>
+					
+					<div class="info-box-content" th:if="${price == null}">
+						<span class="info-box-text">Price</span> <span class="info-box-number"><h3>0.00</h3></span>
 					</div>
 					<!-- /.info-box-content -->
 				</div>

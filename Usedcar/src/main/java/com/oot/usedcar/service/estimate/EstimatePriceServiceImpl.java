@@ -26,6 +26,7 @@ public class EstimatePriceServiceImpl implements EstimatePriceService {
 		BigDecimal depreciationPrice = new BigDecimal(ConstantValue.ZERO);
 
 		depreciationPrice = depreciationPrice.add(calculateYearDepreciationPrice(year, usingType));
+		depreciationPrice = depreciationPrice.add(calculateKilometerDepreciationPrice(kilometer, usingType));
 		depreciationPrice = depreciationPrice.add(calculateFloodingDepreciationPrice(isFlooding));
 		depreciationPrice = depreciationPrice.add(calculateCrashingDepreciationPrice(isCrashing));
 
@@ -69,6 +70,33 @@ public class EstimatePriceServiceImpl implements EstimatePriceService {
 			depreciationPrice.add(new BigDecimal(ConstantValue.USED_CAR_CARRY_PRICE));
 			temp = new BigDecimal(ConstantValue.USED_CAR_CARRY_PRICE_PER_YEAR);
 			temp = temp.multiply(new BigDecimal(year));
+			break;
+		default:
+			depreciationPrice.add(new BigDecimal(ConstantValue.ZERO));
+			break;
+		}
+		return depreciationPrice.add(temp);
+	}
+	
+	private BigDecimal calculateKilometerDepreciationPrice(int kilometer, int usingType) {
+		BigDecimal depreciationPrice = new BigDecimal(ConstantValue.ZERO);
+		BigDecimal temp = new BigDecimal(ConstantValue.ZERO);
+		int multiply = kilometer/10000;
+		switch (usingType) {
+		case 0: // รถยนต์โดยสารส่วนบุคคล			
+			depreciationPrice.add(new BigDecimal(ConstantValue.USED_CAR_PERSONAL_PRICE));
+			temp = new BigDecimal(ConstantValue.USED_CAR_PERSONAL_PRICE_PER_YEAR);
+			temp = temp.multiply(new BigDecimal(multiply));
+			break;
+		case 1: // รถยนต์โดยสารเพื่อการพาณิชย์รับจ้าง
+			depreciationPrice.add(new BigDecimal(ConstantValue.USED_CAR_COMMERCIAL_PRICE));
+			temp = new BigDecimal(ConstantValue.USED_CAR_COMMERCIAL_PRICE_PER_YEAR);
+			temp = temp.multiply(new BigDecimal(multiply));
+			break;
+		case 2: // รถยนต์บรรทุกเพื่อการพาณิชย์
+			depreciationPrice.add(new BigDecimal(ConstantValue.USED_CAR_CARRY_PRICE));
+			temp = new BigDecimal(ConstantValue.USED_CAR_CARRY_PRICE_PER_YEAR);
+			temp = temp.multiply(new BigDecimal(multiply));
 			break;
 		default:
 			depreciationPrice.add(new BigDecimal(ConstantValue.ZERO));

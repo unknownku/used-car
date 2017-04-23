@@ -1,6 +1,8 @@
 package com.oot.usedcar.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,5 +69,24 @@ public class InitialDataService {
 		buyCarRepository.save(buycar);
 		
 		
+	}
+	
+	public List<Car> getCarList(){
+		List<Car> carList = new ArrayList();
+		Car car = new Car();
+		car.setBrand("TOYOTA");
+		car.setModel("Altis");
+		car.setYear(2015);
+		car.setMiddlePrice(new BigDecimal("500000.00"));
+		carList.add(car);
+		
+		Car car2 = new Car();
+		car2.setBrand("HONDA");
+		car2.setModel("CIVIC");
+		car2.setYear(2015);
+		car2.setMiddlePrice(new BigDecimal("500000.00"));
+		carList.add(car2);
+		
+		return carList;
 	}
 }
