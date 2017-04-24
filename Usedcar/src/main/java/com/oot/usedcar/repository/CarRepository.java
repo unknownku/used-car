@@ -9,5 +9,7 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 	Car findBySubModel(String subModel);
 	Car findByYear(int year);
 	Car findByBrandAndModelAndYear(String brand, String model, int year); 
+	
+	Car findById(Long id); 
 
 }
