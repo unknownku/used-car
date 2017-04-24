@@ -43,6 +43,7 @@ public class InitialDataService {
 		Car car = new Car();
 		car.setBrand("TOYOTA");
 		car.setModel("Altis");
+		car.setSubModel("E");
 		car.setYear(2015);
 		car.setMiddlePrice(new BigDecimal("500000.00"));
 		carRepository.save(car);
