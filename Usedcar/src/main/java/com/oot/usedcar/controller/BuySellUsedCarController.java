@@ -114,7 +114,7 @@ public class BuySellUsedCarController {
 			System.out.println(estimatePrice.toString());
 			model.addAttribute("carList", initialDataService.getCarList());
 			model.addAttribute("price", estimatePrice.toString());
-			return "estimate";
+			return "fragments/estimate_frag :: estimate-price";
 		} else {
 			return "redirect:/estimatePrice";
 		}
