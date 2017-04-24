@@ -11,6 +11,8 @@ public interface CarService {
 	public Car findBySubModel(String subModel);
 	public Car findByYear(int year);
 	public Car findByBrandAndModelAndYear(String brand, String model, int year);
+	
+	public Car findById(Long id);
 
 	
 }
