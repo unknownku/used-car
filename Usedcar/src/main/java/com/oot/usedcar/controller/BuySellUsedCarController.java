@@ -173,12 +173,10 @@ public class BuySellUsedCarController {
 
 		System.out.println("reserve car id = " + carId);
 
-		// car id from search form
-		// set car detail to form
-		Car car = new Car();
-		car.setId(Long.parseLong("999"));
-		car.setBrand("Toyota");
-
+		// car id from search form 
+		Car car = carService.findById(Long.parseLong(carId));
+		
+		
 		ReserveForm reserveForm = new ReserveForm();
 
 		reserveForm.setName("Testname");
