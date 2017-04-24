@@ -43,4 +43,10 @@ public class CarServiceImplement implements CarService {
 		return carRepository.findByBrandAndModelAndYear(brand, model, year);
 	}
 
+	@Override
+	public Car findById(Long id) {
+		return carRepository.findById(id);
+	}
+
+	
 }
