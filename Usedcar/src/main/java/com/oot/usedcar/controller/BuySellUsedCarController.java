@@ -22,6 +22,7 @@ import com.oot.usedcar.form.UserLoginForm;
 import com.oot.usedcar.form.EstimatePriceForm;
 import com.oot.usedcar.form.ReserveForm;
 import com.oot.usedcar.service.InitialDataService;
+import com.oot.usedcar.service.buycar.BuyCarService;
 import com.oot.usedcar.service.car.CarService;
 import com.oot.usedcar.service.car.UsedCarService;
 import com.oot.usedcar.service.estimate.EstimatePriceService;
@@ -32,7 +33,7 @@ public class BuySellUsedCarController {
 
 	@Autowired
 	EstimatePriceService estimatePriceService;
-
+	
 	@Autowired
 	CarService carService;
 
@@ -67,6 +68,13 @@ public class BuySellUsedCarController {
 		System.out.println("dashboard");
 		return "dashboard/index";
 	}
+
+	@RequestMapping(value = { "/buycar" }, method = RequestMethod.GET)
+	public String buycar(Model model) {
+		System.out.println("buycar");
+		return "buycar";
+	}
+	
 
 	@RequestMapping(value = { "/estimatePrice" }, method = RequestMethod.GET)
 	public String estimatePrice(Model model) {
@@ -119,6 +127,7 @@ public class BuySellUsedCarController {
 			return "redirect:/estimatePrice";
 		}
 	}
+	
 
 	@RequestMapping(value = { "/buy" }, method = RequestMethod.GET)
 	public String buy(Model model, String t) {
