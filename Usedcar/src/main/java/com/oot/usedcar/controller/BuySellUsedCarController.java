@@ -9,20 +9,18 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.oot.usedcar.domain.Car;
 import com.oot.usedcar.domain.CarReservation;
 import com.oot.usedcar.domain.UsedCar;
-import com.oot.usedcar.form.UsedCarSearchForm;
-import com.oot.usedcar.form.UserLoginForm;
 import com.oot.usedcar.form.EstimatePriceForm;
 import com.oot.usedcar.form.ReserveForm;
+import com.oot.usedcar.form.UsedCarSearchForm;
 import com.oot.usedcar.service.InitialDataService;
-import com.oot.usedcar.service.buycar.BuyCarService;
 import com.oot.usedcar.service.car.CarService;
 import com.oot.usedcar.service.car.UsedCarService;
 import com.oot.usedcar.service.estimate.EstimatePriceService;
@@ -33,7 +31,7 @@ public class BuySellUsedCarController {
 
 	@Autowired
 	EstimatePriceService estimatePriceService;
-	
+
 	@Autowired
 	CarService carService;
 
@@ -74,7 +72,6 @@ public class BuySellUsedCarController {
 		System.out.println("buycar");
 		return "buycar";
 	}
-	
 
 	@RequestMapping(value = { "/estimatePrice" }, method = RequestMethod.GET)
 	public String estimatePrice(Model model) {
@@ -127,7 +124,6 @@ public class BuySellUsedCarController {
 			return "redirect:/estimatePrice";
 		}
 	}
-	
 
 	@RequestMapping(value = { "/buy" }, method = RequestMethod.GET)
 	public String buy(Model model, String t) {
@@ -182,10 +178,9 @@ public class BuySellUsedCarController {
 
 		System.out.println("reserve car id = " + carId);
 
-		// car id from search form 
+		// car id from search form
 		Car car = carService.findById(Long.parseLong(carId));
-		
-		
+
 		ReserveForm reserveForm = new ReserveForm();
 
 		reserveForm.setName("Testname");
