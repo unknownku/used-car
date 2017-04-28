@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "BuyCar")
+
 public class BuyCar {
 
 	private Long id;
@@ -59,6 +60,5 @@ public class BuyCar {
 		this.price = price;
 	}
 
-	
 }
 
