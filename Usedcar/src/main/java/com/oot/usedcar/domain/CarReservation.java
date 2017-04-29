@@ -2,14 +2,16 @@ package com.oot.usedcar.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -23,6 +25,8 @@ public class CarReservation {
     private String payMethod;
     private BigDecimal carPrice;
     private BigDecimal reservAmount;
+    
+    @Temporal(TemporalType.TIMESTAMP)
     private Date reservDate;
     private String reservNo;
     

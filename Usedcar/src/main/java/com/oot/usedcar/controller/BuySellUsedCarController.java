@@ -2,14 +2,19 @@ package com.oot.usedcar.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +35,7 @@ import com.oot.usedcar.service.car.UsedCarService;
 import com.oot.usedcar.service.estimate.EstimatePriceService;
 import com.oot.usedcar.service.province.ProvinceService;
 import com.oot.usedcar.service.reserve.ReserveService;
+import com.oot.usedcar.util.StringUtil;
 
 @Controller
 public class BuySellUsedCarController {
@@ -167,24 +173,25 @@ public class BuySellUsedCarController {
 		String car_model = carSearch.getModel();
 		String car_submodel = carSearch.getSubModel();
 		int car_year = carSearch.getYear();
+		int car_kilometer = carSearch.getKilometer();
 
-		UsedCar used_car = usedCarService.findByBrandAndModelAndSubmodelAndYear(car_brand, car_model,
-				car_submodel, car_year);
-		if (used_car == null) {
+		UsedCar used_car = usedCarService.findByBrandAndModelAndSubmodelAndYearAndKilometer(car_brand, car_model,
+				car_submodel, car_year, car_kilometer);
+		if (used_car != null) {
 			System.out.println("Used car is null.");
 		} else {
-			System.out.println(used_car.getId());
-		//	System.out.println(used_car.getColor());
-		//	System.out.println(used_car.getCarId());
-		//	System.out.println(used_car.getPrice());
-		//	System.out.println(used_car.getYear());
-		//	System.out.println(used_car.getStatus());
-		//	System.out.println(used_car.getReceivingDate());
+			System.out.println(used_car.getId().toString());
+			System.out.println(used_car.getColor());
+			System.out.println(used_car.getCarId());
+			System.out.println(used_car.getPrice().toString());
+			System.out.println(used_car.getYear());
+			System.out.println(used_car.getStatus());
+			System.out.println(used_car.getReceivingDate());
 		}
 
 		if (result.hasErrors())
 			System.out.println("hasError");
-		return "redirect:/reserve/1";
+		return "index";
 	}
 
 	@RequestMapping(value = { "/sell" }, method = RequestMethod.GET)
@@ -193,20 +200,22 @@ public class BuySellUsedCarController {
 		return "index";
 	}
 
-	@RequestMapping(value = { "/reserve/{carId}" }, method = RequestMethod.GET)
-	public String reserve(Model model, @PathVariable("carId") String carId) {
+	@RequestMapping(value = { "/reserve/{uCarId}" }, method = RequestMethod.GET)
+	public String reserve(Model model, @PathVariable("uCarId") String uCarId) {
 
-		System.out.println("reserve car id = " + carId);
+		System.out.println("reserve uCarId id = " + uCarId);
 
 		// car id from search form
-		Car car = carService.findById(Long.parseLong(carId));
 
+		UsedCar uCar = usedCarService.findById(Long.parseLong(uCarId));
+		
+//		car.seti
 		ReserveForm reserveForm = new ReserveForm();
-
-		reserveForm.setName("Testname");
-		reserveForm.setAddress("address");
-		reserveForm.setPhoneNumber("000000");
-		reserveForm.setReserveCar(car);
+//
+//		reserveForm.setName("Testname");
+//		reserveForm.setAddress("address");
+//		reserveForm.setPhoneNumber("000000");
+		reserveForm.setReserveCar(uCar);
 
 		model.addAttribute("reserveForm", reserveForm);
 
@@ -215,13 +224,31 @@ public class BuySellUsedCarController {
 	}
 
 	@RequestMapping(value = { "/saveReserve" }, method = RequestMethod.POST)
-	public String saveReserve(Model model, @Valid ReserveForm reserveForm) {
-
+	public String saveReserve(@Valid @ModelAttribute("reserveForm") ReserveForm reserveForm, 
+							  BindingResult bindingResult, Model model) {
+		if(bindingResult.hasErrors()){
+			List<FieldError> xxx = bindingResult.getFieldErrors();
+			for (FieldError fieldError : xxx) {
+				System.out.println(fieldError.getField());
+			}
+			model.addAttribute("reserveForm", reserveForm);
+//			return "redirect:reserveForm/1";
+			return "reserveForm";
+		}  
+		
 		CarReservation carReserve = new CarReservation();
-		carReserve.setId(Long.parseLong("1"));
-		carReserve.setName("Test");
-		carReserve.setAddress("testtttttttt");
-		carReserve.setPhoneNumber("000000");
+//		carReserve.setId(Long.parseLong("1"));
+		carReserve.setName(reserveForm.getName());
+		carReserve.setAddress(reserveForm.getAddress());
+		carReserve.setPhoneNumber(reserveForm.getPhoneNumber());
+		carReserve.setIdCard(reserveForm.getIdCard());
+		carReserve.setPayMethod(reserveForm.getPayMethod());
+		carReserve.setReservAmount(reserveForm.getReservAmount());
+		carReserve.setReservDate(StringUtil.convertStringToDate(reserveForm.getReservDate()));
+		carReserve.setReservNo(reserveForm.getReservNo());
+		
+		carReserve.setReserveCarId( reserveForm.getReserveCar().getId() + "");
+		carReserve.setCarPrice(reserveForm.getReserveCar().getPrice());
 
 		reserveService.save(carReserve);
 		System.out.println("saveReserve");
