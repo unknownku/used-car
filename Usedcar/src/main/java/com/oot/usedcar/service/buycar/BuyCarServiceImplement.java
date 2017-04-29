@@ -13,17 +13,15 @@ public class BuyCarServiceImplement implements BuyCarService {
 
 	@Autowired
 	private BuyCarRepository buyCarRepository;
-	
-//	@Override
-//	public BigDecimal calculateEstimatePrice(BigDecimal middlePrice, BigDecimal depreciationPrice) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
 	@Override
 	public List<BuyCar> findAll() {
-		// TODO Auto-generated method stub
 		return buyCarRepository.findAll();
 	}
-		
+	
+	@Override
+	public void save(BuyCar buyCar) {
+		buyCarRepository.save(buyCar);
+	}
+
 }

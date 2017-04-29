@@ -15,6 +15,7 @@ public interface BuyCarRepository extends JpaRepository<BuyCar, Long> {
 	BuyCar findByDate(Date date);
 	BuyCar findByPrice(BigDecimal price);
 	
+	
 }
 
 

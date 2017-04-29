@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import com.oot.usedcar.domain.BuyCar;
 
 public interface BuyCarService {
-//	public BigDecimal calculateEstimatePrice(BigDecimal middlePrice, BigDecimal depreciationPrice);
-	
+
 	public List<BuyCar> findAll();
+	public void save(BuyCar BuyCar);
 	
 }

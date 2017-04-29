@@ -24,6 +24,7 @@ import com.oot.usedcar.domain.Car;
 import com.oot.usedcar.domain.CarReservation;
 import com.oot.usedcar.domain.Province;
 import com.oot.usedcar.domain.UsedCar;
+import com.oot.usedcar.form.BuyCarForm;
 import com.oot.usedcar.form.EstimatePriceForm;
 import com.oot.usedcar.form.ReserveForm;
 import com.oot.usedcar.form.UsedCarSearchForm;
@@ -254,4 +255,15 @@ public class BuySellUsedCarController {
 		System.out.println("saveReserve");
 		return "index";
 	}
+	
+	@RequestMapping(value = { "/saveBuycar" }, method = RequestMethod.POST)
+	public String saveBuycar(@Valid @ModelAttribute("buyCar") BuyCarForm buyCarForm 
+		) {
+		
+		BuyCar buyCar = new BuyCar();
+
+		
+		return "index";
+	}
+
 }
