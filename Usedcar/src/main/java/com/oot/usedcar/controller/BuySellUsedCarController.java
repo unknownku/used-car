@@ -32,7 +32,7 @@ import com.oot.usedcar.service.InitialDataService;
 import com.oot.usedcar.service.buycar.BuyCarService;
 import com.oot.usedcar.service.buycar.BuyCarServiceImplement;
 import com.oot.usedcar.service.car.CarService;
-import com.oot.usedcar.service.car.UsedCarService;
+import com.oot.usedcar.service.usedcar.UsedCarService;
 import com.oot.usedcar.service.estimate.EstimatePriceService;
 import com.oot.usedcar.service.province.ProvinceService;
 import com.oot.usedcar.service.reserve.ReserveService;
@@ -167,32 +167,8 @@ public class BuySellUsedCarController {
 	}
 
 	@RequestMapping(value = { "/carSearch" }, method = RequestMethod.POST)
-	public String search(@Valid UsedCarSearchForm carSearch, BindingResult result) {
-		System.out.println("search");
-
-		String car_brand = carSearch.getBrand();
-		String car_model = carSearch.getModel();
-		String car_submodel = carSearch.getSubModel();
-		int car_year = carSearch.getYear();
-		int car_kilometer = carSearch.getKilometer();
-
-		UsedCar used_car = usedCarService.findByBrandAndModelAndSubmodelAndYearAndKilometer(car_brand, car_model,
-				car_submodel, car_year, car_kilometer);
-		if (used_car != null) {
-			System.out.println("Used car is null.");
-		} else {
-			System.out.println(used_car.getId().toString());
-			System.out.println(used_car.getColor());
-			System.out.println(used_car.getCarId());
-			System.out.println(used_car.getPrice().toString());
-			System.out.println(used_car.getYear());
-			System.out.println(used_car.getStatus());
-			System.out.println(used_car.getReceivingDate());
-		}
-
-		if (result.hasErrors())
-			System.out.println("hasError");
-		return "index";
+	public String search(@Valid UsedCarSearchForm carSearch, BindingResult result, Model model) {
+		System.out.println("search");		String car_brand = carSearch.getBrand();		String car_model = carSearch.getModel();		String car_submodel = carSearch.getSubModel();		int car_year = carSearch.getYear();		List<UsedCar> used_car = usedCarService.findByBrandAndModelAndSubmodelAndYear(car_brand, car_model,				car_submodel, car_year);		if (used_car == null) {			System.out.println("Used car is null.");		} else {			model.addAttribute("usedCarList", used_car);		//	System.out.println(used_car.get(0).getId());		//	System.out.println(used_car.getColor());		//	System.out.println(used_car.getCarId());		//	System.out.println(used_car.getPrice());		//	System.out.println(used_car.getYear());		//	System.out.println(used_car.getStatus());		//	System.out.println(used_car.getReceivingDate());			model.addAttribute("carSearch", new UsedCarSearchForm());		}		if (result.hasErrors())			System.out.println("hasError");		return "usedcarsearchform";
 	}
 
 	@RequestMapping(value = { "/sell" }, method = RequestMethod.GET)
