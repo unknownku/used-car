@@ -21,5 +21,10 @@ public class UsedCarServiceImplement implements UsedCarService {
 	public UsedCar findByBrandAndModelAndSubmodelAndYearAndKilometer(String brand, String model, String submodel, int year, int kilometer) {
 		return usedCarRepository.findByBrandAndModelAndSubmodelAndYearAndKilometer(brand, model, submodel, year, kilometer);
 	}
+	
+	@Override
+	public UsedCar findByBrandAndModelAndSubmodelAndYear(String brand, String model, String submodel, int year) {
+		return usedCarRepository.findByBrandAndModelAndSubmodelAndYear(brand, model, submodel, year);
+	}
 
 }
