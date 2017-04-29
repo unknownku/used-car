@@ -10,4 +10,6 @@ public interface UsedCarRepository extends JpaRepository<UsedCar, Long> {
 	
 	
 	UsedCar findByid(Long id);
+
+	UsedCar findByBrandAndModelAndSubmodelAndYear(String brand, String model, String submodel, int year);
 }

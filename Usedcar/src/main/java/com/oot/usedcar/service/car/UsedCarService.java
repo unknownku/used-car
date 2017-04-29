@@ -12,4 +12,6 @@ public interface UsedCarService {
 	
 	
 	public UsedCar findById(Long id);
+	public UsedCar findByBrandAndModelAndSubmodelAndYear
+	(String brand, String model, String submodel, int year);
 }

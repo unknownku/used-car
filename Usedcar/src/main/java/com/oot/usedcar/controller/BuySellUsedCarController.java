@@ -146,25 +146,24 @@ public class BuySellUsedCarController {
 		String car_model = carSearch.getModel();
 		String car_submodel = carSearch.getSubModel();
 		int car_year = carSearch.getYear();
-		int car_kilometer = carSearch.getKilometer();
 
-		UsedCar used_car = usedCarService.findByBrandAndModelAndSubmodelAndYearAndKilometer(car_brand, car_model,
-				car_submodel, car_year, car_kilometer);
-		if (used_car != null) {
+		UsedCar used_car = usedCarService.findByBrandAndModelAndSubmodelAndYear(car_brand, car_model,
+				car_submodel, car_year);
+		if (used_car == null) {
 			System.out.println("Used car is null.");
 		} else {
-			System.out.println(used_car.getId().toString());
-			System.out.println(used_car.getColor());
-			System.out.println(used_car.getCarId());
-			System.out.println(used_car.getPrice().toString());
-			System.out.println(used_car.getYear());
-			System.out.println(used_car.getStatus());
-			System.out.println(used_car.getReceivingDate());
+			System.out.println(used_car.getId());
+		//	System.out.println(used_car.getColor());
+		//	System.out.println(used_car.getCarId());
+		//	System.out.println(used_car.getPrice());
+		//	System.out.println(used_car.getYear());
+		//	System.out.println(used_car.getStatus());
+		//	System.out.println(used_car.getReceivingDate());
 		}
 
 		if (result.hasErrors())
 			System.out.println("hasError");
-		return "index";
+		return "redirect:/reserve/1";
 	}
 
 	@RequestMapping(value = { "/sell" }, method = RequestMethod.GET)
