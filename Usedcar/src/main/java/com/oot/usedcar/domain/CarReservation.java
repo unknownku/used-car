@@ -21,6 +21,7 @@ public class CarReservation {
     private String phoneNumber;
     private String idCard;
     private String payMethod;
+    private BigDecimal carPrice;
     private BigDecimal reservAmount;
     private Date reservDate;
     private String reservNo;
@@ -107,6 +108,14 @@ public class CarReservation {
 
 	public void setReserveCarId(String reserveCarId) {
 		this.reserveCarId = reserveCarId;
+	}
+
+	public BigDecimal getCarPrice() {
+		return carPrice;
+	}
+
+	public void setCarPrice(BigDecimal carPrice) {
+		this.carPrice = carPrice;
 	}
 	
 	
