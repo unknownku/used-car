@@ -55,6 +55,8 @@ public class InitialDataService {
 		used_car.setModel("Jazz");
 		used_car.setSubmodel("E");
 		used_car.setYear(2015);
+		used_car.setColor("Red");
+		used_car.setPrice(new BigDecimal("350000.00"));
 		used_car.setKilometer(100000);
 		usedCarRepository.save(used_car);
 	}
