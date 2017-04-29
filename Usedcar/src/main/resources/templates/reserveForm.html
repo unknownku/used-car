@@ -1,38 +1,35 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-layout:decorator="layout">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <head>
 <title>Reserve</title>
 
 <script>
-	
-	 $(document).ready(function() {
-		 /* $('#reserveForm').formValidation({
-		 framework : 'bootstrap',
-		 icon : {
-		 valid : 'glyphicon glyphicon-ok',
-		 invalid : 'glyphicon glyphicon-remove',
-		 validating : 'glyphicon glyphicon-refresh'
-		 },
-		 fields : {
-		 address : {
-		 excluded : false,
-		 validators : {
-		 notEmpty : {
-		 message : 'Please fill out each field'
-		 }
-		 }
-		 }
-		 }
-		 }); */
-		 $('#reservDate').datepicker({
-		      autoclose: true,
-		      format: 'dd/mm/yyyy'
-		    });
-		 $(".data-mask").inputmask();
-	 });
-	 
+	$(document).ready(function() {
+		/* $('#reserveForm').formValidation({
+		framework : 'bootstrap',
+		icon : {
+		valid : 'glyphicon glyphicon-ok',
+		invalid : 'glyphicon glyphicon-remove',
+		validating : 'glyphicon glyphicon-refresh'
+		},
+		fields : {
+		address : {
+		excluded : false,
+		validators : {
+		notEmpty : {
+		message : 'Please fill out each field'
+		}
+		}
+		}
+		}
+		}); */
+		$('#reservDate').datepicker({
+			autoclose : true,
+			format : 'dd/mm/yyyy'
+		});
+		$(".data-mask").inputmask();
+	});
 </script>
 
 </head>
@@ -47,52 +44,73 @@ layout:decorator="layout">
 		</ol> -->
 	</section>
 	<div layout:fragment="content">
+		<form id="reserveForm" th:action="@{~/saveReserve}" th:object="${reserveForm}" method="post">
+		
 		<div class="row">
 			<div class="col-md-8">
 				<div class="box box-info">
 					<div class="box-header with-border">
-						<h3 class="box-title">Car Details.</h3>
+						<h3 class="box-title">Used Car Details.</h3>
 					</div>
 					<!-- /.box-header -->
 					<div class="form-horizontal">
-					<div class="box-body">
-						<form th:object="${reserveForm}" >
-							<div class="form-group">
-								<label class="col-md-2 control-label">Brand</label>
-								<div class="col-md-3">
-									<input class="form-control" type="text" th:field="*{reserveCar.brand}" readonly="readonly" />
+						<div class="box-body">
+								<div class="form-group">
+									<label class="col-md-2 control-label">Brand</label>
+									<div class="col-md-3">
+										<input class="form-control" type="text" th:field="*{reserveCar.brand}" readonly="readonly" />
+									</div>
+
+									<label class="col-md-2 control-label">Model</label>
+									<div class="col-md-3">
+										<input class="form-control" type="text" th:field="*{reserveCar.model}" readonly="readonly" />
+									</div>
+									<div class="col-md-2"></div>
 								</div>
-								
-								<label class="col-md-2 control-label">Model</label>
-								<div class="col-md-3">
-									<input class="form-control" type="text" th:field="*{reserveCar.model}" readonly="readonly" />
+								<div class="form-group">
+									<label class="col-md-2 control-label">SubModel</label>
+									<div class="col-md-3">
+										<input class="form-control" type="text" th:field="*{reserveCar.submodel}" readonly="readonly" />
+									</div>
+
+									<label class="col-md-2 control-label">Year</label>
+									<div class="col-md-3">
+										<input class="form-control" type="text" th:field="*{reserveCar.year}" readonly="readonly" />
+									</div>
+
+									<div class="col-md-2"></div>
 								</div>
-								<div class="col-md-2"></div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-2 control-label">SubModel</label>
+								<div class="form-group">
+									<label class="col-md-2 control-label">Color</label>
+									<div class="col-md-3">
+										<input class="form-control" type="text" th:field="*{reserveCar.color}" readonly="readonly" />
+									</div>
+
+									<!-- <label class="col-md-2 control-label">Price</label>
 								<div class="col-md-3">
-									<input class="form-control" type="text" th:field="*{reserveCar.subModel}" readonly="readonly" />
+									<input class="form-control" type="text" th:field="*{reserveCar.price}" readonly="readonly" />
+								</div> -->
+
+									<div class="col-md-2"></div>
 								</div>
-								
-								<label class="col-md-2 control-label">Year</label>
-								<div class="col-md-3">
-									<input class="form-control" type="text" th:field="*{reserveCar.year}" readonly="readonly" />
-								</div>
-								
-								<div class="col-md-2"></div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-2 control-label">MiddlePrice</label>
-								<div class="col-md-6">
-									<div class="input-group">
-										<input class="form-control" type="text" th:field="*{reserveCar.middlePrice}" readonly="readonly" />
-										<span class="input-group-addon">บาท</span>
+								<div class="form-group">
+									<label class="col-md-2 control-label">Price</label>
+									<div class="col-md-6">
+										<div class="input-group">
+											<input class="form-control" type="text" th:field="*{reserveCar.price}" readonly="readonly" /> <span class="input-group-addon">บาท</span>
+										</div>
 									</div>
 								</div>
-							</div>
-						</form>
-					</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">Kilometer</label>
+									<div class="col-md-6">
+										<div class="input-group">
+											<input class="form-control" type="text" th:field="*{reserveCar.kilometer}" readonly="readonly" /> <span class="input-group-addon">กิโลเมตร</span>
+										</div>
+									</div>
+								</div>
+							<!-- </form> -->
+						</div>
 					</div>
 					<!-- /.box-body -->
 				</div>
@@ -108,59 +126,61 @@ layout:decorator="layout">
 					</div>
 					<!-- /.box-header -->
 					<div class="form-horizontal">
-					<div class="box-body">
-						<form id="reserveForm" th:action="@{~/saveReserve}" th:object="${reserveForm}" method="post">
-							<div class="form-group">
-								<label class="col-md-4 control-label">ชื่อ/นามสกุล</label>
-								<div class="col-md-6">
-								<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-user"></i></span>
-									<input class="form-control" type="text" th:field="*{name}" />
-								</div>
-								</div>
-								<div class="col-md-2"></div>
-							</div>	
-							<div class="form-group">
-								<label class="col-md-4 control-label">หมายเลขบัตรประชาชน</label>
-								<div class="col-md-6">
-								<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-									<input class="form-control data-mask" data-inputmask="'mask': '9-9999-99999-99-9'" type="text" th:field="*{idCard}"/>
-								</div>
-								</div>
-								<div class="col-md-2"></div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-4 control-label">ที่อยู่</label>
-								<div class="col-md-6">
-								<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-home"></i></span>
-									<input class="form-control" type="text" th:field="*{address}"/>
-								</div>
-								</div>
-								<div class="col-md-2"></div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-4 control-label">เบอร์โทร</label>
-								<div class="col-md-6">
-								<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-phone"></i></span>
-									<input class="form-control data-mask" type="text" data-inputmask="'mask': '(999) 999-9999'" th:field="*{phoneNumber}"/>
-								</div>
-								</div>
-								<div class="col-md-2"></div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-4 control-label">วิธีการชำระเงิน</label>
-								<div class="col-md-6">
-								<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-paypal"></i></span>
-									<input class="form-control" type="text" th:field="*{payMethod}"/>
+						<div class="box-body">
+							<!-- <form id="reserveForm" th:action="@{~/saveReserve}" th:object="${reserveForm}" method="post"> -->
+								<div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'has-error'">
+									<label class="col-md-4 control-label">ชื่อ/นามสกุล</label>
+									<div class="col-md-6">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-user"></i></span> 
+											<input class="form-control" type="text" th:field="*{name}" /> 
+										</div>
+										<label class="control-label" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">[error]</label>
 									</div>
+									<div class="col-md-2"></div>
 								</div>
-								<div class="col-md-2"></div>
-							</div> 
-							<!-- <div class="form-group">
+								
+								<div class="form-group" th:classappend="${#fields.hasErrors('idCard')} ? 'has-error'">
+									<label class="col-md-4 control-label">หมายเลขบัตรประชาชน</label>
+									<div class="col-md-6">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-credit-card"></i></span> <input class="form-control data-mask" data-inputmask="'mask': '9-9999-99999-99-9'" type="text" th:field="*{idCard}" />
+										</div>
+										<label class="control-label" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}">[error]</label>
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+								<div class="form-group" th:classappend="${#fields.hasErrors('address')} ? 'has-error'">
+									<label class="col-md-4 control-label">ที่อยู่</label>
+									<div class="col-md-6">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-home"></i></span> <input class="form-control" type="text" th:field="*{address}" />
+										</div>
+										<label class="control-label" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">[error]</label>
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+								<div class="form-group" th:classappend="${#fields.hasErrors('phoneNumber')} ? 'has-error'">
+									<label class="col-md-4 control-label">เบอร์โทร</label>
+									<div class="col-md-6">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-phone"></i></span> <input class="form-control data-mask" type="text" data-inputmask="'mask': '(999) 999-9999'" th:field="*{phoneNumber}" />
+										</div>
+										<label class="control-label" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">[error]</label>
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+								<div class="form-group" th:classappend="${#fields.hasErrors('payMethod')} ? 'has-error'">
+									<label class="col-md-4 control-label">วิธีการชำระเงิน</label>
+									<div class="col-md-6">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-paypal"></i></span> <input class="form-control" type="text" th:field="*{payMethod}" />
+										</div>
+										<label class="control-label" th:if="${#fields.hasErrors('payMethod')}" th:errors="*{payMethod}">[error]</label>
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+								<!-- <div class="form-group">
 								<label class="col-md-4 control-label">ราคารถยนต์</label>
 								<div class="col-md-6">
 									<div class="input-group">
@@ -169,43 +189,45 @@ layout:decorator="layout">
 									</div>
 								</div>
 							</div> -->
-							<div class="form-group">
-								<label class="col-md-4 control-label">จำนวนเงินจอง</label>
-								<div class="col-md-6">
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-										<input class="form-control" type="text" th:field="*{reservAmount}"  />
-										<span class="input-group-addon">บาท</span>
+								<div class="form-group" th:classappend="${#fields.hasErrors('reservAmount')} ? 'has-error'">
+									<label class="col-md-4 control-label">จำนวนเงินจอง</label>
+									<div class="col-md-6">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-dollar"></i></span> <input class="form-control" type="text" th:field="*{reservAmount}" /> <span class="input-group-addon">บาท</span>
+										</div>
+										<label class="control-label" th:if="${#fields.hasErrors('reservAmount')}" th:errors="*{reservAmount}">[error]</label>
 									</div>
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-4 control-label">วันที่จอง</label>
-								<div class="col-md-6">
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input class="form-control" type="text" th:field="*{reservDate}" />
+		 					<div class="form-group" th:classappend="${#fields.hasErrors('reservDate')} ? 'has-error'">
+									<label class="col-md-4 control-label">วันที่จอง</label>
+									<div class="col-md-6">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span> <input class="form-control" type="text" th:field="*{reservDate}" />
+										</div>
+										<label class="control-label" th:if="${#fields.hasErrors('reservDate')}" th:errors="*{reservDate}">[error]</label>
 									</div>
-								</div>
-								<div class="col-md-2"></div>
-							</div>
-							<!-- <div class="form-group">
+									<div class="col-md-2"></div>
+								</div>   
+							
+								<!-- <div class="form-group">
 								<label class="col-md-4 control-label">หมายเลขการจอง</label>
 								<div class="col-md-6">
 									<input class="form-control" type="text" th:field="*{reservNo}" />
 								</div>
 								<div class="col-md-2"></div>
 							</div> -->
+								<button type="submit">xxxx</button>
 							
-						</form>
-						<a class="btn btn-app"> <i class="fa fa-edit"></i> Edit
-						</a>
+							<a class="btn btn-app"> <i class="fa fa-edit"></i> Edit
+							</a>
+						</div>
 					</div>
-				</div>
 				</div>
 			</div>
 			<div class="col-md-4"></div>
 		</div>
+		</form>
+		
 	</div>
 </body>
 </html>
