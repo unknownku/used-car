@@ -30,6 +30,7 @@ import com.oot.usedcar.service.car.CarService;
 import com.oot.usedcar.service.car.UsedCarService;
 import com.oot.usedcar.service.estimate.EstimatePriceService;
 import com.oot.usedcar.service.reserve.ReserveService;
+import com.oot.usedcar.util.StringUtil;
 
 @Controller
 public class BuySellUsedCarController {
@@ -222,7 +223,7 @@ public class BuySellUsedCarController {
 		carReserve.setIdCard(reserveForm.getIdCard());
 		carReserve.setPayMethod(reserveForm.getPayMethod());
 		carReserve.setReservAmount(reserveForm.getReservAmount());
-//		carReserve.setReservDate(reserveForm.getReservDate());
+		carReserve.setReservDate(StringUtil.convertStringToDate(reserveForm.getReservDate()));
 		carReserve.setReservNo(reserveForm.getReservNo());
 		
 		carReserve.setReserveCarId( reserveForm.getReserveCar().getId() + "");
