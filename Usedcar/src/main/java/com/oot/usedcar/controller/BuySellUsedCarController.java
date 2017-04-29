@@ -2,11 +2,8 @@ package com.oot.usedcar.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +24,16 @@ import com.oot.usedcar.domain.UsedCar;
 import com.oot.usedcar.form.BuyCarForm;
 import com.oot.usedcar.form.EstimatePriceForm;
 import com.oot.usedcar.form.ReserveForm;
+import com.oot.usedcar.form.UsedCarReserveSearchForm;
 import com.oot.usedcar.form.UsedCarSearchForm;
 import com.oot.usedcar.service.InitialDataService;
 import com.oot.usedcar.service.buycar.BuyCarService;
-import com.oot.usedcar.service.buycar.BuyCarServiceImplement;
 import com.oot.usedcar.service.car.CarService;
-import com.oot.usedcar.service.usedcar.UsedCarService;
 import com.oot.usedcar.service.estimate.EstimatePriceService;
 import com.oot.usedcar.service.province.ProvinceService;
 import com.oot.usedcar.service.reserve.ReserveService;
+import com.oot.usedcar.service.sellcar.SellCarService;
+import com.oot.usedcar.service.usedcar.UsedCarService;
 import com.oot.usedcar.util.StringUtil;
 
 @Controller
@@ -61,6 +59,9 @@ public class BuySellUsedCarController {
 
 	@Autowired
 	InitialDataService initialDataService;
+	
+	@Autowired
+	SellCarService sellCarService;
 
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public String index(Model model) {
@@ -173,8 +174,29 @@ public class BuySellUsedCarController {
 
 	@RequestMapping(value = { "/sell" }, method = RequestMethod.GET)
 	public String sell(Model model, String t, String t2) {
-		System.out.println("sell");
-		return "index";
+		model.addAttribute("carReserveSearch", new UsedCarReserveSearchForm());
+		System.out.println("sell car");
+		return "sellcar";
+	}
+	
+	@RequestMapping(value = { "/carReserveSearch" }, method = RequestMethod.POST)
+	public String reserveSearch(@Valid UsedCarReserveSearchForm carReserveSearch, BindingResult result, Model model) {
+		System.out.println("search");
+
+		Long reserve_id = carReserveSearch.getReserveId();
+		String reserve_name = carReserveSearch.getName();
+
+		List<CarReservation> reserve_car = reserveService.findByIdAndName(reserve_id,reserve_name);
+		if (reserve_car == null) {
+			System.out.println("Reserved car is null.");
+		} else {
+			model.addAttribute("reservedCarList", reserve_car);
+			model.addAttribute("carReserveSearch", new UsedCarReserveSearchForm());
+		}
+
+		if (result.hasErrors())
+			System.out.println("hasError");
+		return "sellcar";
 	}
 
 	@RequestMapping(value = { "/reserve/{uCarId}" }, method = RequestMethod.GET)
