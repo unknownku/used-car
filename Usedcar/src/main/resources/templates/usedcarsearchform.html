@@ -9,7 +9,7 @@
 <body>
 	<section layout:fragment="header">
 		<h1>
-		 Used Car Search<small>Control panel</small>
+			Used Car Search<small>Control panel</small>
 		</h1>
 		<!-- <ol class="breadcrumb">
 			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -26,47 +26,47 @@
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
-						
-							<form th:action="@{~/carSearch}" th:object="${carSearch}"
-								method="post">
-							
+
+						<form th:action="@{~/carSearch}" th:object="${carSearch}"
+							method="post">
+
+							<div class="form-group">
+								<label class="col-sm-3">Brand</label>
 								<div class="form-group">
-									<label class="col-sm-3">Brand</label>
-									<div class="form-group">
-										<input class="form-control" type="text" th:field="*{brand}" />
-									</div>
+									<input class="form-control" type="text" th:field="*{brand}" />
 								</div>
+							</div>
 
 
+							<div class="form-group">
+								<label class="col-sm-3">Model</label>
 								<div class="form-group">
-									<label class="col-sm-3">Model</label>
-									<div class="form-group">
-										<input class="form-control" type="text" th:field="*{model}" />
-									</div>
+									<input class="form-control" type="text" th:field="*{model}" />
 								</div>
+							</div>
 
+							<div class="form-group">
+								<label class="col-sm-3">Sub Model</label>
 								<div class="form-group">
-									<label class="col-sm-3">Sub Model</label>
-									<div class="form-group">
-										<input class="form-control" type="text" th:field="*{subModel}" />
-									</div>
+									<input class="form-control" type="text" th:field="*{subModel}" />
 								</div>
+							</div>
 
+							<div class="form-group">
+								<label class="col-sm-3">Year</label>
 								<div class="form-group">
-									<label class="col-sm-3">Year</label>
-									<div class="form-group">
-										<input class="form-control" type="text" th:field="*{year}" />
-									</div>
+									<input class="form-control" type="text" th:field="*{year}" />
 								</div>
+							</div>
 
-								<div class="box-footer">
-									<button type="submit" class="btn btn-primary center-block">Search</button>
-								</div>
+							<div class="box-footer">
+								<button type="submit" class="btn btn-primary center-block">Search</button>
+							</div>
 
 
-							</form>
-						
-						
+						</form>
+
+
 					</div>
 				</div>
 
@@ -74,6 +74,43 @@
 			</div>
 			<div class="col-md-4"></div>
 		</div>
+		<div class="row">
+			<div class="col-md-8">
+				<div class="box box-info">
+					<div class="box-header with-border">
+						<h3 class="box-title">Used Car Lists</h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<table class="table table-striped">
+							<tr>
+								<th>NAME</th>
+								<th>MODEL</th>
+								<th>SUB MODEL</th>
+								<th>YEAR</th>
+								<th>COLOR</th>
+								<th>PRICE</th>
+								<th>KILOMETERS</th>
+								<th>RESERVE</th>
+							</tr>
+							<tr th:each="usedCar : ${usedCarList}">
+								<td th:text="${usedCar.brand}">Onions</td>
+								<td th:text="${usedCar.model}">2.41</td>
+								<td th:text="${usedCar.submodel}">yes</td>
+								<td th:text="${usedCar.year}">yes</td>
+								<td th:text="${usedCar.color}">yes</td>
+								<td th:text="${usedCar.price}">yes</td>
+								<td th:text="${usedCar.kilometer}">yes</td>
+								<td><a th:href="@{~/reserve/}+${usedCar.id}"><button>Reserve</button></a></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4"></div>
+		</div>
+
+
 	</div>
 </body>
 </html>

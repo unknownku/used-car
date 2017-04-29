@@ -64,6 +64,26 @@ public class InitialDataService {
 		used_car.setPrice(new BigDecimal("350000.00"));
 		used_car.setKilometer(100000);
 		usedCarRepository.save(used_car);
+		
+		UsedCar used_car1 = new UsedCar();
+		used_car1.setBrand("HONDA");
+		used_car1.setModel("Civic");
+		used_car1.setSubmodel("E");
+		used_car1.setYear(2016);
+		used_car1.setColor("Blue");
+		used_car1.setPrice(new BigDecimal("440000.00"));
+		used_car1.setKilometer(145000);
+		usedCarRepository.save(used_car1);
+		
+		UsedCar used_car2 = new UsedCar();
+		used_car2.setBrand("HONDA");
+		used_car2.setModel("Accord");
+		used_car2.setSubmodel("E");
+		used_car2.setYear(2017);
+		used_car2.setColor("Green");
+		used_car2.setPrice(new BigDecimal("550000.00"));
+		used_car2.setKilometer(400000);
+		usedCarRepository.save(used_car2);
 	}
 	
 	public void initailProvince() {
