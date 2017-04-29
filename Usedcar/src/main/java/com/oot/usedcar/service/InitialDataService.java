@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.oot.usedcar.domain.BuyCar;
 import com.oot.usedcar.domain.Car;
+import com.oot.usedcar.domain.Province;
 import com.oot.usedcar.domain.UsedCar;
 import com.oot.usedcar.domain.User;
 import com.oot.usedcar.repository.CarRepository;
+import com.oot.usedcar.repository.ProvinceRepository;
 import com.oot.usedcar.repository.UsedCarRepository;
 import com.oot.usedcar.service.user.UserService;
 import com.oot.usedcar.repository.BuyCarRepository;;
@@ -25,6 +27,9 @@ public class InitialDataService {
 	@Autowired
 	private CarRepository carRepository;
 	
+	@Autowired
+	private ProvinceRepository provinceRepository;
+	  
 	@Autowired
 	private BuyCarRepository buyCarRepository;
 	
@@ -55,11 +60,31 @@ public class InitialDataService {
 		used_car.setModel("Jazz");
 		used_car.setSubmodel("E");
 		used_car.setYear(2015);
+		used_car.setColor("Red");
+		used_car.setPrice(new BigDecimal("350000.00"));
 		used_car.setKilometer(100000);
 		usedCarRepository.save(used_car);
 	}
 	
+	public void initailProvince() {
+		Province prov = new Province();
+		prov.setNameth("กรุงเทพมหานคร");
+		prov.setNameen("Bangkok");
+		provinceRepository.save(prov);
+		
+		prov = new Province();
+		prov.setNameth("สมุทรปราการ");
+		prov.setNameen("Samut Prakan");
+		provinceRepository.save(prov);
 
+		prov = new Province();
+		prov.setNameth("นนทบุรี");
+		prov.setNameen("Nonthaburi");
+		provinceRepository.save(prov);
+
+	}
+		 
+	
 	public void initailBuyCar(){
 		BuyCar buycar = new BuyCar();
 		buycar.setCustomerId("100101");

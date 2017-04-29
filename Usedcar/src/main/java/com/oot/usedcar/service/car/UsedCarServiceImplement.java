@@ -27,4 +27,15 @@ public class UsedCarServiceImplement implements UsedCarService {
 		return usedCarRepository.findByBrandAndModelAndSubmodelAndYear(brand, model, submodel, year);
 	}
 
+	
+	
+	
+	
+	
+	
+	@Override
+	public UsedCar findById(Long id) {
+		// TODO Auto-generated method stub
+		return usedCarRepository.findByid(id);
+	}
 }

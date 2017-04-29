@@ -14,16 +14,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.oot.usedcar.domain.BuyCar;
 import com.oot.usedcar.domain.Car;
 import com.oot.usedcar.domain.CarReservation;
+import com.oot.usedcar.domain.Province;
 import com.oot.usedcar.domain.UsedCar;
 import com.oot.usedcar.form.EstimatePriceForm;
 import com.oot.usedcar.form.ReserveForm;
 import com.oot.usedcar.form.UsedCarSearchForm;
 import com.oot.usedcar.service.InitialDataService;
+import com.oot.usedcar.service.buycar.BuyCarService;
+import com.oot.usedcar.service.buycar.BuyCarServiceImplement;
 import com.oot.usedcar.service.car.CarService;
 import com.oot.usedcar.service.car.UsedCarService;
 import com.oot.usedcar.service.estimate.EstimatePriceService;
+import com.oot.usedcar.service.province.ProvinceService;
 import com.oot.usedcar.service.reserve.ReserveService;
 
 @Controller
@@ -40,6 +45,12 @@ public class BuySellUsedCarController {
 
 	@Autowired
 	ReserveService reserveService;
+	
+	@Autowired
+	BuyCarService buyCarService;
+	
+	@Autowired
+	ProvinceService provinceService;
 
 	@Autowired
 	InitialDataService initialDataService;
@@ -57,7 +68,7 @@ public class BuySellUsedCarController {
 		initialDataService.initailCar();
 		initialDataService.initailBuyCar();
 		initialDataService.initailUsedCar();
-
+		initialDataService.initailProvince();
 		return "initial";
 	}
 
@@ -69,6 +80,16 @@ public class BuySellUsedCarController {
 
 	@RequestMapping(value = { "/buycar" }, method = RequestMethod.GET)
 	public String buycar(Model model) {
+		
+//		List<BuyCar> nameList = buyCarService.findAll();
+//		model.addAttribute("nameList", nameList);
+		
+		List<Province> provinceList = provinceService.findAll();
+		model.addAttribute("provinceList", provinceList);
+		
+		List<Car> carList = new ArrayList();
+		model.addAttribute("carList", initialDataService.getCarList());
+		
 		System.out.println("buycar");
 		return "buycar";
 	}

@@ -8,6 +8,10 @@ public interface UsedCarService {
 	public void save(UsedCar used_car);
 	public UsedCar findByBrandAndModelAndSubmodelAndYearAndKilometer
 	(String brand, String model, String submodel, int year, int kilometer);
+	
+	
+	
+	public UsedCar findById(Long id);
 	public UsedCar findByBrandAndModelAndSubmodelAndYear
 	(String brand, String model, String submodel, int year);
 }
