@@ -7,4 +7,6 @@ import com.oot.usedcar.domain.UsedCar;
 public interface UsedCarRepository extends JpaRepository<UsedCar, Long> {
 
 	UsedCar findByBrandAndModelAndSubmodelAndYearAndKilometer(String brand, String model, String submodel, int year, int kilometer);
+
+	UsedCar findByBrandAndModelAndSubmodelAndYear(String brand, String model, String submodel, int year);
 }
