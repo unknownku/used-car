@@ -17,12 +17,14 @@
 	<div layout:fragment="content">
 		<script>
 			$(document).ready(function() {
-				$('#table-usedcar-list').DataTable();
+				$('#table-usedcar-list').DataTable({
+					pageLength : 2
+				});
 				$(".data-mask").inputmask();
 			});
 		</script>
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-md-10">
 
 				<div class="box box-info">
 					<div class="box-header with-border">
@@ -69,10 +71,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4"></div>
+			<div class="col-md-2"></div>
 		</div>
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-md-10">
 				<div class="box box-info">
 					<div class="box-header with-border">
 						<h3 class="box-title">Used Car Lists</h3>
@@ -85,6 +87,7 @@
 									<th>NAME</th>
 									<th>MODEL</th>
 									<th>SUB MODEL</th>
+									<th>CAR ID</th>
 									<th>YEAR</th>
 									<th>COLOR</th>
 									<th>PRICE</th>
@@ -97,6 +100,7 @@
 									<td th:text="${usedCar.brand}">Onions</td>
 									<td th:text="${usedCar.model}">2.41</td>
 									<td th:text="${usedCar.submodel}">yes</td>
+									<td th:text="${usedCar.carId}">yes</td>
 									<td th:text="${usedCar.year}">yes</td>
 									<td th:text="${usedCar.color}">yes</td>
 									<td th:text="${usedCar.price}">yes</td>
@@ -108,7 +112,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4"></div>
+			<div class="col-md-2"></div>
 		</div>
 	</div>
 
