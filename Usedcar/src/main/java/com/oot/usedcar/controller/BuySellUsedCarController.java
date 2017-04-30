@@ -256,6 +256,9 @@ public class BuySellUsedCarController {
 		usedCarService.save(used_car);
 		
 		System.out.println("saveReserve");
+		
+		model.addAttribute("successHeader", "Reserve Completed !");
+		model.addAttribute("successDetail", "Done! You are successfully reserve a car.");
 		return "successAction";
 	}
 	
@@ -270,9 +273,10 @@ public class BuySellUsedCarController {
 	}
 
 	@RequestMapping(value = { "/successAction" }, method = RequestMethod.POST)
-	public String successAction(Model mode) {
+	public String successAction(Model model) {
 		
-		mode.addAttribute("","");
+//		model.addAttribute("successHeader", "Reserve Completed !");
+//		model.addAttribute("successDetail", "Done! You are successfully reserve a car.");
 		return "successAction";
 	}
 }

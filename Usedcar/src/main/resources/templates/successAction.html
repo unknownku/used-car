@@ -14,19 +14,17 @@
 </head>
 <body>
 	<section layout:fragment="header">
-		<h1>
-			Reserve Completed !
-		</h1>
+		<h1 th:text="${successHeader}"></h1>
 	</section>
 	<div layout:fragment="content">
 	<div class="error-page"> 
-          <h2><i class="fa fa-check text-green"></i> Done! You are successfully reserve a car.</h2>
-
-          <p class="pullright">
+          <h2>
+          	<i class="fa fa-check text-green"></i>
+          	<label th:text="${successDetail}" ></label>
+          </h2> 
+          <p>
             Thank you..
           </p>
-
-           
         </div>
 	</div>
 </body>
