@@ -1,7 +1,6 @@
 package com.oot.usedcar.controller;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -76,9 +75,8 @@ public class BuySellUsedCarController {
 	@RequestMapping(value = { "/estimatePrice" }, method = RequestMethod.GET)
 	public String estimatePrice(Model model) {
 		model.addAttribute("estimatePriceForm", new EstimatePriceForm());
-		List<Car> carList = new ArrayList();
-
-		model.addAttribute("carList", initialDataService.getCarList());
+		List<String> brandList = carService.findBrand();
+		model.addAttribute("brandList", brandList);
 		model.addAttribute("price", new BigDecimal("0.00").toString());
 		System.out.println("get estimatePrice");
 		return "estimate";
@@ -88,43 +86,30 @@ public class BuySellUsedCarController {
 	public String estimatePrice(@Valid EstimatePriceForm estimatePriceForm, BindingResult bindingResult, Model model) {
 		System.out.println("post estimatePrice");
 		if (bindingResult.hasErrors()) {
-			System.out.println("estimate error");
-			model.addAttribute("carList", initialDataService.getCarList());
 			return "estimate";
 		}
-		// Start mockup data
-		// estimatePriceForm.setBrand("TOYOTA");
-		// estimatePriceForm.setModel("Altis");
-		// estimatePriceForm.setYear(2015);
-		// estimatePriceForm.setKilometer(100000);
-		// estimatePriceForm.setFlooding(true);
-		// estimatePriceForm.setCrashing(true);
-		// estimatePriceForm.setUsingType(0);
-		// End mockup data
-
 		String brand = estimatePriceForm.getBrand();
 		String model2 = estimatePriceForm.getModel();
+		String subModel = estimatePriceForm.getSubModel();
 		int year = estimatePriceForm.getYear();
 		int kilometer = estimatePriceForm.getKilometer();
 		boolean isFlooding = estimatePriceForm.isFlooding();
 		boolean isCrashing = estimatePriceForm.isCrashing();
-		int usingType = estimatePriceForm.getUsingType();
-
-		Car car = carService.findByBrandAndModelAndYear(brand, model2, year);
+		int scratchRate = estimatePriceForm.getScratchRate();
+		System.out.println("scratchRate "+scratchRate);
+		Car car = carService.findByBrandAndModelAndSubModelAndYear(brand, model2, subModel, year);
 		if (car != null) {
 			BigDecimal middlePrice = car.getMiddlePrice();
 			BigDecimal depreciationPrice = estimatePriceService.calculateDepreciationPrice(year, kilometer, isFlooding,
-					isCrashing, usingType);
+					isCrashing, scratchRate);
 			BigDecimal estimatePrice = estimatePriceService.calculateEstimatePrice(middlePrice, depreciationPrice);
-			System.out.println(estimatePrice.toString());
-			model.addAttribute("carList", initialDataService.getCarList());
 			model.addAttribute("price", estimatePrice.toString());
-			return "fragments/estimate_frag :: estimate-price";
+			return "fragments/estimate :: estimate-price";
 		} else {
 			return "redirect:/estimatePrice";
 		}
 	}
-
+	
 	@RequestMapping(value = { "/buy" }, method = RequestMethod.GET)
 	public String buy(Model model, String t) {
 		System.out.println("buy");
