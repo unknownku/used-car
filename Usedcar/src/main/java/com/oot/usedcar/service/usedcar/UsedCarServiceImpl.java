@@ -72,6 +72,7 @@ public class UsedCarServiceImpl implements UsedCarService {
 					predicates.add(cb.and(cb.equal(root.get("year"), year)));
 				}
 				
+				predicates.add(cb.and(cb.equal(root.get("status"), "Available")));
 				Predicate[] predicatesArray = new Predicate[predicates.size()];
 				
 				return cb.and(predicates.toArray(predicatesArray));
