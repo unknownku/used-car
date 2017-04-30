@@ -1,5 +1,8 @@
 package com.oot.usedcar.service;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,14 +10,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
 import com.oot.usedcar.domain.BuyCar;
 import com.oot.usedcar.domain.Car;
+import com.oot.usedcar.domain.SCBCar;
+import com.oot.usedcar.domain.SCBCarData;
 import com.oot.usedcar.domain.UsedCar;
 import com.oot.usedcar.domain.User;
+import com.oot.usedcar.repository.BuyCarRepository;
 import com.oot.usedcar.repository.CarRepository;
 import com.oot.usedcar.repository.UsedCarRepository;
-import com.oot.usedcar.service.user.UserService;
-import com.oot.usedcar.repository.BuyCarRepository;;
+import com.oot.usedcar.service.user.UserService;;
 
 @Service
 public class InitialDataService {
@@ -31,7 +39,7 @@ public class InitialDataService {
 	@Autowired
 	private UsedCarRepository usedCarRepository;
 	
-	
+	private List<String> fileList = null;
 	public void initailUser(){
 		User user = new User(); 
     	user.setUsername("test");
@@ -40,13 +48,30 @@ public class InitialDataService {
 	}
 	
 	public void initailCar(){
-		Car car = new Car();
-		car.setBrand("TOYOTA");
-		car.setModel("Altis");
-		car.setSubModel("E");
-		car.setYear(2015);
-		car.setMiddlePrice(new BigDecimal("500000.00"));
-		carRepository.save(car);
+		this.fileList = new ArrayList<>();
+		String sourceFolder = "/Users/apichart/Documents/Eclipse/workspace/ootproject/used-car/Usedcar/CAR/";
+		List<String> fileList = generateFileList(new File(sourceFolder), sourceFolder);
+		fileList.remove(0);
+        for (String file : fileList) {
+			String filename = sourceFolder+file;
+			try {		
+				Gson gson = new Gson();
+				SCBCar scbCarToyota = gson.fromJson(new FileReader(filename), SCBCar.class);
+				List<SCBCarData> scbCarDataListToyota = scbCarToyota.getData();
+				for (SCBCarData scbCarData : scbCarDataListToyota) {
+					Car car = new Car();
+					car.setBrand(scbCarData.getMake_code());
+					car.setModel(scbCarData.getFamily_code());
+					car.setSubModel(scbCarData.getDescription());
+					car.setYear(scbCarData.getYear());
+					car.setMiddlePrice(scbCarData.getPrice());
+					carRepository.save(car);
+				}
+			} catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
+				e.printStackTrace();
+			}
+				
+		}
 	}
 	
 	public void initailUsedCar(){
@@ -90,4 +115,21 @@ public class InitialDataService {
 		
 		return carList;
 	}
+	
+	private List<String> generateFileList(File node, String sourceFolder) {
+        if (node.isFile()) {
+        	this.fileList.add(generateFilePath(node.getAbsoluteFile().toString(), sourceFolder));
+        }
+        if (node.isDirectory()) {
+            String[] subNote = node.list();
+            for (String filename : subNote) {
+                generateFileList(new File(node, filename), sourceFolder);
+            }
+        }
+        return this.fileList;
+    }
+	
+	private String generateFilePath(String file, String sourceFolder) {
+        return file.substring(sourceFolder.length(), file.length());
+    }
 }
