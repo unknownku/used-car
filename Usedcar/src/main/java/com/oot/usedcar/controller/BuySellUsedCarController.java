@@ -270,7 +270,7 @@ public class BuySellUsedCarController {
 		usedCarService.save(used_car);
 		
 		System.out.println("saveReserve");
-		return "index";
+		return "successAction";
 	}
 	
 	@RequestMapping(value = { "/saveBuycar" }, method = RequestMethod.POST)
@@ -283,4 +283,10 @@ public class BuySellUsedCarController {
 		return "index";
 	}
 
+	@RequestMapping(value = { "/successAction" }, method = RequestMethod.GET)
+	public String successAction(Model mode) {
+		
+		mode.addAttribute("","");
+		return "successAction";
+	}
 }
