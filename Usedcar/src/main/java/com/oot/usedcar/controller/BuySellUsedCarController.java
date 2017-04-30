@@ -304,4 +304,16 @@ public class BuySellUsedCarController {
 //		model.addAttribute("successDetail", "Done! You are successfully reserve a car.");
 		return "successAction";
 	}
+	
+	@RequestMapping(value = { "/removeReserve" }, method = RequestMethod.POST)
+	public String removeReserve(@ModelAttribute("reserveForm") ReserveForm reserveForm,Model model) {
+		
+		Long id = reserveForm.getReserveCar().getId();
+//		Long id = 1L;
+		reserveService.deleteById(id);
+	
+		model.addAttribute("successHeader", "Delete Reserve Completed !");
+		model.addAttribute("successDetail", "Done! You are already delete reservation.");
+		return "successAction";
+	}
 }

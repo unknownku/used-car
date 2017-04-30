@@ -61,4 +61,11 @@ public class ReserveServiceImplement implements ReserveService {
 	    // using the built in findAll method from Repository with dynamic custom filters 
 	    return reserveRepository.findAll(spec);
 	}
+
+	@Override
+	public void deleteById(Long reserveId) {
+		// TODO Auto-generated method stub
+		reserveRepository.deleteById(reserveId);
+	}
+	
 }
