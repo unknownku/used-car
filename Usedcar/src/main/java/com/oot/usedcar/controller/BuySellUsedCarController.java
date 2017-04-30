@@ -191,7 +191,7 @@ public class BuySellUsedCarController {
 		return "sellcar";
 	}
 
-	@RequestMapping(value = { "/carReserveSearch" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/sell" }, method = RequestMethod.POST)
 	public String reserveSearch(@Valid UsedCarReserveSearchForm carReserveSearch, BindingResult result, Model model) {
 		System.out.println("search");
 

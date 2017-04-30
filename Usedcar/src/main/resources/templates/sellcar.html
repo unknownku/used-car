@@ -19,8 +19,9 @@
 				$(".data-mask").inputmask();
 			});
 		</script>
+
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-md-10">
 
 				<div class="box box-info">
 					<div class="box-header with-border">
@@ -29,7 +30,7 @@
 					<!-- /.box-header -->
 					<div class="box-body">
 
-						<form th:action="@{~/carReserveSearch}" th:object="${carReserveSearch}" method="post">
+						<form th:action="@{~/sell}" th:object="${carReserveSearch}" method="post">
 
 							<div class="form-group">
 								<label class="col-sm-3">Reservation No.</label>
@@ -52,10 +53,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4"></div>
+			<div class="col-md-2"></div>
 		</div>
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-md-10">
 				<div class="box box-info">
 					<div class="box-header with-border">
 						<h3 class="box-title">Reservation Lists</h3>
@@ -88,8 +89,8 @@
 										<td th:text="${reservedCar.carPrice}">yes</td>
 										<td th:text="${reservedCar.reservAmount}">yes</td>
 										<td th:text="${reservedCar.carPrice}-${reservedCar.reservAmount}">yes</td>
-										<td><a th:href="${reservedCar.id}"><button>Sell</button></a></td>
-										<td><a th:href="${reservedCar.id}"><button>Cancel</button></a></td>
+										<td><a  th:href="${reservedCar.id}" data-toggle="modal" data-target="#sellCarModal"><button class="btn btn-primary">Sell</button></a></td>
+										<td><a  th:href="${reservedCar.id}" data-toggle="modal" data-target="#cancelReserveModal"><button class="btn btn-danger">Cancel</button></a></td>
 									</tr>
 								</tbody>
 							</table>
@@ -98,9 +99,47 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4"></div>
+			<div class="col-md-2"></div>
 		</div>
+		
+		<!-- Sell Car Modal -->
+		<div class="modal fade" id="sellCarModal" tabindex="-1" role="dialog" aria-labelledby="sellCarModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="sellCarModalLabel">Sell Car</h4>
+					</div>
+					<div class="modal-body">ยืนยันการรับเงินจากลูกค้าเรียบร้อย</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Confirm</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Cancel Reserve Car Modal -->
+		<div class="modal fade modal-danger" id="cancelReserveModal" tabindex="-1" role="dialog" aria-labelledby="cancelReserveModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="cancelReserveModalLabel">Cancel Reservation</h4>
+					</div>
+					<div class="modal-body">คุณยืนยันที่ต้องการจะยกเลิกการจองใช่หรือไม่?</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-outline">Cancel Reservation</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 	</div>
-
 </body>
 </html>
