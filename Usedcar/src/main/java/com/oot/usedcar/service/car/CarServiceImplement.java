@@ -1,10 +1,11 @@
 package com.oot.usedcar.service.car;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.oot.usedcar.domain.Car;
-import com.oot.usedcar.domain.UsedCar;
 import com.oot.usedcar.repository.CarRepository;
 
 @Service
@@ -46,6 +47,57 @@ public class CarServiceImplement implements CarService {
 	@Override
 	public Car findById(Long id) {
 		return carRepository.findById(id);
+	}
+
+	@Override
+	public List findAll() {
+		return carRepository.findAll();
+	}
+
+	@Override
+	public Car findByBrandAndModelAndSubModelAndYear(String brand, String model, String subModel, int year) {
+		return carRepository.findByBrandAndModelAndSubModelAndYear(brand, model, subModel, year);
+	}
+
+	@Override
+	public List<Car> findDistinctCarByBrand(String brand) {
+		return carRepository.findDistinctCarByBrand(brand);
+	}
+
+	@Override
+	public List<Car> findDistinctCarByBrandAndModel(String brand, String model) {
+		return carRepository.findDistinctCarByBrandAndModel(brand, model);
+	}
+
+	@Override
+	public List<Car> findDistinctCarByBrandAndModelAndSubModel(String brand, String model, String subModel) {
+		return carRepository.findDistinctCarByBrandAndModelAndSubModel(brand, model, subModel);
+	}
+
+	@Override
+	public List<Car> findDistinctCarByBrandAndModelAndSubModelAndYear(String brand, String model, String subModel,
+			int year) {
+		return carRepository.findDistinctCarByBrandAndModelAndSubModelAndYear(brand, model, subModel, year);
+	}
+
+	@Override
+	public List<String> findBrand() {
+		return carRepository.findBrand();
+	}
+
+	@Override
+	public List<String> findModel(String brand) {
+		return carRepository.findModel(brand);
+	}
+
+	@Override
+	public List<String> findSubModel(String brand, String model) {
+		return carRepository.findSubModel(brand, model);
+	}
+
+	@Override
+	public List<String> findYear(String brand, String model, String subModel) {
+		return carRepository.findYear(brand, model, subModel);
 	}
 
 	
