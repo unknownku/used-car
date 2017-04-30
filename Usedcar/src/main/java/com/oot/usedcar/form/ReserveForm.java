@@ -3,6 +3,7 @@ package com.oot.usedcar.form;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,8 +33,14 @@ public class ReserveForm {
 
 	@Min(value = 1, message = "Please fill in reservation amount")
 	@NotNull(message = "Please fill in reservation amount")
+	@Digits(integer=9, fraction=0, message = "Please fill not over 9 digits")   
     private BigDecimal reservAmount;
 
+	@Min(value = 1, message = "Please fill in actual sale price")
+	@NotNull(message = "Please fill in actual sale price")
+	@Digits(integer=9, fraction=0, message = "Please fill not over 9 digits") 
+    private BigDecimal actualSalePrice;
+	
 	@NotNull
 	@Size(min=1, message = "Please fill in reserve date")
     private String reservDate;
@@ -114,4 +121,13 @@ public class ReserveForm {
 		this.reserveCar = reserveCar;
 	}
 
+	public BigDecimal getActualSalePrice() {
+		return actualSalePrice;
+	}
+
+	public void setActualSalePrice(BigDecimal actualSalePrice) {
+		this.actualSalePrice = actualSalePrice;
+	}
+
+	
 }

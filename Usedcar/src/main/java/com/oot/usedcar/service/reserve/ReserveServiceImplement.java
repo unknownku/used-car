@@ -52,6 +52,7 @@ public class ReserveServiceImplement implements ReserveService {
 					predicates.add(cb.and(cb.like(root.get("name"), "%"+name+"%")));
 				}
 				
+				predicates.add(cb.and(cb.notEqual(root.get("paymentFlag"), "1")));
 				Predicate[] predicatesArray = new Predicate[predicates.size()];
 				
 				return cb.and(predicates.toArray(predicatesArray));
