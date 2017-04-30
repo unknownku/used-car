@@ -1,0 +1,118 @@
+<div th:fragment="estimate-model" xmlns:th="http://www.thymeleaf.org" th:remove="tag">
+	<!-- Models -->
+	<label>Models</label>
+	<div class="form-group" th:if="${modelList != null and not #lists.isEmpty(modelList)}">
+		<select class="form-control" th:field="*{model}" th:object="${estimatePriceForm}">
+			<option th:each="models : ${modelList}" th:value="${models}" th:text="${models}" />
+		</select>
+	</div>
+	<div class="form-group" th:if="${modelList == null or #lists.isEmpty(modelList)}">
+		<label>"No Institutions were found, please create some first"</label>
+	</div>
+</div>
+
+<div th:fragment="estimate-submodel" xmlns:th="http://www.thymeleaf.org" th:remove="tag">
+	<!-- Sub Models -->
+	<label>Sub Models</label>
+	<div th:id="subModel" class="form-group" th:if="${subModelList != null and not #lists.isEmpty(subModelList)}">
+		<select class="form-control" th:field="*{subModel}" th:object="${estimatePriceForm}">
+			<option th:each="subModel : ${subModelList}" th:value="${subModel}" th:text="${subModel}" />
+		</select>
+	</div>
+	<div class="form-group" th:if="${subModelList == null or #lists.isEmpty(subModelList)}">
+		<label>"No Institutions were found, please create some first"</label>
+	</div>
+</div>
+
+<div th:fragment="estimate-year" xmlns:th="http://www.thymeleaf.org" th:remove="tag">
+	<!-- Years -->
+	<label>Year</label>
+	<div th:id="year" class="form-group" th:if="${yearList != null and not #lists.isEmpty(yearList)}">
+		<select class="form-control" th:field="*{year}" th:object="${estimatePriceForm}">
+			<option th:each="year : ${yearList}" th:value="${year}" th:text="${year}" />
+		</select>
+	</div>
+	<div class="form-group" th:if="${yearList == null or #lists.isEmpty(yearList)}">
+		<label>"No Institutions were found, please create some first"</label>
+	</div>
+</div>
+
+<div th:fragment="estimate-check" xmlns:th="http://www.thymeleaf.org" th:remove="tag">
+	<div class="form-group" >
+		<label>Flooding</label>
+		<div class="radio">
+			<label> <input type="radio" th:object="${estimatePriceForm}" th:field="*{flooding}" name="flooding" id="flooding2" value="0" /> Never
+			</label>
+		</div>
+		<div class="radio">
+			<label> <input type="radio" th:object="${estimatePriceForm}" th:field="*{flooding}" name="flooding" id="flooding1" value="1" /> Ever
+			</label>
+		</div>
+
+	</div>
+
+	<div class="form-group">
+		<label>Crashing</label>
+		<div class="radio">
+			<label> <input type="radio" th:object="${estimatePriceForm}" th:field="*{crashing}" name="crashing" id="crashing2" value="0" /> Never
+			</label>
+		</div>
+		<div class="radio">
+			<label> <input type="radio" th:object="${estimatePriceForm}" th:field="*{crashing}" name="crashing" id="crashing1" value="1" /> Ever
+			</label>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label>Scratching</label>
+		<div class="radio">
+			<label> <input type="radio" th:object="${estimatePriceForm}" th:field="*{scratchRate}" name="scratchRate" id="scratchRateRadio0" value="0" th:checked="checked" /> None
+			</label>
+		</div>
+		<div class="radio">
+			<label> <input type="radio" th:object="${estimatePriceForm}" th:field="*{scratchRate}" name="scratchRate" id="scratchRateRadio1" value="1"/> Low
+			</label>
+		</div>
+		<div class="radio">
+			<label> <input type="radio" th:object="${estimatePriceForm}" th:field="*{scratchRate}" name="scratchRate" id="scratchRateRadio2" value="2" /> Medium
+			</label>
+		</div>
+		<div class="radio">
+			<label> <input type="radio" th:object="${estimatePriceForm}" th:field="*{scratchRate}" name="scratchRate" id="scratchRateRadio3" value="3" /> High
+			</label>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label>Kilometer usage</label>
+		<div class="input-group">
+			<input  type="text" th:object="${estimatePriceForm}" class="form-control"  th:field="*{kilometer}" placeholder="100,000" /><span class="input-group-addon"><i class="fa fa-car"></i></span>
+			<span class="help-block" th:if="${#fields.hasErrors('estimatePriceForm.kilometer')}"  th:errors="*{kilometer}">kilometer error message</span>
+		</div>
+		
+	</div>
+	<div class="box-footer">
+		<button type="submit" class="btn btn-primary pull-right">Submit</button>
+	</div>
+</div>
+
+
+<div th:fragment="estimate-price" xmlns:th="http://www.thymeleaf.org" th:remove="tag">
+	<div class="col-md-3"></div>
+	<div class="col-md-6">
+		<div class="info-box">
+			<span class="info-box-icon bg-green"><i class="fa fa-money"></i></span>
+
+			<div class="info-box-content" th:if="${price != null}">
+				<span class="info-box-text">Price</span> <span class="info-box-number"><h3 th:text="${price}"></h3></span>
+			</div>
+
+			<div class="info-box-content" th:if="${price == null}">
+				<span class="info-box-text">Price</span> <span class="info-box-number"><h3>0.00</h3></span>
+			</div>
+			<!-- /.info-box-content -->
+		</div>
+		<!-- /.info-box -->
+	</div>
+	<div class="col-md-3"></div>
+</div>
