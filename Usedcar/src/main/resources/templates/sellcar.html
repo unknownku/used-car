@@ -15,8 +15,48 @@
 	<div layout:fragment="content">
 		<script>
 			$(document).ready(function() {
-				$('#table-reserve-list').DataTable();
+				var table = $('#table-reserve-list').DataTable();
 				$(".data-mask").inputmask();
+
+				// 				 $('#table-reserve-list tbody').on('click', '.btn-row-sell', function () {
+				// 					  var closestRow = $(this).closest('tr');
+				// 				        var data = table.row( closestRow ).data();
+				// 				        alert( 'You clicked on '+data[0]+'\'s row' );
+				// 				    } );
+
+				// 				 $('#table-reserve-list tbody').on('click', '.btn-row-cancel', function () {
+				// 					  var closestRow = $(this).closest('tr');
+				// 				        var data = table.row( closestRow ).data();
+				// 				        alert( 'You clicked on '+data[0]+'\'s row' );
+				// 				    } );
+
+				// Sell Car Modal
+				$('#sellCarModal').on('show.bs.modal', function(e) {
+					var reserveId = $(e.relatedTarget).data('id');
+					$("#hf-sell-ReserveId").val(reserveId);
+				});
+
+				$('#sellCarModal').on('hide.bs.modal', function() {
+					$("#hf-sell-ReserveId").val('');
+				})
+				
+				$("#btn-sell-confirm").click(function() {
+					window.location = "/sell/" + $("#hf-sell-ReserveId").val();
+				});
+				
+				// Cancel Reserve Car Modal
+				$('#cancelReserveModalLabel').on('show.bs.modal', function(e) {
+					var reserveId = $(e.relatedTarget).data('id');
+					$("#hf-cancel-ReserveId").val(reserveId);
+				});
+
+				$('#cancelReserveModalLabel').on('hide.bs.modal', function() {
+					$("#hf-cancel-ReserveId").val('');
+				});
+
+				$("#btn-reserve-cancel").click(function() {
+					alert("Cancel Confirm");
+				});
 			});
 		</script>
 
@@ -89,8 +129,8 @@
 										<td th:text="${reservedCar.carPrice}">yes</td>
 										<td th:text="${reservedCar.reservAmount}">yes</td>
 										<td th:text="${reservedCar.carPrice}-${reservedCar.reservAmount}">yes</td>
-										<td><a  th:href="${reservedCar.id}" data-toggle="modal" data-target="#sellCarModal"><button class="btn btn-primary">Sell</button></a></td>
-										<td><a  th:href="${reservedCar.id}" data-toggle="modal" data-target="#cancelReserveModal"><button class="btn btn-danger">Cancel</button></a></td>
+										<td><button class="btn btn-primary btn-row-sell" data-toggle="modal" data-target="#sellCarModal" th:attr="data-id=${reservedCar.id}">Sell</button></td>
+										<td><button class="btn btn-danger btn-row-cancel" data-toggle="modal" data-target="#cancelReserveModal" th:attr="data-id=${reservedCar.id}">Cancel</button></td>
 									</tr>
 								</tbody>
 							</table>
@@ -101,7 +141,7 @@
 			</div>
 			<div class="col-md-2"></div>
 		</div>
-		
+
 		<!-- Sell Car Modal -->
 		<div class="modal fade" id="sellCarModal" tabindex="-1" role="dialog" aria-labelledby="sellCarModalLabel">
 			<div class="modal-dialog" role="document">
@@ -112,15 +152,17 @@
 						</button>
 						<h4 class="modal-title" id="sellCarModalLabel">Sell Car</h4>
 					</div>
-					<div class="modal-body">ยืนยันการรับเงินจากลูกค้าเรียบร้อย</div>
+					<div class="modal-body">
+						ยืนยันการรับเงินจากลูกค้าเรียบร้อย <input type="hidden" id="hf-sell-ReserveId"  value="" />
+					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Confirm</button>
+						<button type="button" class="btn btn-primary" id="btn-sell-confirm">Confirm</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- Cancel Reserve Car Modal -->
 		<div class="modal fade modal-danger" id="cancelReserveModal" tabindex="-1" role="dialog" aria-labelledby="cancelReserveModalLabel">
 			<div class="modal-dialog" role="document">
@@ -131,15 +173,15 @@
 						</button>
 						<h4 class="modal-title" id="cancelReserveModalLabel">Cancel Reservation</h4>
 					</div>
-					<div class="modal-body">คุณยืนยันที่ต้องการจะยกเลิกการจองใช่หรือไม่?</div>
+					<div class="modal-body">คุณยืนยันที่ต้องการจะยกเลิกการจองใช่หรือไม่?<input type="hidden" id="hf-cancel-ReserveId" value="" /></div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-outline">Cancel Reservation</button>
+						<button type="button" class="btn btn-outline" id="btn-reserve-cancel">Cancel Reservation</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
 	</div>
 </body>
 </html>
