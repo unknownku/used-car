@@ -229,8 +229,10 @@ public class BuySellUsedCarController {
 		CarReservation uReservation = reserveService.findById(reserveId);
 		
 		if(uReservation != null){
-			UsedCar used_car = usedCarService.findById(Long.parseLong(uReservation.getReserveCarId()));
+			uReservation.setPaymentFlag("1");
+			reserveService.save(uReservation);
 			
+			UsedCar used_car = usedCarService.findById(Long.parseLong(uReservation.getReserveCarId()));
 			SellCar sellcar = new SellCar();
 			sellcar.setReservationId(reserveId);
 			sellcar.setAmount(Double.parseDouble(uReservation.getCarPrice().subtract(uReservation.getReservAmount()).toString()));
@@ -305,6 +307,8 @@ public class BuySellUsedCarController {
 
 		carReserve.setReserveCarId(reserveForm.getReserveCar().getId() + "");
 		carReserve.setCarPrice(reserveForm.getActualSalePrice());
+		
+		carReserve.setPaymentFlag("0");
 
 		reserveService.save(carReserve);
 

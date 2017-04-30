@@ -31,6 +31,8 @@ public class CarReservation {
     private String reservNo;
     
     private String reserveCarId;
+    
+    private String paymentFlag;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -121,7 +123,13 @@ public class CarReservation {
 	public void setCarPrice(BigDecimal carPrice) {
 		this.carPrice = carPrice;
 	}
-	
-	
+
+	public String getPaymentFlag() {
+		return paymentFlag;
+	}
+
+	public void setPaymentFlag(String paymentFlag) {
+		this.paymentFlag = paymentFlag;
+	}
     
 }
