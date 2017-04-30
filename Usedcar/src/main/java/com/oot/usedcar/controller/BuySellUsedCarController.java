@@ -233,7 +233,7 @@ public class BuySellUsedCarController {
 			
 			SellCar sellcar = new SellCar();
 			sellcar.setReservationId(reserveId);
-			sellcar.setAmount(0.00);
+			sellcar.setAmount(Double.parseDouble(uReservation.getCarPrice().subtract(uReservation.getReservAmount()).toString()));
 			
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		    String name = auth.getName(); //get logged in username
@@ -245,8 +245,8 @@ public class BuySellUsedCarController {
 			usedCarService.save(used_car);
 			System.out.println("savesell");
 
-			model.addAttribute("successHeader", "Selled Completed !");
-			model.addAttribute("successDetail", "Done! You are successfully sell a car.");
+			model.addAttribute("successHeader", "Sold Completed !");
+			model.addAttribute("successDetail", "Done! You are successfully sold a car.");
 			return "successAction";
 		}
 		model.addAttribute("carReserveSearch", new UsedCarReserveSearchForm());
@@ -349,10 +349,10 @@ public class BuySellUsedCarController {
 	}
 	
 	@RequestMapping(value = { "/removeReserve" }, method = RequestMethod.POST)
-	public String removeReserve(@ModelAttribute("reserveForm") ReserveForm reserveForm,Model model) {
+	public String removeReserve(@ModelAttribute("usedCarReserveSearchForm") UsedCarReserveSearchForm carReserveSearch,Model model) {
 		
-		Long id = reserveForm.getReserveCar().getId();
-//		Long id = 1L;
+		Long id = carReserveSearch.getReserveId();
+		System.out.println(id);
 		reserveService.deleteById(id);
 	
 		model.addAttribute("successHeader", "Delete Reserve Completed !");

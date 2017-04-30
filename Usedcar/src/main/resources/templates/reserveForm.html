@@ -104,14 +104,14 @@
 									<label class="col-md-2 control-label">Price</label>
 									<div class="col-md-3">
 										<div class="input-group">
-											<input class="form-control" type="text" th:field="*{reserveCar.price}" readonly="readonly" /> <span class="input-group-addon">Baht</span>
+											<input class="form-control data-mask" type="text" th:field="*{reserveCar.price}" readonly="readonly"  /> <span class="input-group-addon">Baht</span>
 										</div>
 									</div>
 
 									<label class="col-md-2 control-label">Kilometer</label>
 									<div class="col-md-3">
 										<div class="input-group">
-											<input class="form-control" type="text" th:field="*{reserveCar.kilometer}" readonly="readonly" /> <span class="input-group-addon">Kilometer</span>
+											<input class="form-control data-mask"  type="text" th:field="*{reserveCar.kilometer}" readonly="readonly" /> <span class="input-group-addon">Kilometer</span>
 										</div>
 									</div>
 
@@ -191,7 +191,7 @@
 									<label class="col-md-4 control-label">Reserve Amount</label>
 									<div class="col-md-6">
 										<div class="input-group">
-											<span class="input-group-addon"><i class="fa fa-dollar"></i></span> <input class="form-control" type="text" th:field="*{reservAmount}" /> <span class="input-group-addon">Baht</span>
+											<span class="input-group-addon"><i class="fa fa-dollar"></i></span> <input class="form-control data-mask" type="text" th:field="*{reservAmount}" /> <span class="input-group-addon">Baht</span>
 										</div>
 										<label class="control-label" th:if="${#fields.hasErrors('reservAmount')}" th:errors="*{reservAmount}">[error]</label>
 									</div>
@@ -200,7 +200,7 @@
 									<label class="col-md-4 control-label">Actual Sale Price</label>
 									<div class="col-md-6">
 										<div class="input-group">
-											<span class="input-group-addon"><i class="fa fa-dollar"></i></span> <input class="form-control" type="text" th:field="*{actualSalePrice}" /> <span class="input-group-addon">Baht</span>
+											<span class="input-group-addon"><i class="fa fa-dollar"></i></span> <input class="form-control data-mask" type="text" th:field="*{actualSalePrice}" /> <span class="input-group-addon">Baht</span>
 										</div>
 										<label class="control-label" th:if="${#fields.hasErrors('actualSalePrice')}" th:errors="*{actualSalePrice}">[error]</label>
 									</div>

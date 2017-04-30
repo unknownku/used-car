@@ -45,17 +45,13 @@
 				});
 				
 				// Cancel Reserve Car Modal
-				$('#cancelReserveModalLabel').on('show.bs.modal', function(e) {
+				$('#cancelReserveModal').on('show.bs.modal', function(e) {
 					var reserveId = $(e.relatedTarget).data('id');
 					$("#hf-cancel-ReserveId").val(reserveId);
 				});
 
-				$('#cancelReserveModalLabel').on('hide.bs.modal', function() {
+				$('#cancelReserveModal').on('hide.bs.modal', function() {
 					$("#hf-cancel-ReserveId").val('');
-				});
-
-				$("#btn-reserve-cancel").click(function() {
-					alert("Cancel Confirm");
 				});
 			});
 		</script>
@@ -167,17 +163,24 @@
 		<div class="modal fade modal-danger" id="cancelReserveModal" tabindex="-1" role="dialog" aria-labelledby="cancelReserveModalLabel">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
+					<form id="reserveForm" th:action="@{~/removeReserve}" th:object="${carReserveSearch}" method="post">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 						<h4 class="modal-title" id="cancelReserveModalLabel">Cancel Reservation</h4>
 					</div>
-					<div class="modal-body">คุณยืนยันที่ต้องการจะยกเลิกการจองใช่หรือไม่?<input type="hidden" id="hf-cancel-ReserveId" value="" /></div>
+					<div class="modal-body">คุณยืนยันที่ต้องการจะยกเลิกการจองใช่หรือไม่?
+					
+					
+					<input type="hidden" id="hf-cancel-ReserveId" th:field="*{reserveId}"/>
+					
+					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-outline" id="btn-reserve-cancel">Cancel Reservation</button>
+						<button type="submit" class="btn btn-outline" id="btn-reserve-cancel">Cancel Reservation</button>
 					</div>
+					</form>
 				</div>
 			</div>
 		</div>
