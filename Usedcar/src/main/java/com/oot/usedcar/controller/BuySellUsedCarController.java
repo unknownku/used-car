@@ -7,6 +7,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +23,7 @@ import com.oot.usedcar.domain.Car;
 import com.oot.usedcar.domain.CarReservation;
 import com.oot.usedcar.domain.PaymentMethod;
 import com.oot.usedcar.domain.Province;
+import com.oot.usedcar.domain.SellCar;
 import com.oot.usedcar.domain.UsedCar;
 import com.oot.usedcar.form.BuyCarForm;
 import com.oot.usedcar.form.EstimatePriceForm;
@@ -133,7 +136,7 @@ public class BuySellUsedCarController {
 		boolean isFlooding = estimatePriceForm.isFlooding();
 		boolean isCrashing = estimatePriceForm.isCrashing();
 		int scratchRate = estimatePriceForm.getScratchRate();
-		System.out.println("scratchRate "+scratchRate);
+		System.out.println("scratchRate " + scratchRate);
 		Car car = carService.findByBrandAndModelAndSubModelAndYear(brand, model2, subModel, year);
 		if (car != null) {
 			BigDecimal middlePrice = car.getMiddlePrice();
@@ -146,7 +149,7 @@ public class BuySellUsedCarController {
 			return "redirect:/estimatePrice";
 		}
 	}
-	
+
 	@RequestMapping(value = { "/buy" }, method = RequestMethod.GET)
 	public String buy(Model model, String t) {
 		System.out.println("buy");
@@ -217,6 +220,39 @@ public class BuySellUsedCarController {
 		return "sellcar";
 	}
 
+	@RequestMapping(value = { "/sell/{uReserveId}" }, method = RequestMethod.GET)
+	public String sellCar(@PathVariable("uReserveId") String uReserveId, Model model) { 
+
+		Long reserveId = Long.parseLong(uReserveId);
+		System.out.println("reserve id = " + uReserveId);
+
+		CarReservation uReservation = reserveService.findById(reserveId);
+		
+		if(uReservation != null){
+			UsedCar used_car = usedCarService.findById(Long.parseLong(uReservation.getReserveCarId()));
+			
+			SellCar sellcar = new SellCar();
+			sellcar.setReservationId(reserveId);
+			sellcar.setAmount(0.00);
+			
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		    String name = auth.getName(); //get logged in username
+			sellcar.setSaleBy(name);
+			
+			sellCarService.save(sellcar);
+			
+			used_car.setStatus("Sold");
+			usedCarService.save(used_car);
+			System.out.println("savesell");
+
+			model.addAttribute("successHeader", "Selled Completed !");
+			model.addAttribute("successDetail", "Done! You are successfully sell a car.");
+			return "successAction";
+		}
+		model.addAttribute("carReserveSearch", new UsedCarReserveSearchForm());
+		return "sellcar";
+	}
+
 	@RequestMapping(value = { "/reserve/{uCarId}" }, method = RequestMethod.GET)
 	public String reserve(Model model, @PathVariable("uCarId") String uCarId) {
 
@@ -271,22 +307,22 @@ public class BuySellUsedCarController {
 		carReserve.setCarPrice(reserveForm.getReserveCar().getPrice());
 
 		reserveService.save(carReserve);
-		
+
 		// Update Used car status to reseved
 		UsedCar used_car = usedCarService.findById(reserveForm.getReserveCar().getId());
 		used_car.setStatus("Reserved");
 		usedCarService.save(used_car);
-		
+
 		System.out.println("saveReserve");
-		
+
 		model.addAttribute("successHeader", "Reserve Completed !");
 		model.addAttribute("successDetail", "Done! You are successfully reserve a car.");
 		return "successAction";
 	}
 
 	@RequestMapping(value = { "/saveBuycar" }, method = RequestMethod.POST)
-	public String saveBuycar(@Valid @ModelAttribute("buyCar") BuyCarForm buyCar, 
-			BindingResult bindingResult, Model model) {
+	public String saveBuycar(@Valid @ModelAttribute("buyCar") BuyCarForm buyCar, BindingResult bindingResult,
+			Model model) {
 
 		if (bindingResult.hasErrors()) {
 			List<FieldError> xxx = bindingResult.getFieldErrors();
@@ -297,17 +333,18 @@ public class BuySellUsedCarController {
 			// return "redirect:reserveForm/1";
 			return "buycar";
 		}
-		
-//		BuyCar buyCar = new BuyCar();
+
+		// BuyCar buyCar = new BuyCar();
 
 		return "index";
 	}
 
 	@RequestMapping(value = { "/successAction" }, method = RequestMethod.POST)
 	public String successAction(Model model) {
-		
-//		model.addAttribute("successHeader", "Reserve Completed !");
-//		model.addAttribute("successDetail", "Done! You are successfully reserve a car.");
+
+		// model.addAttribute("successHeader", "Reserve Completed !");
+		// model.addAttribute("successDetail", "Done! You are successfully
+		// reserve a car.");
 		return "successAction";
 	}
 	
