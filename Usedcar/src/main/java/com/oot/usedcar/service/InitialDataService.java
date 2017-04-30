@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.math.BigDecimal;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +55,7 @@ public class InitialDataService {
 	
 	public void initailCar(){
 		this.fileList = new ArrayList<>();
-		String sourceFolder = "/Users/apichart/Documents/Eclipse/workspace/ootproject/used-car/Usedcar/CAR/";
+		String sourceFolder = Paths.get(".").toAbsolutePath().normalize().toString() + "/CAR";
 		List<String> fileList = generateFileList(new File(sourceFolder), sourceFolder);
 		fileList.remove(0);
         for (String file : fileList) {

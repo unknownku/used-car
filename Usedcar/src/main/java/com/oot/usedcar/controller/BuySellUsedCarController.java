@@ -1,6 +1,7 @@
 package com.oot.usedcar.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -202,7 +203,7 @@ public class BuySellUsedCarController {
 //		reserveForm.setPhoneNumber("000000");
 		reserveForm.setReserveCar(uCar);
 
-		List<PaymentMethod> payList = new ArrayList();
+		List<PaymentMethod> payList = new ArrayList<>();
 		PaymentMethod pay1 = new PaymentMethod();
 		pay1.setPayKey("C");
 		pay1.setPayValue("Cash");
