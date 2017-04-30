@@ -139,7 +139,7 @@ public class InitialDataService {
 	
 	public void initailBuyCar(){
 		BuyCar buycar = new BuyCar();
-		buycar.setCustomerId("100101");
+		buycar.setGender("M");
 		buycar.setName("KITTI");
 		buycar.setLastname("Hongsa");
 //		buycar.setBuyDate("");

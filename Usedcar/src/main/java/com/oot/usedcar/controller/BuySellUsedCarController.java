@@ -51,16 +51,16 @@ public class BuySellUsedCarController {
 
 	@Autowired
 	ReserveService reserveService;
-	
+
 	@Autowired
 	BuyCarService buyCarService;
-	
+
 	@Autowired
 	ProvinceService provinceService;
 
 	@Autowired
 	InitialDataService initialDataService;
-	
+
 	@Autowired
 	SellCarService sellCarService;
 
@@ -89,16 +89,16 @@ public class BuySellUsedCarController {
 
 	@RequestMapping(value = { "/buycar" }, method = RequestMethod.GET)
 	public String buycar(Model model) {
-		
-//		List<BuyCar> nameList = buyCarService.findAll();
-//		model.addAttribute("nameList", nameList);
-		
+		model.addAttribute("buyCar", new BuyCarForm());
+		// List<BuyCar> nameList = buyCarService.findAll();
+		// model.addAttribute("nameList", nameList);
+
 		List<Province> provinceList = provinceService.findAll();
 		model.addAttribute("provinceList", provinceList);
-		
+
 		List<Car> carList = new ArrayList();
 		model.addAttribute("carList", initialDataService.getCarList());
-		
+
 		System.out.println("buycar");
 		return "buycar";
 	}
@@ -156,7 +156,32 @@ public class BuySellUsedCarController {
 
 	@RequestMapping(value = { "/carSearch" }, method = RequestMethod.POST)
 	public String search(@Valid UsedCarSearchForm carSearch, BindingResult result, Model model) {
-		System.out.println("search");		String car_brand = carSearch.getBrand();		String car_model = carSearch.getModel();		String car_submodel = carSearch.getSubModel();		int car_year = carSearch.getYear();		List<UsedCar> used_car = usedCarService.findByBrandAndModelAndSubmodelAndYear(car_brand, car_model,				car_submodel, car_year);		if (used_car == null) {			System.out.println("Used car is null.");		} else {			model.addAttribute("usedCarList", used_car);		//	System.out.println(used_car.get(0).getId());		//	System.out.println(used_car.getColor());		//	System.out.println(used_car.getCarId());		//	System.out.println(used_car.getPrice());		//	System.out.println(used_car.getYear());		//	System.out.println(used_car.getStatus());		//	System.out.println(used_car.getReceivingDate());			model.addAttribute("carSearch", new UsedCarSearchForm());		}		if (result.hasErrors())			System.out.println("hasError");		return "usedcarsearchform";
+		System.out.println("search");
+
+		String car_brand = carSearch.getBrand();
+		String car_model = carSearch.getModel();
+		String car_submodel = carSearch.getSubModel();
+		int car_year = carSearch.getYear();
+
+		List<UsedCar> used_car = usedCarService.findByBrandAndModelAndSubmodelAndYear(car_brand, car_model,
+				car_submodel, car_year);
+		if (used_car == null) {
+			System.out.println("Used car is null.");
+		} else {
+			model.addAttribute("usedCarList", used_car);
+			// System.out.println(used_car.get(0).getId());
+			// System.out.println(used_car.getColor());
+			// System.out.println(used_car.getCarId());
+			// System.out.println(used_car.getPrice());
+			// System.out.println(used_car.getYear());
+			// System.out.println(used_car.getStatus());
+			// System.out.println(used_car.getReceivingDate());
+			model.addAttribute("carSearch", new UsedCarSearchForm());
+		}
+
+		if (result.hasErrors())
+			System.out.println("hasError");
+		return "usedcarsearchform";
 	}
 
 	@RequestMapping(value = { "/sell" }, method = RequestMethod.GET)
@@ -165,7 +190,7 @@ public class BuySellUsedCarController {
 		System.out.println("sell car");
 		return "sellcar";
 	}
-	
+
 	@RequestMapping(value = { "/carReserveSearch" }, method = RequestMethod.POST)
 	public String reserveSearch(@Valid UsedCarReserveSearchForm carReserveSearch, BindingResult result, Model model) {
 		System.out.println("search");
@@ -173,7 +198,7 @@ public class BuySellUsedCarController {
 		Long reserve_id = carReserveSearch.getReserveId();
 		String reserve_name = carReserveSearch.getName();
 
-		List<CarReservation> reserve_car = reserveService.findByIdAndName(reserve_id,reserve_name);
+		List<CarReservation> reserve_car = reserveService.findByIdAndName(reserve_id, reserve_name);
 		if (reserve_car == null) {
 			System.out.println("Reserved car is null.");
 		} else {
@@ -194,13 +219,13 @@ public class BuySellUsedCarController {
 		// car id from search form
 
 		UsedCar uCar = usedCarService.findById(Long.parseLong(uCarId));
-		
-//		car.seti
+
+		// car.seti
 		ReserveForm reserveForm = new ReserveForm();
-//
-//		reserveForm.setName("Testname");
-//		reserveForm.setAddress("address");
-//		reserveForm.setPhoneNumber("000000");
+		//
+		// reserveForm.setName("Testname");
+		// reserveForm.setAddress("address");
+		// reserveForm.setPhoneNumber("000000");
 		reserveForm.setReserveCar(uCar);
 
 		List<PaymentMethod> payList = new ArrayList<>();
@@ -222,20 +247,20 @@ public class BuySellUsedCarController {
 	}
 
 	@RequestMapping(value = { "/saveReserve" }, method = RequestMethod.POST)
-	public String saveReserve(@Valid @ModelAttribute("reserveForm") ReserveForm reserveForm, 
-							  BindingResult bindingResult, Model model) {
-		if(bindingResult.hasErrors()){
+	public String saveReserve(@Valid @ModelAttribute("reserveForm") ReserveForm reserveForm,
+			BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
 			List<FieldError> xxx = bindingResult.getFieldErrors();
 			for (FieldError fieldError : xxx) {
 				System.out.println(fieldError.getField());
 			}
 			model.addAttribute("reserveForm", reserveForm);
-//			return "redirect:reserveForm/1";
+			// return "redirect:reserveForm/1";
 			return "reserveForm";
-		}  
-		
+		}
+
 		CarReservation carReserve = new CarReservation();
-//		carReserve.setId(Long.parseLong("1"));
+		// carReserve.setId(Long.parseLong("1"));
 		carReserve.setName(reserveForm.getName());
 		carReserve.setAddress(reserveForm.getAddress());
 		carReserve.setPhoneNumber(reserveForm.getPhoneNumber());
@@ -244,8 +269,8 @@ public class BuySellUsedCarController {
 		carReserve.setReservAmount(reserveForm.getReservAmount());
 		carReserve.setReservDate(StringUtil.convertStringToDate(reserveForm.getReservDate()));
 		carReserve.setReservNo(reserveForm.getReservNo());
-		
-		carReserve.setReserveCarId( reserveForm.getReserveCar().getId() + "");
+
+		carReserve.setReserveCarId(reserveForm.getReserveCar().getId() + "");
 		carReserve.setCarPrice(reserveForm.getReserveCar().getPrice());
 
 		reserveService.save(carReserve);
@@ -258,14 +283,23 @@ public class BuySellUsedCarController {
 		System.out.println("saveReserve");
 		return "successAction";
 	}
-	
-	@RequestMapping(value = { "/saveBuycar" }, method = RequestMethod.POST)
-	public String saveBuycar(@Valid @ModelAttribute("buyCar") BuyCarForm buyCarForm 
-		) {
-		
-		BuyCar buyCar = new BuyCar();
 
+	@RequestMapping(value = { "/saveBuycar" }, method = RequestMethod.POST)
+	public String saveBuycar(@Valid @ModelAttribute("buyCar") BuyCarForm buyCar, 
+			BindingResult bindingResult, Model model) {
+
+		if (bindingResult.hasErrors()) {
+			List<FieldError> xxx = bindingResult.getFieldErrors();
+			for (FieldError fieldError : xxx) {
+				System.out.println(fieldError.getField());
+			}
+			model.addAttribute("buyCar", buyCar);
+			// return "redirect:reserveForm/1";
+			return "buycar";
+		}
 		
+//		BuyCar buyCar = new BuyCar();
+
 		return "index";
 	}
 
