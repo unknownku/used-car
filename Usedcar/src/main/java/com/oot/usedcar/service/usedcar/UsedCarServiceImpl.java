@@ -57,19 +57,19 @@ public class UsedCarServiceImpl implements UsedCarService {
 				List<Predicate> predicates = new ArrayList<Predicate>();
 
 				if (brand != null && brand.length() > 0) {
-					predicates.add(cb.and(cb.equal(root.get("brand"), brand)));
+					predicates.add(cb.and(cb.like(root.get("brand"), brand+"%")));
 				}
 				
 				if (model != null && model.length() > 0) {
-					predicates.add(cb.and(cb.equal(root.get("model"), model)));
+					predicates.add(cb.and(cb.like(root.get("model"), model+"%")));
 				}
 				
 				if (submodel != null && submodel.length() > 0) {
-					predicates.add(cb.and(cb.equal(root.get("submodel"), submodel)));
+					predicates.add(cb.and(cb.like(root.get("submodel"), "%"+submodel+"%")));
 				}
 				
 				if (year > 0) {
-					predicates.add(cb.and(cb.equal(root.get("year"), year)));
+					predicates.add(cb.and(cb.like(root.get("year"), year+"%")));
 				}
 				
 				predicates.add(cb.and(cb.equal(root.get("status"), "Available")));
