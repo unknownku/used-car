@@ -7,9 +7,8 @@ public class ConstantValue {
 	public static final String USED_CAR_FLOODING_PRICE = "50000.00";
 	public static final String USED_CAR_CRASHING_PRICE = "100000.00";
 	public static final String USED_CAR_PERSONAL_PRICE = "100000.00";
-	public static final String USED_CAR_PERSONAL_PRICE_PER_YEAR = "1000.00";
-	public static final String USED_CAR_COMMERCIAL_PRICE = "30000.00";
-	public static final String USED_CAR_COMMERCIAL_PRICE_PER_YEAR = "3000.00";
-	public static final String USED_CAR_CARRY_PRICE = "50000.00";
-	public static final String USED_CAR_CARRY_PRICE_PER_YEAR = "5000.00";
+	public static final String KILOMETER_RATE = "1000.00";
+	public static final String SCRATCH_LOW_RATE = "10000.00";
+	public static final String SCRATCH_MEDIUM_RATE = "20000.00";
+	public static final String SCRATCH_HIGH_RATE = "30000.00";
 }
