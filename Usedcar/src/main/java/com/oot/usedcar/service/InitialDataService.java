@@ -16,6 +16,7 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import com.oot.usedcar.domain.BuyCar;
 import com.oot.usedcar.domain.Car;
+import com.oot.usedcar.domain.PaymentMethod;
 import com.oot.usedcar.domain.Province;
 import com.oot.usedcar.domain.SCBCar;
 import com.oot.usedcar.domain.SCBCarData;
@@ -166,6 +167,22 @@ public class InitialDataService {
 		carList.add(car2);
 		
 		return carList;
+	}
+	
+	public List<PaymentMethod> getPaymentMethodList(){
+		List<PaymentMethod> payList = new ArrayList<>();
+		
+		PaymentMethod pay1 = new PaymentMethod();
+		pay1.setPayKey("C");
+		pay1.setPayValue("Cash");
+		payList.add(pay1);
+		
+		PaymentMethod pay2 = new PaymentMethod();
+		pay2.setPayKey("F");
+		pay2.setPayValue("Finance");
+		payList.add(pay2);
+		
+		return payList;
 	}
 	
 	private List<String> generateFileList(File node, String sourceFolder) {
