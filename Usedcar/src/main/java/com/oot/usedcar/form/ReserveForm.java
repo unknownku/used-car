@@ -11,31 +11,31 @@ import com.oot.usedcar.domain.UsedCar;
 
 public class ReserveForm {
 	@NotNull
-    @Size(min=2, max=30, message = "ชื่อห้ามเป็นค่าว่างและมีอย่างน้อย 2 ตัวอักษร")
+    @Size(min=2, max=30, message = "Name not blank and at least 2 alphabets")
 	private String name;
 
 	@NotNull
-	@Size(min=1, message = "กรุณากรอกที่อยู่")
+	@Size(min=1, message = "Please fill in address")
     private String address;
 	
 	@NotNull
-	@Size(min=1, message = "กรุณากรอกหมายเลขโทรศัพท์")
+	@Size(min=1, message = "Please fill in phone number")
     private String phoneNumber;
 
 	@NotNull
-	@Size(min=1, message = "กรุณากรอกหมายบัตรประชาชน")
+	@Size(min=1, message = "Please fill in ID card number")
     private String idCard;
 
 	@NotNull
-	@Size(min=1, message = "กรุณากรอกวิธีการชำระเงิน")
+	@Size(min=1, message = "Please choose payment method")
     private String payMethod;
 
-	@Min(value = 1, message = "กรุณากรอกจำนวนเงินที่จอง")
-	@NotNull(message = "กรุณากรอกจำนวนเงินที่จอง")
+	@Min(value = 1, message = "Please fill in reservation amount")
+	@NotNull(message = "Please fill in reservation amount")
     private BigDecimal reservAmount;
 
 	@NotNull
-	@Size(min=1, message = "กรุณากรอกวันที่จอง")
+	@Size(min=1, message = "Please fill in reserve date")
     private String reservDate;
 
     private String reservNo;
