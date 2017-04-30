@@ -23,7 +23,7 @@ public class UsedCar {
 	private String bookingCarId;
 	private BigDecimal price;
 	private int year;
-	private int status;
+	private String status;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date receivingDate;
@@ -67,10 +67,10 @@ public class UsedCar {
 	public void setYear(int year) {
 		this.year = year;
 	}
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	public Date getReceivingDate() {

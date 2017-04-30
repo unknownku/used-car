@@ -263,6 +263,12 @@ public class BuySellUsedCarController {
 		carReserve.setCarPrice(reserveForm.getReserveCar().getPrice());
 
 		reserveService.save(carReserve);
+		
+		// Update Used car status to reseved
+		UsedCar used_car = usedCarService.findById(reserveForm.getReserveCar().getId());
+		used_car.setStatus("Reserved");
+		usedCarService.save(used_car);
+		
 		System.out.println("saveReserve");
 		return "index";
 	}
