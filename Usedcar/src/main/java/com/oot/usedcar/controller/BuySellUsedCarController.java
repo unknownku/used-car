@@ -70,7 +70,7 @@ public class BuySellUsedCarController {
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public String index(Model model) {
 		System.out.println("index");
-		return "index";
+		return "redirect:/login";
 	}
 
 	@RequestMapping(value = { "/init" }, method = RequestMethod.GET)
