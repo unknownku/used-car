@@ -29,6 +29,13 @@
 			format : 'dd/mm/yyyy'
 		});
 		$(".data-mask").inputmask();
+		
+		 var reserveDate = $("#reservDate").val();
+		 console.log("reserveDate===>["+reserveDate+"]");
+		 if( reserveDate == ""){
+			$("#reservDate").datepicker().datepicker("setDate", new Date());
+		 }
+
 	});
 </script>
 
@@ -98,7 +105,7 @@
 									<label class="col-md-2 control-label">Price</label>
 									<div class="col-md-6">
 										<div class="input-group">
-											<input class="form-control" type="text" th:field="*{reserveCar.price}" readonly="readonly" /> <span class="input-group-addon">บาท</span>
+											<input class="form-control" type="text" th:field="*{reserveCar.price}" readonly="readonly" /> <span class="input-group-addon">Baht</span>
 										</div>
 									</div>
 								</div>
@@ -106,7 +113,7 @@
 									<label class="col-md-2 control-label">Kilometer</label>
 									<div class="col-md-6">
 										<div class="input-group">
-											<input class="form-control" type="text" th:field="*{reserveCar.kilometer}" readonly="readonly" /> <span class="input-group-addon">กิโลเมตร</span>
+											<input class="form-control" type="text" th:field="*{reserveCar.kilometer}" readonly="readonly" /> <span class="input-group-addon">Kilometer</span>
 										</div>
 									</div>
 								</div>
@@ -130,7 +137,7 @@
 						<div class="box-body">
 							<!-- <form id="reserveForm" th:action="@{~/saveReserve}" th:object="${reserveForm}" method="post"> -->
 								<div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'has-error'">
-									<label class="col-md-4 control-label">ชื่อ/นามสกุล</label>
+									<label class="col-md-4 control-label">Customer Name</label>
 									<div class="col-md-6">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-user"></i></span> 
@@ -142,7 +149,7 @@
 								</div>
 								
 								<div class="form-group" th:classappend="${#fields.hasErrors('idCard')} ? 'has-error'">
-									<label class="col-md-4 control-label">หมายเลขบัตรประชาชน</label>
+									<label class="col-md-4 control-label">Identification Card</label>
 									<div class="col-md-6">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-credit-card"></i></span> <input class="form-control data-mask" data-inputmask="'mask': '9-9999-99999-99-9'" type="text" th:field="*{idCard}" />
@@ -152,7 +159,7 @@
 									<div class="col-md-2"></div>
 								</div>
 								<div class="form-group" th:classappend="${#fields.hasErrors('address')} ? 'has-error'">
-									<label class="col-md-4 control-label">ที่อยู่</label>
+									<label class="col-md-4 control-label">Address</label>
 									<div class="col-md-6">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-home"></i></span> <input class="form-control" type="text" th:field="*{address}" />
@@ -162,7 +169,7 @@
 									<div class="col-md-2"></div>
 								</div>
 								<div class="form-group" th:classappend="${#fields.hasErrors('phoneNumber')} ? 'has-error'">
-									<label class="col-md-4 control-label">เบอร์โทร</label>
+									<label class="col-md-4 control-label">Phone Number</label>
 									<div class="col-md-6">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-phone"></i></span> <input class="form-control data-mask" type="text" data-inputmask="'mask': '(999) 999-9999'" th:field="*{phoneNumber}" />
@@ -172,15 +179,16 @@
 									<div class="col-md-2"></div>
 								</div>
 								<div class="form-group" th:classappend="${#fields.hasErrors('payMethod')} ? 'has-error'">
-									<label class="col-md-4 control-label">วิธีการชำระเงิน</label>
+									<label class="col-md-4 control-label">Payment Method</label>
 									<div class="col-md-6">
-										<div class="input-group">
-											<span class="input-group-addon"><i class="fa fa-paypal"></i></span> <input class="form-control" type="text" th:field="*{payMethod}" />
-										</div>
+											<!-- <input class="form-control" type="text" th:field="*{payMethod}" /> -->
+											<select class="form-control" th:field="*{payMethod}">
+												<option th:each="pay : ${payList}" th:value="${pay.payKey}" th:text="${pay.payValue}" />
+											</select>
 										<label class="control-label" th:if="${#fields.hasErrors('payMethod')}" th:errors="*{payMethod}">[error]</label>
 									</div>
 									<div class="col-md-2"></div>
-								</div>
+								</div> 
 								<!-- <div class="form-group">
 								<label class="col-md-4 control-label">ราคารถยนต์</label>
 								<div class="col-md-6">
@@ -191,16 +199,16 @@
 								</div>
 							</div> -->
 								<div class="form-group" th:classappend="${#fields.hasErrors('reservAmount')} ? 'has-error'">
-									<label class="col-md-4 control-label">จำนวนเงินจอง</label>
+									<label class="col-md-4 control-label">Reserve Amount</label>
 									<div class="col-md-6">
 										<div class="input-group">
-											<span class="input-group-addon"><i class="fa fa-dollar"></i></span> <input class="form-control" type="text" th:field="*{reservAmount}" /> <span class="input-group-addon">บาท</span>
+											<span class="input-group-addon"><i class="fa fa-dollar"></i></span> <input class="form-control" type="text" th:field="*{reservAmount}" /> <span class="input-group-addon">Baht</span>
 										</div>
 										<label class="control-label" th:if="${#fields.hasErrors('reservAmount')}" th:errors="*{reservAmount}">[error]</label>
 									</div>
 								</div>
 		 					<div class="form-group" th:classappend="${#fields.hasErrors('reservDate')} ? 'has-error'">
-									<label class="col-md-4 control-label">วันที่จอง</label>
+									<label class="col-md-4 control-label">Reserve Date</label>
 									<div class="col-md-6">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-calendar"></i></span> <input class="form-control data-mask" type="text" data-inputmask="'alias': 'dd/mm/yyyy'" th:field="*{reservDate}" />

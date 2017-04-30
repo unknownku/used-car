@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.oot.usedcar.domain.BuyCar;
 import com.oot.usedcar.domain.Car;
 import com.oot.usedcar.domain.CarReservation;
+import com.oot.usedcar.domain.PaymentMethod;
 import com.oot.usedcar.domain.Province;
 import com.oot.usedcar.domain.UsedCar;
 import com.oot.usedcar.form.BuyCarForm;
@@ -216,6 +217,18 @@ public class BuySellUsedCarController {
 //		reserveForm.setPhoneNumber("000000");
 		reserveForm.setReserveCar(uCar);
 
+		List<PaymentMethod> payList = new ArrayList();
+		PaymentMethod pay1 = new PaymentMethod();
+		pay1.setPayKey("C");
+		pay1.setPayValue("Cash");
+		payList.add(pay1);
+		
+		PaymentMethod pay2 = new PaymentMethod();
+		pay2.setPayKey("F");
+		pay2.setPayValue("Finance");
+		payList.add(pay2);
+		
+		model.addAttribute("payList", payList);
 		model.addAttribute("reserveForm", reserveForm);
 
 		return "reserveForm";
