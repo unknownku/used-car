@@ -3,6 +3,7 @@ package com.oot.usedcar.form;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -23,6 +24,8 @@ public class BuyCarForm {
     @Size(min=1, max=100, message = "Please input lastname")
 	private String lastname;
 	
+	@NotNull
+    @Size(min=1, max=500, message = "Please input address")
 	private String address;
 	
 	@NotNull
@@ -31,18 +34,39 @@ public class BuyCarForm {
 	
 	private Date buydate;	
 
-	
 	@NotNull
-	@Size(min=1, message = "กรุณากรอกวันที่จอง")	
+	@Size(min=1, message = "Plese select car license date")	
 	private String licensedate;
+	
 	
 	private String licenseNo;
 	private String cartype;
 	private String carstyle;
+	
+	
+	
+	@NotNull
+    @Size(min=1, max=100, message = "Please select used car brand")
 	private String carbrand;
+
+	@NotNull
+    @Size(min=1, max=100, message = "Please input used car model")
 	private String carmodel;
-	private String caryear;
+
+	@NotNull
+    @Size(min=1, max=100, message = "Please input used car sub model")
+	private String carmodelsub;
+	
+	
+	@Min(value = 1, message = "Please input used car year")
+	@NotNull(message = "Please input used car year")	
+	private int caryear;
+
+	@NotNull
+    @Size(min=1, max=100, message = "Please input used car color")
 	private String carcolor;
+	
+	
 	private String carno;
 	private String carnoat;
 	private String carenginebrand;
@@ -56,11 +80,27 @@ public class BuyCarForm {
 	private String caretc;
 	private Double carweight;
 	private Integer carseats;
+	
+	@Min(value = 1, message = "Please input used car buying price")
+	@NotNull(message = "Please input buy car price")	
 	private BigDecimal price;
 	
+	@NotNull
+    @Size(min=1, max=100, message = "Please input license plate number")
 	private String licenseplate;
-	private BigDecimal kilometer;
+	
+	@NotNull
+    @Size(min=1, max=100, message = "Please input license plate province")
+	private String licenseprovince;
+	
+	@Min(value = 1, message = "Please input used car kilometer")
+	@NotNull(message = "Please input used car kilometer")	
+	private int kilometer;
 
+	
+	private String validate;
+	
+	
 	public String getGender() {
 		return gender;
 	}
@@ -144,12 +184,13 @@ public class BuyCarForm {
 	public void setCarmodel(String carmodel) {
 		this.carmodel = carmodel;
 	}
-	public String getCaryear() {
-		return caryear;
+	public String getCarmodelsub() {
+		return carmodelsub;
 	}
-	public void setCaryear(String caryear) {
-		this.caryear = caryear;
+	public void setCarmodelsub(String carmodelsub) {
+		this.carmodelsub = carmodelsub;
 	}
+
 	public String getCarcolor() {
 		return carcolor;
 	}
@@ -246,11 +287,37 @@ public class BuyCarForm {
 	public void setLicenseplate(String licenseplate) {
 		this.licenseplate = licenseplate;
 	}
-	public BigDecimal getKilometer() {
+
+	public String getLicenseprovince() {
+		return licenseprovince;
+	}
+	public void setLicenseprovince(String licenseprovince) {
+		this.licenseprovince = licenseprovince;
+	}
+	public int getCaryear() {
+		return caryear;
+	}
+	public void setCaryear(int caryear) {
+		this.caryear = caryear;
+	}
+	public int getKilometer() {
 		return kilometer;
 	}
-	public void setKilometer(BigDecimal kilometer) {
+	public void setKilometer(int kilometer) {
 		this.kilometer = kilometer;
 	}
+	
+	
+	public String getStatus() {
+		return "Available";
+	}
+	
+	public String getValidate() {
+		return validate;
+	}
+	public void setValidate(String validate) {
+		this.validate = validate;
+	}
+	
 	
 }

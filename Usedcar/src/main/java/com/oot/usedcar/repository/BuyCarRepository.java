@@ -13,6 +13,10 @@ public interface BuyCarRepository extends JpaRepository<BuyCar, Long> {
 	BuyCar findByName(String name);
 	BuyCar findByLastname(String lastname);
 	BuyCar findByPrice(BigDecimal price);
+	BuyCar findByLicenseplate(String licenseplate);
+	BuyCar findByLicenseprovince(String licenseprovince);
+	
+	BuyCar findByLicenseplateAndLicenseprovince(String licenseplate, String licenseprovince);
 	
 	
 }

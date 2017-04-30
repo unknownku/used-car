@@ -37,7 +37,8 @@ public class BuyCar {
 	private String carstyle;
 	private String carbrand;
 	private String carmodel;
-	private String caryear;
+	private String carmodelsub;
+	private int caryear;
 	private String carcolor;
 	private String carno;
 	private String carnoat;
@@ -54,8 +55,9 @@ public class BuyCar {
 	private Integer carseats;
 	
 	private String licenseplate;
+	private String licenseprovince;
 	private BigDecimal price;
-	private BigDecimal kilometer;
+	private int kilometer;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -168,13 +170,6 @@ public class BuyCar {
 		this.carmodel = carmodel;
 	}
 
-	public String getCaryear() {
-		return caryear;
-	}
-
-	public void setCaryear(String caryear) {
-		this.caryear = caryear;
-	}
 
 	public String getCarcolor() {
 		return carcolor;
@@ -293,6 +288,7 @@ public class BuyCar {
 	}
 
 	public void setPrice(BigDecimal price) {
+
 		this.price = price;
 	}
 
@@ -308,15 +304,38 @@ public class BuyCar {
 		this.licenseplate = licenseplate;
 	}
 
-	public BigDecimal getKilometer() {
+	public String getCarmodelsub() {
+		return carmodelsub;
+	}
+
+	public void setCarmodelsub(String carmodelsub) {
+		this.carmodelsub = carmodelsub;
+	}
+
+	public String getLicenseprovince() {
+		return licenseprovince;
+	}
+
+	public void setLicenseprovince(String licenseprovince) {
+		this.licenseprovince = licenseprovince;
+	}
+
+	public int getCaryear() {
+		return caryear;
+	}
+
+	public void setCaryear(int caryear) {
+		this.caryear = caryear;
+	}
+
+	public int getKilometer() {
 		return kilometer;
 	}
 
-	public void setKilometer(BigDecimal kilometer) {
+	public void setKilometer(int kilometer) {
 		this.kilometer = kilometer;
 	}
 
-	
 	
 }
 

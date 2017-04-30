@@ -24,4 +24,21 @@ public class BuyCarServiceImplement implements BuyCarService {
 		buyCarRepository.save(buyCar);
 	}
 
+	@Override
+	public BuyCar findByLicenseplate(String licenseplate) {
+		return buyCarRepository.findByLicenseplate(licenseplate);
+	}
+
+	@Override
+	public BuyCar findByLicenseprovince(String licenseprovince) {
+		return buyCarRepository.findByLicenseprovince(licenseprovince);
+	}
+
+	@Override
+	public BuyCar findByLicenseplateAndLicenseprovince(String licenseplate, String licenseprovince) {
+		return buyCarRepository.findByLicenseplateAndLicenseprovince(licenseplate, licenseprovince);
+	}
+
+
+
 }

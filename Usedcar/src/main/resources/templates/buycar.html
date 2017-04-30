@@ -47,7 +47,8 @@
 									<label class="col-sm-3 control-label">Gender</label>
 									<div class="col-sm-3">
 										<div class="input-group">
-											<span class="input-group-addon"><i class="fa fa-user"></i></span> <select class="form-control" th:field="*{gender}">
+											<span class="input-group-addon"><i class="fa fa-user"></i></span> 
+											<select class="form-control"  th:field="*{gender}">
 												<option value="">Select gender</option>
 												<option value="M">Male</option>
 												<option value="F">Female</option>
@@ -79,26 +80,131 @@
 
 								</div>
 
-								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">Address</label>
+								<div class="form-group" th:classappend="${#fields.hasErrors('address') } ? 'has-error' " >
+									<label  class="col-sm-3 control-label">Address</label>
 									<div class="col-sm-8">
-										<textarea rows="3" class="form-control" placeholder="Enter address"></textarea>
+										<textarea rows="3" class="form-control" placeholder="Enter address"  th:field="*{address}" ></textarea>
+										<label class="control-label"  th:if="${#fields.hasErrors('address')}" th:errors="*{address}">[error]</label>
 									</div>
 								</div>
 								
 								<div class="form-group"  th:classappend="${#fields.hasErrors('phone') } ? 'has-error'">
-									<label for="inputRegDate" class="col-sm-3 control-label">Telephone/Mobile</label>
+									<label  class="col-sm-3 control-label">Telephone/Mobile</label>
 									<div class="col-sm-8">
 										<div class="input-group">
 											<span class="input-group-addon"><i class="fa fa-phone"></i></span> 
 											<input type="text" class="form-control data-mask"  th:field="*{phone}"  data-inputmask="'mask': '(999) 999-9999'"  />
 										</div>
-										<label class="control-label" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">[error]</label>
+										<label class="control-label"  th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">[error]</label>
 									</div>
 								</div>
 								
 							</div>
 						</div>
+					</div>
+
+
+					<div class="box box-info">
+						<div class="box-header with-border">
+							<h3 class="box-title">Used Car Details</h3>
+						</div>
+
+						<div class="form-horizontal">
+							<div class="box-body">
+
+								<div class="form-group" th:classappend="${#fields.hasErrors('carbrand') } ? 'has-error'">
+									<label  class="col-sm-3 control-label">Brand</label>
+									<div class="col-sm-3">
+										<select class="form-control"  th:field="*{carbrand}">
+											<option value="TOYOTA">Select Brand</option>
+											<option th:each="car : ${carList}" th:value="${car.brand}" th:text="${car.brand}" />
+										</select>
+									</div>
+									<label class="control-label"  th:if="${#fields.hasErrors('carbrand')}" th:errors="*{carbrand}">[error]</label>
+								</div>
+								
+								
+								<div class="form-group"  th:classappend="${#fields.hasErrors('carmodel') } ? 'has-error'">
+									<label  class="col-sm-3 control-label">Model</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control"  th:field="*{carmodel}" placeholder="Select model" />
+										<label class="control-label"  th:if="${#fields.hasErrors('carmodel')}" th:errors="*{carmodel}">[error]</label>
+									</div>
+								</div>
+								
+								<div class="form-group" th:classappend="${#fields.hasErrors('carmodelsub') } ? 'has-error'">
+									<label  class="col-sm-3 control-label">SubModel</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control"  th:field="*{carmodelsub}"  placeholder="Select sub model" />
+										<label class="control-label"  th:if="${#fields.hasErrors('carmodelsub')}" th:errors="*{carmodelsub}">[error]</label>
+									</div>
+								</div>
+								
+								<div class="form-group" th:classappend="${#fields.hasErrors('caryear') } ? 'has-error'">
+									<label  class="col-sm-3 control-label">Year</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control"  th:field="*{caryear}"  placeholder="Car year" />
+										<label class="control-label"  th:if="${#fields.hasErrors('caryear')}" th:errors="*{caryear}">[error]</label>
+									</div>
+								</div>
+								
+								<div class="form-group" th:classappend="${#fields.hasErrors('carcolor') } ? 'has-error'">
+									<label  class="col-sm-3 control-label">Color</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control"  th:field="*{carcolor}"  placeholder="Car color" />
+										<label class="control-label"  th:if="${#fields.hasErrors('carcolor')}" th:errors="*{carcolor}">[error]</label>
+									</div>
+								</div>
+								
+								<div class="form-group" th:classappend="${#fields.hasErrors('licenseplate') } ? 'has-error'">
+									<label  class="col-sm-3 control-label">License Plate</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control"  th:field="*{licenseplate}"  placeholder="Enter license plate" />
+										<label class="control-label"  th:if="${#fields.hasErrors('licenseplate')}" th:errors="*{licenseplate}">[error]</label>
+										<label class="control-label"   id="Validate" >หมายเลขทะเบียน ซ้ำกันในระบบ</label>
+									</div>
+								</div>
+
+								<div class="form-group" th:classappend="${#fields.hasErrors('licenseprovince') } ? 'has-error'">
+									<label  class="col-sm-3 control-label">Province</label>
+									<div class="col-sm-3">
+										<select class="form-control"  th:field="*{licenseprovince}" >
+											<option value="กรุงเทพมหานคร">Please select province</option>
+											<option th:each="province : ${provinceList}" th:value="${province.nameth}" th:text="${province.nameth}" />
+										</select>
+									</div>
+									<label class="control-label"  th:if="${#fields.hasErrors('licenseprovince')}" th:errors="*{licenseprovince}">[error]</label>
+								</div>
+
+								<div class="form-group" th:classappend="${#fields.hasErrors('kilometer') } ? 'has-error'">
+									<label  class="col-sm-3 control-label">Kilometer</label>
+									<div class="col-sm-8">
+											<div class="input-group">
+													<input type="text" class="form-control"  th:field="*{kilometer}"   placeholder="Enter used car kilometer" />
+													<span class="input-group-addon">Kilometer</span>													
+											</div>
+											<label class="control-label"  th:if="${#fields.hasErrors('kilometer')}" th:errors="*{kilometer}">[error]</label>
+									</div>
+								</div>
+														
+								<div class="form-group"  th:classappend="${#fields.hasErrors('price') } ? 'has-error'">
+									<label  class="col-sm-3 control-label">Price</label>
+									<div class="col-sm-8">
+										<div class="input-group">
+												<input type="text" class="form-control"  th:field="*{price}"  placeholder="Enter car buy price" />
+												<span class="input-group-addon">Baht</span>												
+										</div>
+										<label class="control-label"  th:if="${#fields.hasErrors('price')}" th:errors="*{price}">[error]</label>
+									</div>
+								</div>
+
+								
+
+							</div>
+				
+								
+						</div>
+
 					</div>
 
 
@@ -119,202 +225,122 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">License Number</label>
+									<label class="col-sm-3 control-label">License Number</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="" placeholder="Enter license number" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">Province</label>
-									<div class="col-sm-8">
-										<select class="form-control">
-											<option value="">Please select province</option>
-											<option th:each="province : ${provinceList}" th:value="${province.nameen}" th:text="${province.nameen}" />
-										</select>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">Car Type</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="" placeholder="Select car type" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">Style</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="" placeholder="Select car style" />
-									</div>
-								</div>
-								<div class="form-group">
-									<!-- th:if="${carList != null and not #lists.isEmpty(carList)}" -->
-									<label for="inputRegDate" class="col-sm-3 control-label">Brand</label>
-									<div class="col-sm-8">
-										<select class="form-control">
-											<option value="">Select Brand</option>
-											<option th:each="car : ${carList}" th:value="${car.brand}" th:text="${car.brand}" />
-										</select>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">Model</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="" placeholder="Select model" />
-									</div>
-								</div>
-								
-								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">SubModel</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="" placeholder="Select model" />
-									</div>
-								</div>
-								
-								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">Year</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="" placeholder="Car year" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">Color</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="" placeholder="Car color" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">Car Number</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="" placeholder="Enter car number" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">Car At</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="" placeholder="Car number at" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">Engine Brand</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="" placeholder="Select engine brand" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">Engine Number</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="" placeholder="Enter engine number" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">Engine At</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="" placeholder="Engine number at" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">Fuel Type</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="" placeholder="Enter fuel type" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">Gas Cylinder Number</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="" placeholder="Enter gas cylinder number" />
+										<input type="text" class="form-control"  placeholder="Enter license number"   th:field="*{licenseNo}" />
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">Amount</label>
+									<label  class="col-sm-3 control-label">Car Type</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control"  placeholder="Select car type"   th:field="*{cartype}" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label  class="col-sm-3 control-label">Style</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control"  placeholder="Select car style"  th:field="*{carstyle}" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Car Number</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control"  placeholder="Enter car number"  th:field="*{carno}" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label  class="col-sm-3 control-label">Car At</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control"   placeholder="Car number at"   th:field="*{carnoat}" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label  class="col-sm-3 control-label">Engine Brand</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control"  placeholder="Select engine brand"   th:field="*{carenginebrand}" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label  class="col-sm-3 control-label">Engine Number</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control"  placeholder="Enter engine number"  th:field="*{carengineno}" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label  class="col-sm-3 control-label">Engine At</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control"  placeholder="Engine number at"   th:field="*{carenginenoat}" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label  class="col-sm-3 control-label">Fuel Type</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control"  placeholder="Enter fuel type"   th:field="*{fueltype}" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label  class="col-sm-3 control-label">Gas Cylinder Number</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control"  placeholder="Enter gas cylinder number"   th:field="*{gascylinno}" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label  class="col-sm-3 control-label">Amount</label>
 									<div class="col-sm-8">
 										<div class="form-group">
 											<div class="col-sm-6">
 												<div class="input-group">
-													<input type="text" class="form-control" id="" placeholder="Number of piston" /> <span class="input-group-addon">Piston</span>
+													<input type="text" class="form-control"  placeholder="Number of piston"   th:field="*{pistonno}" /> <span class="input-group-addon">Piston</span>
 												</div>
 											</div>
 											<div class="col-sm-6">
 												<div class="input-group">
-													<input type="text" class="form-control" id="" placeholder="Number of CC" /> <span class="input-group-addon">CC</span>
+													<input type="text" class="form-control"  placeholder="Number of CC"   th:field="*{carcc}" /> <span class="input-group-addon">CC</span>
 												</div>
 											</div>
 											<div class="col-sm-6">
 												<div class="input-group">
-													<input type="text" class="form-control" id="" placeholder="Number of horsepower" /> <span class="input-group-addon">Horsepower</span>
+													<input type="text" class="form-control"  placeholder="Number of horsepower"  th:field="*{carhotpower}"  /> <span class="input-group-addon">Horsepower</span>
 												</div>
 											</div>
 											<div class="col-sm-6">
-												<input type="text" class="form-control" id="" placeholder="etc." />
+												<input type="text" class="form-control"  placeholder="etc."   th:field="*{caretc}" />
 											</div>
 										</div>
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">Weight Gross</label>
+									<label  class="col-sm-3 control-label">Weight Gross</label>
 									<div class="col-sm-8">
 										<div class="input-group">
-											<input type="text" class="form-control" id="" placeholder="Enter weight gross" /> <span class="input-group-addon">Kg.</span>
+											<input type="text" class="form-control"  placeholder="Enter weight gross"   th:field="*{carweight}" /> <span class="input-group-addon">Kg.</span>
 										</div>
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">Seats</label>
+									<label  class="col-sm-3 control-label">Seats</label>
 									<div class="col-sm-8">
 										<div class="input-group">
-											<input type="text" class="form-control" id="" placeholder="Enter number of seats" /> <span class="input-group-addon">person</span>
+											<input type="text" class="form-control"  placeholder="Enter number of seats"  th:field="*{carseats}"  /> <span class="input-group-addon">person</span>
 										</div>
 									</div>
 								</div>
 
 							</div>
 
-						</div>
-					</div>
-
-					<div class="box box-info">
-						<div class="box-header with-border">
-							<h3 class="box-title">Used Car Details</h3>
-						</div>
-
-						<div class="form-horizontal">
-							<div class="box-body">
-
-								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">License Plate</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="" placeholder="Enter license plate" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">Price</label>
-									<div class="col-sm-8">
-										<div class="input-group">
-												<input type="text" class="form-control" id="" placeholder="Enter car buy price" />
-												<span class="input-group-addon">Baht</span>
-										</div>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputRegDate" class="col-sm-3 control-label">Kilometer</label>
-									<div class="col-sm-8">
-											<div class="input-group">
-													<input type="text" class="form-control" id="" placeholder="Enter used car kilometer" />
-													<span class="input-group-addon">Kilometer</span>
-											</div>
-											
-									</div>
-								</div>
-								
-
-							</div>
-							<div class="box-footer">
+					
+							<div class="box-footer">								
 								<button type="submit" class="btn btn-primary center-block">Submit</button>
-							</div>						
-								
+							</div>		
+							
 						</div>
-
 					</div>
+
+
 	
 			</div>
 			

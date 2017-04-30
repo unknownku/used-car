@@ -29,6 +29,7 @@ import com.oot.usedcar.form.UsedCarReserveSearchForm;
 import com.oot.usedcar.form.UsedCarSearchForm;
 import com.oot.usedcar.service.InitialDataService;
 import com.oot.usedcar.service.buycar.BuyCarService;
+import com.oot.usedcar.service.buycar.BuyCarServiceImplement;
 import com.oot.usedcar.service.car.CarService;
 import com.oot.usedcar.service.estimate.EstimatePriceService;
 import com.oot.usedcar.service.province.ProvinceService;
@@ -281,7 +282,7 @@ public class BuySellUsedCarController {
 	@RequestMapping(value = { "/saveBuycar" }, method = RequestMethod.POST)
 	public String saveBuycar(@Valid @ModelAttribute("buyCar") BuyCarForm buyCar, 
 			BindingResult bindingResult, Model model) {
-
+		
 		if (bindingResult.hasErrors()) {
 			List<FieldError> xxx = bindingResult.getFieldErrors();
 			for (FieldError fieldError : xxx) {
@@ -291,14 +292,69 @@ public class BuySellUsedCarController {
 			// return "redirect:reserveForm/1";
 			return "buycar";
 		}
+		else {
+
+			String licenseplate = buyCar.getLicenseplate();
+			String licenseprovince = buyCar.getLicenseprovince();
+			BuyCar car  = buyCarService.findByLicenseplateAndLicenseprovince(licenseplate, licenseprovince);
+			if (car != null) {
+				
+				model.addAttribute("validate", "YYYYYYYYYYY");
+				System.out.println("ERRRRRRRRRRRRRRRRRRRR");
+				model.addAttribute("buyCar", buyCar);
+				return "buycar";
+			} 
+		}
 		
 		BuyCar buyCarSave = new BuyCar();
 		buyCarSave.setGender(buyCar.getGender());
+		buyCarSave.setCusid(buyCar.getCusid());
 		buyCarSave.setName(buyCar.getName());
 		buyCarSave.setLastname(buyCar.getLastname());
+		buyCarSave.setAddress(buyCar.getAddress());
+		buyCarSave.setPhone(buyCar.getPhone());
 //		buyCarSave.setBuydate(new Date());
 
+		buyCarSave.setLicensedate(StringUtil.convertStringToDate(buyCar.getLicensedate()));
+		buyCarSave.setLicenseNo(buyCar.getLicenseNo());
+		buyCarSave.setCartype(buyCar.getCartype());
+		buyCarSave.setCarstyle(buyCar.getCarstyle());
+		buyCarSave.setCarbrand(buyCar.getCarbrand());
+		buyCarSave.setCarmodel(buyCar.getCarmodel());
+		buyCarSave.setCarmodelsub(buyCar.getCarmodelsub());
+		buyCarSave.setCaryear(buyCar.getCaryear());
+		buyCarSave.setCarcolor(buyCar.getCarcolor());
+		buyCarSave.setCarno(buyCar.getCarno());
+		buyCarSave.setCarnoat(buyCar.getCarnoat());
+		buyCarSave.setCarenginebrand(buyCar.getCarenginebrand());
+		buyCarSave.setCarengineno(buyCar.getCarengineno());
+		buyCarSave.setCarenginenoat(buyCar.getCarenginenoat());
+		buyCarSave.setFueltype(buyCar.getFueltype());
+		buyCarSave.setGascylinno(buyCar.getGascylinno());
+		buyCarSave.setPistonno(buyCar.getPistonno());
+		buyCarSave.setCarcc(buyCar.getCarcc());
+		buyCarSave.setCarhotpower(buyCar.getCarhotpower());
+		buyCarSave.setCaretc(buyCar.getCaretc());
+		buyCarSave.setCarweight(buyCar.getCarweight());
+		buyCarSave.setCarseats(buyCar.getCarseats());
+		buyCarSave.setLicenseplate(buyCar.getLicenseplate());
+		buyCarSave.setLicenseprovince(buyCar.getLicenseprovince());
+		buyCarSave.setPrice(buyCar.getPrice());
+		buyCarSave.setKilometer(buyCar.getKilometer());		
 		buyCarService.save(buyCarSave);
+		
+		UsedCar usedcar = new UsedCar();
+		usedcar.setBrand(buyCar.getCarbrand());
+		usedcar.setCarId(buyCar.getLicenseplate());
+		usedcar.setColor(buyCar.getCarcolor());
+		usedcar.setKilometer(buyCar.getKilometer());
+		usedcar.setModel(buyCar.getCarmodel());
+		usedcar.setPrice(buyCar.getPrice());
+		usedcar.setSubmodel(buyCar.getCarmodelsub());
+		usedcar.setYear(buyCar.getCaryear());
+		usedcar.setStatus(buyCar.getStatus());
+		usedCarService.save(usedcar);
+		
 		
 		model.addAttribute("successHeader", "Save Completed !");
 		model.addAttribute("successDetail", "Done! You are successfully add new used car.");
