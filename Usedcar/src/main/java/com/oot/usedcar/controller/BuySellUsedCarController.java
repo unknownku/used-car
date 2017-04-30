@@ -283,7 +283,7 @@ public class BuySellUsedCarController {
 		return "index";
 	}
 
-	@RequestMapping(value = { "/successAction" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/successAction" }, method = RequestMethod.POST)
 	public String successAction(Model mode) {
 		
 		mode.addAttribute("","");
