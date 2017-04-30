@@ -9,7 +9,6 @@ public class EstimatePriceForm {
 	private String subModel;
 	private int year;
 
-	// @Min(value = 1, message = "The value must be positive")
 	private int kilometer;
 	private boolean isFlooding;
 	private boolean isCrashing;

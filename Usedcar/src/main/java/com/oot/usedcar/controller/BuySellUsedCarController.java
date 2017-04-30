@@ -11,12 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.oot.usedcar.domain.BuyCar;
 import com.oot.usedcar.domain.Car;
 import com.oot.usedcar.domain.CarReservation;
 import com.oot.usedcar.domain.PaymentMethod;
@@ -116,14 +116,20 @@ public class BuySellUsedCarController {
 	@RequestMapping(value = "/estimatePrice", method = RequestMethod.POST)
 	public String estimatePrice(@Valid EstimatePriceForm estimatePriceForm, BindingResult bindingResult, Model model) {
 		System.out.println("post estimatePrice");
+		int kilometer = estimatePriceForm.getKilometer();
+		if(kilometer < 0) {
+			ObjectError objError = new ObjectError("kilometer", "กรุณากรอกระยะทางที่ใช้ไปให้มากกว่าหรือเท่ากับศูนย์");
+			bindingResult.addError(objError);
+		}
 		if (bindingResult.hasErrors()) {
-			return "estimate";
+			model.addAttribute("price", 0);
+			return "fragments/estimate :: estimate-price";
 		}
 		String brand = estimatePriceForm.getBrand();
 		String model2 = estimatePriceForm.getModel();
 		String subModel = estimatePriceForm.getSubModel();
 		int year = estimatePriceForm.getYear();
-		int kilometer = estimatePriceForm.getKilometer();
+		
 		boolean isFlooding = estimatePriceForm.isFlooding();
 		boolean isCrashing = estimatePriceForm.isCrashing();
 		int scratchRate = estimatePriceForm.getScratchRate();

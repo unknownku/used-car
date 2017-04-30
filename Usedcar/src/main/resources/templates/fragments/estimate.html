@@ -38,7 +38,7 @@
 </div>
 
 <div th:fragment="estimate-check" xmlns:th="http://www.thymeleaf.org" th:remove="tag">
-	<div class="form-group" >
+	<div class="form-group">
 		<label>Flooding</label>
 		<div class="radio">
 			<label> <input type="radio" th:object="${estimatePriceForm}" th:field="*{flooding}" name="flooding" id="flooding2" value="0" /> Never
@@ -70,7 +70,7 @@
 			</label>
 		</div>
 		<div class="radio">
-			<label> <input type="radio" th:object="${estimatePriceForm}" th:field="*{scratchRate}" name="scratchRate" id="scratchRateRadio1" value="1"/> Low
+			<label> <input type="radio" th:object="${estimatePriceForm}" th:field="*{scratchRate}" name="scratchRate" id="scratchRateRadio1" value="1" /> Low
 			</label>
 		</div>
 		<div class="radio">
@@ -83,13 +83,14 @@
 		</div>
 	</div>
 
-	<div class="form-group">
-		<label>Kilometer usage</label>
-		<div class="input-group">
-			<input  type="text" th:object="${estimatePriceForm}" class="form-control"  th:field="*{kilometer}" placeholder="100,000" /><span class="input-group-addon"><i class="fa fa-car"></i></span>
-			<span class="help-block" th:if="${#fields.hasErrors('estimatePriceForm.kilometer')}"  th:errors="*{kilometer}">kilometer error message</span>
+	<div class="form-group" th:object="${estimatePriceForm}" th:classappend="${#fields.hasErrors('kilometer')} ? 'has-error'">
+		<label>Kilometer</label>
+		<div>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-dashboard"></i></span> <input th:object="${estimatePriceForm}" class="form-control" type="number" min="0" th:field="*{kilometer}" /><span class="input-group-addon">km</span>
+			</div>
+			<label class="control-label" th:if="${#fields.hasErrors('kilometer')}" th:errors="*{kilometer}">[error]</label>
 		</div>
-		
 	</div>
 	<div class="box-footer">
 		<button type="submit" class="btn btn-primary pull-right">Submit</button>
