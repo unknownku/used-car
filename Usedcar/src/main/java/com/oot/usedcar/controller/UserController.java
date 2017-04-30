@@ -41,7 +41,7 @@ public class UserController {
         userService.save(user);
         securityService.autologin(userLoginForm.getUsername(), userLoginForm.getPassword());
         System.out.println("register welcome");
-        return "redirect:/welcome";
+        return "redirect:/estimatePrice";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -52,8 +52,8 @@ public class UserController {
         }
     	
     	securityService.autologin(userLoginForm.getUsername(), userLoginForm.getPassword());
-    	System.out.println("login welcome");
-        return "redirect:/welcome";
+    	System.out.println("login estimatePrice");
+        return "redirect:/estimatePrice";
     }
     
     @RequestMapping(value = "/login", method = RequestMethod.GET)
