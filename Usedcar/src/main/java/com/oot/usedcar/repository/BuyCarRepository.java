@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface BuyCarRepository extends JpaRepository<BuyCar, Long> {
 	BuyCar findById(Long id);
-	BuyCar findByCustomerId(String customerId);
+	BuyCar findByGender(String gender);
 	BuyCar findByName(String name);
 	BuyCar findByLastname(String lastname);
 	BuyCar findByDate(Date date);
