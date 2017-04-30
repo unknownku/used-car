@@ -3,29 +3,44 @@ package com.oot.usedcar.form;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.oot.usedcar.domain.Car;
+import com.oot.usedcar.domain.UsedCar;
 
 public class ReserveForm {
-	
+	@NotNull
+    @Size(min=2, max=30, message = "ชื่อห้ามเป็นค่าว่างและมีอย่างน้อย 2 ตัวอักษร")
 	private String name;
 
+	@NotNull
+	@Size(min=1, message = "กรุณากรอกที่อยู่")
     private String address;
 	
+	@NotNull
+	@Size(min=1, message = "กรุณากรอกหมายเลขโทรศัพท์")
     private String phoneNumber;
 
+	@NotNull
+	@Size(min=1, message = "กรุณากรอกหมายบัตรประชาชน")
     private String idCard;
 
+	@NotNull
+	@Size(min=1, message = "กรุณากรอกวิธีการชำระเงิน")
     private String payMethod;
 
+	@Min(value = 1, message = "กรุณากรอกจำนวนเงินที่จอง")
+	@NotNull(message = "กรุณากรอกจำนวนเงินที่จอง")
     private BigDecimal reservAmount;
 
-    private Date reservDate;
+	@NotNull
+	@Size(min=1, message = "กรุณากรอกวันที่จอง")
+    private String reservDate;
 
     private String reservNo;
     
-    private Car reserveCar;
+    private UsedCar reserveCar;
 
 	public String getName() {
 		return name;
@@ -75,11 +90,11 @@ public class ReserveForm {
 		this.reservAmount = reservAmount;
 	}
 
-	public Date getReservDate() {
+	public String getReservDate() {
 		return reservDate;
 	}
 
-	public void setReservDate(Date reservDate) {
+	public void setReservDate(String reservDate) {
 		this.reservDate = reservDate;
 	}
 
@@ -91,13 +106,12 @@ public class ReserveForm {
 		this.reservNo = reservNo;
 	}
 
-	public Car getReserveCar() {
+	public UsedCar getReserveCar() {
 		return reserveCar;
 	}
 
-	public void setReserveCar(Car reserveCar) {
+	public void setReserveCar(UsedCar reserveCar) {
 		this.reserveCar = reserveCar;
 	}
-	
-	
+
 }

@@ -5,28 +5,38 @@
 <title>Reserve</title>
 
 <script>
-	/*
-	 $(document).ready(function() {
-	 $('#reserveForm').formValidation({
-	 framework : 'bootstrap',
-	 icon : {
-	 valid : 'glyphicon glyphicon-ok',
-	 invalid : 'glyphicon glyphicon-remove',
-	 validating : 'glyphicon glyphicon-refresh'
-	 },
-	 fields : {
-	 address : {
-	 excluded : false,
-	 validators : {
-	 notEmpty : {
-	 message : 'Please fill out each field'
-	 }
-	 }
-	 }
-	 }
-	 });
-	 });
-	 */
+	$(document).ready(function() {
+		/* $('#reserveForm').formValidation({
+		framework : 'bootstrap',
+		icon : {
+		valid : 'glyphicon glyphicon-ok',
+		invalid : 'glyphicon glyphicon-remove',
+		validating : 'glyphicon glyphicon-refresh'
+		},
+		fields : {
+		address : {
+		excluded : false,
+		validators : {
+		notEmpty : {
+		message : 'Please fill out each field'
+		}
+		}
+		}
+		}
+		}); */
+		$('#reservDate').datepicker({
+			autoclose : true,
+			format : 'dd/mm/yyyy'
+		});
+		$(".data-mask").inputmask();
+		
+		 var reserveDate = $("#reservDate").val();
+		 console.log("reserveDate===>["+reserveDate+"]");
+		 if( reserveDate == ""){
+			$("#reservDate").datepicker().datepicker("setDate", new Date());
+		 }
+
+	});
 </script>
 
 </head>
@@ -41,71 +51,182 @@
 		</ol> -->
 	</section>
 	<div layout:fragment="content">
+		<form id="reserveForm" th:action="@{~/saveReserve}" th:object="${reserveForm}" method="post">
+		
 		<div class="row">
-			<div class="col-md-2"></div>
 			<div class="col-md-8">
 				<div class="box box-info">
 					<div class="box-header with-border">
-						<h3 class="box-title">Car Details.</h3>
+						<h3 class="box-title">Used Car Details.</h3>
 					</div>
 					<!-- /.box-header -->
-					<div class="box-body">
-						<form id="reserveForm" th:action="@{~/saveReserve}" th:object="${reserveForm}" method="post">
-							<div class="form-group">
-								<label>Brand</label>
+					<div class="form-horizontal">
+						<div class="box-body">
 								<div class="form-group">
-									<input class="form-control" type="text" th:field="*{reserveCar.brand}" readonly="readonly" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label>Model</label>
-								<div class="form-group">
-									<input class="form-control" type="text" th:field="*{reserveCar.model}" readonly="readonly" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label>SubModel</label>
-								<div class="form-group">
-									<input class="form-control" type="text" th:field="*{reserveCar.subModel}" readonly="readonly" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label>Year</label>
-								<div class="form-group">
-									<input class="form-control" type="text" th:field="*{reserveCar.year}" readonly="readonly" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label>MiddlePrice</label>
-								<div class="form-group">
-									<input class="form-control" type="text" th:field="*{reserveCar.middlePrice}" readonly="readonly" />
-								</div>
-							</div>
-						</form>
+									<label class="col-md-2 control-label">Brand</label>
+									<div class="col-md-3">
+									<input class="form-control" type="hidden" th:field="*{reserveCar.id}" />
+										<input class="form-control" type="text" th:field="*{reserveCar.brand}" readonly="readonly" />
+									</div>
 
+									<label class="col-md-2 control-label">Model</label>
+									<div class="col-md-3">
+										<input class="form-control" type="text" th:field="*{reserveCar.model}" readonly="readonly" />
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">SubModel</label>
+									<div class="col-md-3">
+										<input class="form-control" type="text" th:field="*{reserveCar.submodel}" readonly="readonly" />
+									</div>
+
+									<label class="col-md-2 control-label">Year</label>
+									<div class="col-md-3">
+										<input class="form-control" type="text" th:field="*{reserveCar.year}" readonly="readonly" />
+									</div>
+
+									<div class="col-md-2"></div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">License Plate</label>
+									<div class="col-md-3">
+										<input class="form-control" type="text" th:field="*{reserveCar.carId}" readonly="readonly" />
+									</div>
+
+									<label class="col-md-2 control-label">Color</label>
+									<div class="col-md-3">
+										<input class="form-control" type="text" th:field="*{reserveCar.color}" readonly="readonly" />
+									</div>
+
+									<div class="col-md-2"></div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">Price</label>
+									<div class="col-md-6">
+										<div class="input-group">
+											<input class="form-control" type="text" th:field="*{reserveCar.price}" readonly="readonly" /> <span class="input-group-addon">Baht</span>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">Kilometer</label>
+									<div class="col-md-6">
+										<div class="input-group">
+											<input class="form-control" type="text" th:field="*{reserveCar.kilometer}" readonly="readonly" /> <span class="input-group-addon">Kilometer</span>
+										</div>
+									</div>
+								</div>
+							<!-- </form> -->
+						</div>
 					</div>
 					<!-- /.box-body -->
 				</div>
 			</div>
-			<div class="col-md-2"></div>
+			<div class="col-md-4"></div>
 		</div>
 
 		<div class="row">
-			<div class="col-md-2"></div>
 			<div class="col-md-8">
 				<div class="box box-warning">
 					<div class="box-header with-border">
 						<h3 class="box-title">Customer's reserve details.</h3>
 					</div>
 					<!-- /.box-header -->
-					<div class="box-body">
-						<a class="btn btn-app"> <i class="fa fa-edit"></i> Edit
-						</a>
+					<div class="form-horizontal">
+						<div class="box-body">
+							<!-- <form id="reserveForm" th:action="@{~/saveReserve}" th:object="${reserveForm}" method="post"> -->
+								<div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'has-error'">
+									<label class="col-md-4 control-label">Customer Name</label>
+									<div class="col-md-6">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-user"></i></span> 
+											<input class="form-control" type="text" th:field="*{name}" /> 
+										</div>
+										<label class="control-label" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">[error]</label>
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+								
+								<div class="form-group" th:classappend="${#fields.hasErrors('idCard')} ? 'has-error'">
+									<label class="col-md-4 control-label">Identification Card</label>
+									<div class="col-md-6">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-credit-card"></i></span> <input class="form-control data-mask" data-inputmask="'mask': '9-9999-99999-99-9'" type="text" th:field="*{idCard}" />
+										</div>
+										<label class="control-label" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}">[error]</label>
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+								<div class="form-group" th:classappend="${#fields.hasErrors('address')} ? 'has-error'">
+									<label class="col-md-4 control-label">Address</label>
+									<div class="col-md-6">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-home"></i></span> <input class="form-control" type="text" th:field="*{address}" />
+										</div>
+										<label class="control-label" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">[error]</label>
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+								<div class="form-group" th:classappend="${#fields.hasErrors('phoneNumber')} ? 'has-error'">
+									<label class="col-md-4 control-label">Phone Number</label>
+									<div class="col-md-6">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-phone"></i></span> <input class="form-control data-mask" type="text" data-inputmask="'mask': '(999) 999-9999'" th:field="*{phoneNumber}" />
+										</div>
+										<label class="control-label" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">[error]</label>
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+								<div class="form-group" th:classappend="${#fields.hasErrors('payMethod')} ? 'has-error'">
+									<label class="col-md-4 control-label">Payment Method</label>
+									<div class="col-md-6">
+											<!-- <input class="form-control" type="text" th:field="*{payMethod}" /> -->
+											<select class="form-control" th:field="*{payMethod}">
+												<option th:each="pay : ${payList}" th:value="${pay.payKey}" th:text="${pay.payValue}" />
+											</select>
+										<label class="control-label" th:if="${#fields.hasErrors('payMethod')}" th:errors="*{payMethod}">[error]</label>
+									</div>
+									<div class="col-md-2"></div>
+								</div> 
+								<!-- <div class="form-group">
+								<label class="col-md-4 control-label">ราคารถยนต์</label>
+								<div class="col-md-6">
+									<div class="input-group">
+										<input class="form-control" type="text" th:field="*{carPrice}"  />
+										<span class="input-group-addon">บาท</span>
+									</div>
+								</div>
+							</div> -->
+								<div class="form-group" th:classappend="${#fields.hasErrors('reservAmount')} ? 'has-error'">
+									<label class="col-md-4 control-label">Reserve Amount</label>
+									<div class="col-md-6">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-dollar"></i></span> <input class="form-control" type="text" th:field="*{reservAmount}" /> <span class="input-group-addon">Baht</span>
+										</div>
+										<label class="control-label" th:if="${#fields.hasErrors('reservAmount')}" th:errors="*{reservAmount}">[error]</label>
+									</div>
+								</div>
+		 					<div class="form-group" th:classappend="${#fields.hasErrors('reservDate')} ? 'has-error'">
+									<label class="col-md-4 control-label">Reserve Date</label>
+									<div class="col-md-6">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span> <input class="form-control data-mask" type="text" data-inputmask="'alias': 'dd/mm/yyyy'" th:field="*{reservDate}" />
+										</div>
+										<label class="control-label" th:if="${#fields.hasErrors('reservDate')}" th:errors="*{reservDate}">[error]</label>
+									</div>
+									<div class="col-md-2"></div>
+								</div>   
+							<button type="submit" class="btn btn-primary center-block">Reserve Car</button>
+							
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-2"></div>
+			<div class="col-md-4"></div>
 		</div>
+		</form>
+		
 	</div>
 </body>
 </html>

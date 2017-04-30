@@ -14,27 +14,43 @@
 
 				<div class="box box-info">
 					<div class="box-header with-border">
-						<h3 class="box-title">ข้อมูลลูกค้า</h3>
+						<h3 class="box-title">Customer Details</h3>
+						<span class="pull-right"> <i class="fa fa-clock-o"></i> 23 April 2017
+						</span>
 					</div>
 					<div class="form-horizontal">
 						<div class="box-body">
+
 							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">ชื่อ</label>
+								<label for="inputRegDate" class="col-sm-3 control-label">Sex</label>
 								<div class="col-sm-2">
+									<select class="form-control" >
+										<option value=""></option>
+										<option value="M"  >Male</option>
+										 <option value="F"  >Female</option>
+									</select>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label for="inputRegDate" class="col-sm-3 control-label">Name</label>
+								<div class="col-sm-3">
 									<input type="text" class="form-control" id="" placeholder="First name" />
 								</div>
-								<div class="col-sm-6">
+								<div class="col-sm-5">
 									<input type="text" class="form-control" id="" placeholder="Last name" />
 								</div>
 							</div>
+							
 							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">ที่อยู่</label>
+								<label for="inputRegDate" class="col-sm-3 control-label">Address</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="" placeholder="Address" />
+
+									<textarea rows="3" class="form-control"  placeholder="Enter address" ></textarea>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">เบอร์โทรศัพท์</label>
+								<label for="inputRegDate" class="col-sm-3 control-label">Telephone/Mobile</label>
 								<div class="col-sm-8">
 									<input type="text" class="form-control" id="" placeholder="Phone" />
 								</div>
@@ -46,170 +62,160 @@
 
 				<div class="box box-info">
 					<div class="box-header with-border">
-						<h3 class="box-title">รายการจดทะเบียน</h3>
+						<h3 class="box-title">License List</h3>
 					</div>
 					<div class="form-horizontal">
 						<div class="box-body">
 							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">วันที่จดทะเบียน</label>
+								<label for="inputRegDate" class="col-sm-3 control-label">License Date</label>
 								<div class="col-sm-8">
 									<input type="text" class="form-control" id="" placeholder="วันที่จดทะเยียน" />
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">เลขทะเบียน</label>
+								<label for="inputRegDate" class="col-sm-3 control-label">License Number</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="" placeholder="เลขทะเบียน" />
+									<input type="text" class="form-control" id="" placeholder="Enter license number" />
+								</div>
+							</div>
+							<div class="form-group"  th:if="${provinceList != null and not #lists.isEmpty(provinceList)}" >
+								<label for="inputRegDate" class="col-sm-3 control-label">Province</label>
+								<div class="col-sm-8">
+									<select class="form-control" >
+										<option value="">  Please select province </option>
+										<option th:each="province : ${provinceList}" th:value="${province.nameen}" th:text="${province.nameen}" /> 
+									</select>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">จังหวัด</label>
+								<label for="inputRegDate" class="col-sm-3 control-label">Car Type</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="" placeholder="จังหวัด" />
+									<input type="text" class="form-control" id="" placeholder="Select car type" />
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">ประเภท</label>
+								<label for="inputRegDate" class="col-sm-3 control-label">Style</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="" placeholder="ประเภทรถยนต์" />
+									<input type="text" class="form-control" id="" placeholder="Select car style" />
+								</div>
+							</div>
+							<div class="form-group"  th:if="${carList != null and not #lists.isEmpty(carList)}">
+								<label for="inputRegDate" class="col-sm-3 control-label">Brand</label>
+								<div class="col-sm-8">
+									<select class="form-control" >
+										<option value="">Select Brand</option>
+										<option th:each="car : ${carList}" th:value="${car.brand}" th:text="${car.brand}" /> 
+									</select>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">ลักษณะ</label>
+								<label for="inputRegDate" class="col-sm-3 control-label">Model</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="" placeholder="ลักษณะ เก๋งสองตอน ตอนเดียว ฯลฯ" />
+									<input type="text" class="form-control" id="" placeholder="Select model" />
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">ยี่ห้อรถ</label>
+								<label for="inputRegDate" class="col-sm-3 control-label">Year</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="" placeholder="ยี่ห้อรถ Toyota Honda Nissan etc." />
+									<input type="text" class="form-control" id="" placeholder="Car year" />
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">แบบ</label>
+								<label for="inputRegDate" class="col-sm-3 control-label">Color</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="" placeholder="แบบ Vios Civic TIIDA etc." />
+									<input type="text" class="form-control" id="" placeholder="Car color" />
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">รุ่นปี</label>
+								<label for="inputRegDate" class="col-sm-3 control-label">Car Number</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="" placeholder="รุ่นปี" />
+									<input type="text" class="form-control" id="" placeholder="Enter car number" />
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">สี</label>
+								<label for="inputRegDate" class="col-sm-3 control-label">Car At</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="" placeholder="สี" />
+									<input type="text" class="form-control" id="" placeholder="Car number at" />
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">เลขตัวรถ</label>
+								<label for="inputRegDate" class="col-sm-3 control-label">Engine Brand</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="" placeholder="เลขตัวรถ" />
+									<input type="text" class="form-control" id="" placeholder="Select engine brand" />
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">อยู่ที่</label>
+								<label for="inputRegDate" class="col-sm-3 control-label">Engine Number</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="" placeholder="อยู่ที่เลขตัวรถ" />
+									<input type="text" class="form-control" id="" placeholder="Enter engine number" />
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">ยี่ห้อเครื่องยนต์</label>
+								<label for="inputRegDate" class="col-sm-3 control-label">Engine At</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="" placeholder="ยี่ห้อเครื่องยนต์" />
+									<input type="text" class="form-control" id="" placeholder="Engine number at" />
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">เลขที่เครื่องยนต์</label>
+								<label for="inputRegDate" class="col-sm-3 control-label">Fuel Type</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="" placeholder="เลขที่เครื่องยนต์" />
+									<input type="text" class="form-control" id="" placeholder="Enter fuel type" />
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">อยู่ที่</label>
+								<label for="inputRegDate" class="col-sm-3 control-label">Gas Cylinder Number</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="" placeholder="อยู่ที่เลขที่เครื่องยนต์" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">เชื้อเพลิง</label>
-								<div class="col-sm-8">
-									<input type="text" class="form-control" id="" placeholder="ชนิดเชื้อเพลิง" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">เลขถังแก๊ซ</label>
-								<div class="col-sm-8">
-									<input type="text" class="form-control" id="" placeholder="เลขถังแก๊ซ" />
+									<input type="text" class="form-control" id="" placeholder="Enter gas cylinder number" />
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">จำนวน</label>
+								<label for="inputRegDate" class="col-sm-3 control-label">Amount</label>
 								<div class="col-sm-8">
 									<div class="form-group">
 										<div class="col-sm-6">
 											<div class="input-group">
-												<input type="text" class="form-control" id="" placeholder="จำนวนสูบ" /> <span class="input-group-addon">สูบ</span>
+												<input type="text" class="form-control" id="" placeholder="Number of piston" /> <span class="input-group-addon">Piston</span>
 											</div>
 										</div>
 										<div class="col-sm-6">
 											<div class="input-group">
-												<input type="text" class="form-control" id="" placeholder="จำนวนซีซี" /> <span class="input-group-addon">ซีซี</span>
+												<input type="text" class="form-control" id="" placeholder="Number of CC" /> <span class="input-group-addon">CC</span>
 											</div>
 										</div>
 										<div class="col-sm-6">
 											<div class="input-group">
-												<input type="text" class="form-control" id="" placeholder="จำนวนแรงม้า" /> <span class="input-group-addon">แรงม้า</span>
+												<input type="text" class="form-control" id="" placeholder="Number of hotpower" /> <span class="input-group-addon">Hotpower</span>
 											</div>
 										</div>
 										<div class="col-sm-6">
-											<input type="text" class="form-control" id="" placeholder="อื่นๆ" />
+											<input type="text" class="form-control" id="" placeholder="etc." />
 										</div>
 									</div>
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">น้ำหนักรวม</label>
+								<label for="inputRegDate" class="col-sm-3 control-label">Weight Gross</label>
 								<div class="col-sm-8">
 									<div class="input-group">
-										<input type="text" class="form-control" id="" placeholder="น้ำหนักรวม" /> <span class="input-group-addon">กก.</span>
+										<input type="text" class="form-control" id="" placeholder="Enter weight gross" /> <span class="input-group-addon">Kg.</span>
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">น้ำหนักบรรทุก / น้ำหนัก</label>
+								<label for="inputRegDate" class="col-sm-3 control-label">Seats</label>
 								<div class="col-sm-8">
 									<div class="input-group">
-										<input type="text" class="form-control" id="" placeholder="น้ำหนักบรรทุก / น้ำหนัก" /> <span class="input-group-addon">กก.</span>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">น้ำหนักรวม</label>
-								<div class="col-sm-8">
-									<div class="input-group">
-										<input type="text" class="form-control" id="" placeholder="น้ำหนักรวม" /> <span class="input-group-addon">กก.</span>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputRegDate" class="col-sm-3 control-label">ที่นั่ง</label>
-								<div class="col-sm-8">
-									<div class="input-group">
-										<input type="text" class="form-control" id="" placeholder="จำนวนที่นั่ง" /> <span class="input-group-addon">คน</span>
+										<input type="text" class="form-control" id="" placeholder="Enter number of seats" /> <span class="input-group-addon">person</span>
 									</div>
 								</div>
 							</div>
 
 						</div>
-						
+
 						<div class="box-footer">
-								<button type="submit" class="btn btn-primary center-block">Submit</button>
+							<button type="submit" class="btn btn-primary center-block">Submit</button>
 						</div>
 					</div>
 				</div>

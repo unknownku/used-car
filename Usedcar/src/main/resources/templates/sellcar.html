@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head>
+<title>Sell Car</title>
+</head>
+<body>
+	<section layout:fragment="header">
+		<h1>Reserved Car</h1>
+		<!-- <ol class="breadcrumb">
+			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li class="active">Reserve</li>
+		</ol> -->
+	</section>
+	<div layout:fragment="content">
+		<script>
+			$(document).ready(function() {
+				$('#table-reserve-list').DataTable();
+				$(".data-mask").inputmask();
+			});
+		</script>
+		<div class="row">
+			<div class="col-md-8">
+
+				<div class="box box-info">
+					<div class="box-header with-border">
+						<h3 class="box-title">Reservation Details</h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+
+						<form th:action="@{~/carReserveSearch}" th:object="${carReserveSearch}" method="post">
+
+							<div class="form-group">
+								<label class="col-sm-3">Reservation No.</label>
+								<div class="form-group">
+									<input class="form-control" type="text" th:field="*{reserveId}" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3">Name</label>
+								<div class="form-group">
+									<input class="form-control" type="text" th:field="*{name}" />
+								</div>
+							</div>
+
+							<div class="box-footer">
+								<button type="submit" class="btn btn-primary center-block">Search</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-8">
+				<div class="box box-info">
+					<div class="box-header with-border">
+						<h3 class="box-title">Reservation Lists</h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<div class="table-responsive">
+							<table id="table-reserve-list" class="table table-striped">
+								<thead>
+									<tr>
+										<th>NO.</th>
+										<th>NAME</th>
+										<th>PHONE NO.</th>
+										<th>ID CARD</th>
+										<th>PAYMENT METHOD</th>
+										<th>CAR PRICE</th>
+										<th>RESERVATION AMOUNT</th>
+										<th>OUTSTANDING BALANCE</th>
+										<th>SELL</th>
+										<th>CANCEL</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="reservedCar : ${reservedCarList}">
+										<td th:text="${reservedCar.id}">Onions</td>
+										<td th:text="${reservedCar.name}">2.41</td>
+										<td th:text="${reservedCar.phoneNumber}">yes</td>
+										<td th:text="${reservedCar.idCard}">yes</td>
+										<td th:text="${reservedCar.payMethod}">yes</td>
+										<td th:text="${reservedCar.carPrice}">yes</td>
+										<td th:text="${reservedCar.reservAmount}">yes</td>
+										<td th:text="${reservedCar.carPrice}-${reservedCar.reservAmount}">yes</td>
+										<td><a th:href="${reservedCar.id}"><button>Sell</button></a></td>
+										<td><a th:href="${reservedCar.id}"><button>Cancel</button></a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4"></div>
+		</div>
+	</div>
+
+</body>
+</html>

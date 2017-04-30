@@ -5,6 +5,7 @@ import com.oot.usedcar.domain.BuyCar;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public interface BuyCarRepository extends JpaRepository<BuyCar, Long> {
 	BuyCar findById(Long id);
@@ -13,6 +14,9 @@ public interface BuyCarRepository extends JpaRepository<BuyCar, Long> {
 	BuyCar findByLastname(String lastname);
 	BuyCar findByDate(Date date);
 	BuyCar findByPrice(BigDecimal price);
-
+	
+	
 }
+
+
 

@@ -15,12 +15,14 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import com.oot.usedcar.domain.BuyCar;
 import com.oot.usedcar.domain.Car;
+import com.oot.usedcar.domain.Province;
 import com.oot.usedcar.domain.SCBCar;
 import com.oot.usedcar.domain.SCBCarData;
 import com.oot.usedcar.domain.UsedCar;
 import com.oot.usedcar.domain.User;
 import com.oot.usedcar.repository.BuyCarRepository;
 import com.oot.usedcar.repository.CarRepository;
+import com.oot.usedcar.repository.ProvinceRepository;
 import com.oot.usedcar.repository.UsedCarRepository;
 import com.oot.usedcar.service.user.UserService;;
 
@@ -33,6 +35,9 @@ public class InitialDataService {
 	@Autowired
 	private CarRepository carRepository;
 	
+	@Autowired
+	private ProvinceRepository provinceRepository;
+	  
 	@Autowired
 	private BuyCarRepository buyCarRepository;
 	
@@ -80,11 +85,57 @@ public class InitialDataService {
 		used_car.setModel("Jazz");
 		used_car.setSubmodel("E");
 		used_car.setYear(2015);
+		used_car.setColor("Red");
+		used_car.setPrice(new BigDecimal("350000.00"));
 		used_car.setKilometer(100000);
+		used_car.setCarId("กข-1234");
+		used_car.setStatus("Available");
 		usedCarRepository.save(used_car);
+		
+		UsedCar used_car1 = new UsedCar();
+		used_car1.setBrand("HONDA");
+		used_car1.setModel("Civic");
+		used_car1.setSubmodel("E");
+		used_car1.setYear(2016);
+		used_car1.setColor("Blue");
+		used_car1.setPrice(new BigDecimal("440000.00"));
+		used_car1.setKilometer(145000);
+		used_car1.setCarId("ภม-5678");
+		used_car1.setStatus("Available");
+		usedCarRepository.save(used_car1);
+		
+		UsedCar used_car2 = new UsedCar();
+		used_car2.setBrand("HONDA");
+		used_car2.setModel("Accord");
+		used_car2.setSubmodel("E");
+		used_car2.setYear(2017);
+		used_car2.setColor("Green");
+		used_car2.setPrice(new BigDecimal("550000.00"));
+		used_car2.setKilometer(400000);
+		used_car2.setCarId("ศง-4258");
+		used_car2.setStatus("Available");
+		usedCarRepository.save(used_car2);
 	}
 	
+	public void initailProvince() {
+		Province prov = new Province();
+		prov.setNameth("กรุงเทพมหานคร");
+		prov.setNameen("Bangkok");
+		provinceRepository.save(prov);
+		
+		prov = new Province();
+		prov.setNameth("สมุทรปราการ");
+		prov.setNameen("Samut Prakan");
+		provinceRepository.save(prov);
 
+		prov = new Province();
+		prov.setNameth("นนทบุรี");
+		prov.setNameen("Nonthaburi");
+		provinceRepository.save(prov);
+
+	}
+		 
+	
 	public void initailBuyCar(){
 		BuyCar buycar = new BuyCar();
 		buycar.setCustomerId("100101");

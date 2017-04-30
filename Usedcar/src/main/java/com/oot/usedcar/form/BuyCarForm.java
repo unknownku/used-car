@@ -1,20 +1,10 @@
-package com.oot.usedcar.domain;
+package com.oot.usedcar.form;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "BuyCar")
-
-public class BuyCar {
-
-	private Long id;
+public class BuyCarForm {
+	
 	private String customerId;
 	private String name;
 	private String lastname;
@@ -44,14 +34,8 @@ public class BuyCar {
 	private Integer carSeats;
 	private BigDecimal price;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
+	
 	public String getCustomerId() {
 		return customerId;
 	}
@@ -220,7 +204,5 @@ public class BuyCar {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-	
-	
-}
 
+}
