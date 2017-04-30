@@ -20,17 +20,6 @@ public interface CarService {
 
 	public Car findByBrandAndModelAndSubModelAndYear(String brand, String model, String subModel, int year);
 
-	public List<Car> findDistinctCarByBrand(String brand);
-
-	public List<Car> findDistinctCarByBrandAndModel(String brand, String model);
-
-	public List<Car> findDistinctCarByBrandAndModelAndSubModel(String brand, String model, String subModel);
-
-	public List<Car> findDistinctCarByBrandAndModelAndSubModelAndYear(String brand, String model, String subModel,
-			int year);
-
-	public List<Car> findAll();
-
 	public Car findById(Long id);
 
 	public List<String> findBrand();
