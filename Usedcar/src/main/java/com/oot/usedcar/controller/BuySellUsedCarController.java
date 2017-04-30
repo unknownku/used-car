@@ -304,7 +304,7 @@ public class BuySellUsedCarController {
 		carReserve.setReservNo(reserveForm.getReservNo());
 
 		carReserve.setReserveCarId(reserveForm.getReserveCar().getId() + "");
-		carReserve.setCarPrice(reserveForm.getReserveCar().getPrice());
+		carReserve.setCarPrice(reserveForm.getActualSalePrice());
 
 		reserveService.save(carReserve);
 

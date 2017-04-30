@@ -34,6 +34,10 @@ public class ReserveForm {
 	@NotNull(message = "Please fill in reservation amount")
     private BigDecimal reservAmount;
 
+	@Min(value = 1, message = "Please fill in actual sale price")
+	@NotNull(message = "Please fill in actual sale price")
+    private BigDecimal actualSalePrice;
+	
 	@NotNull
 	@Size(min=1, message = "Please fill in reserve date")
     private String reservDate;
@@ -114,4 +118,13 @@ public class ReserveForm {
 		this.reserveCar = reserveCar;
 	}
 
+	public BigDecimal getActualSalePrice() {
+		return actualSalePrice;
+	}
+
+	public void setActualSalePrice(BigDecimal actualSalePrice) {
+		this.actualSalePrice = actualSalePrice;
+	}
+
+	
 }
