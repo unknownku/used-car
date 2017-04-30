@@ -1,8 +1,6 @@
 package com.oot.usedcar.service.estimate;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
@@ -21,12 +19,12 @@ public class EstimatePriceServiceImpl implements EstimatePriceService {
 
 	@Override
 	public BigDecimal calculateDepreciationPrice(int year, int kilometer, boolean isFlooding, boolean isCrashing,
-			int usingType) {
+			int scratchRate) {
 
 		BigDecimal depreciationPrice = new BigDecimal(ConstantValue.ZERO);
 
-		depreciationPrice = depreciationPrice.add(calculateYearDepreciationPrice(year, usingType));
-		depreciationPrice = depreciationPrice.add(calculateKilometerDepreciationPrice(kilometer, usingType));
+		depreciationPrice = depreciationPrice.add(calculateYearDepreciationPrice(scratchRate));
+		depreciationPrice = depreciationPrice.add(calculateKilometerDepreciationPrice(kilometer));
 		depreciationPrice = depreciationPrice.add(calculateFloodingDepreciationPrice(isFlooding));
 		depreciationPrice = depreciationPrice.add(calculateCrashingDepreciationPrice(isCrashing));
 
@@ -49,59 +47,30 @@ public class EstimatePriceServiceImpl implements EstimatePriceService {
 		return depreciationPrice;
 	}
 
-	private BigDecimal calculateYearDepreciationPrice(int year, int usingType) {
+	private BigDecimal calculateYearDepreciationPrice(int scratchRate) {
 		BigDecimal depreciationPrice = new BigDecimal(ConstantValue.ZERO);
-		BigDecimal temp = new BigDecimal(ConstantValue.ZERO);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-		Date date = new Date();
-		year = Integer.parseInt(sdf.format(date)) - year;
-		switch (usingType) {
-		case 0: // รถยนต์โดยสารส่วนบุคคล
-			depreciationPrice.add(new BigDecimal(ConstantValue.USED_CAR_PERSONAL_PRICE));
-			temp = new BigDecimal(ConstantValue.USED_CAR_PERSONAL_PRICE_PER_YEAR);
-			temp = temp.multiply(new BigDecimal(year));
+		switch (scratchRate) {
+		case 1:
+			depreciationPrice = depreciationPrice.add(new BigDecimal(ConstantValue.SCRATCH_LOW_RATE));
 			break;
-		case 1: // รถยนต์โดยสารเพื่อการพาณิชย์รับจ้าง
-			depreciationPrice.add(new BigDecimal(ConstantValue.USED_CAR_COMMERCIAL_PRICE));
-			temp = new BigDecimal(ConstantValue.USED_CAR_COMMERCIAL_PRICE_PER_YEAR);
-			temp = temp.multiply(new BigDecimal(year));
+		case 2:
+			depreciationPrice = depreciationPrice.add(new BigDecimal(ConstantValue.SCRATCH_MEDIUM_RATE));
 			break;
-		case 2: // รถยนต์บรรทุกเพื่อการพาณิชย์
-			depreciationPrice.add(new BigDecimal(ConstantValue.USED_CAR_CARRY_PRICE));
-			temp = new BigDecimal(ConstantValue.USED_CAR_CARRY_PRICE_PER_YEAR);
-			temp = temp.multiply(new BigDecimal(year));
+		case 3:
+			depreciationPrice = depreciationPrice.add(new BigDecimal(ConstantValue.SCRATCH_HIGH_RATE));
 			break;
 		default:
-			depreciationPrice.add(new BigDecimal(ConstantValue.ZERO));
 			break;
 		}
-		return depreciationPrice.add(temp);
+		return depreciationPrice;
 	}
-	
-	private BigDecimal calculateKilometerDepreciationPrice(int kilometer, int usingType) {
+
+	private BigDecimal calculateKilometerDepreciationPrice(int kilometer) {
 		BigDecimal depreciationPrice = new BigDecimal(ConstantValue.ZERO);
 		BigDecimal temp = new BigDecimal(ConstantValue.ZERO);
-		int multiply = kilometer/10000;
-		switch (usingType) {
-		case 0: // รถยนต์โดยสารส่วนบุคคล			
-			depreciationPrice.add(new BigDecimal(ConstantValue.USED_CAR_PERSONAL_PRICE));
-			temp = new BigDecimal(ConstantValue.USED_CAR_PERSONAL_PRICE_PER_YEAR);
-			temp = temp.multiply(new BigDecimal(multiply));
-			break;
-		case 1: // รถยนต์โดยสารเพื่อการพาณิชย์รับจ้าง
-			depreciationPrice.add(new BigDecimal(ConstantValue.USED_CAR_COMMERCIAL_PRICE));
-			temp = new BigDecimal(ConstantValue.USED_CAR_COMMERCIAL_PRICE_PER_YEAR);
-			temp = temp.multiply(new BigDecimal(multiply));
-			break;
-		case 2: // รถยนต์บรรทุกเพื่อการพาณิชย์
-			depreciationPrice.add(new BigDecimal(ConstantValue.USED_CAR_CARRY_PRICE));
-			temp = new BigDecimal(ConstantValue.USED_CAR_CARRY_PRICE_PER_YEAR);
-			temp = temp.multiply(new BigDecimal(multiply));
-			break;
-		default:
-			depreciationPrice.add(new BigDecimal(ConstantValue.ZERO));
-			break;
-		}
+		int multiply = kilometer / 10000;
+		temp = new BigDecimal(ConstantValue.KILOMETER_RATE);
+		temp = temp.multiply(new BigDecimal(multiply));
 		return depreciationPrice.add(temp);
 	}
 
