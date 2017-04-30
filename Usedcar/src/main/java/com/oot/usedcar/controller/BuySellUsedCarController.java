@@ -292,9 +292,17 @@ public class BuySellUsedCarController {
 			return "buycar";
 		}
 		
-//		BuyCar buyCar = new BuyCar();
+		BuyCar buyCarSave = new BuyCar();
+		buyCarSave.setGender(buyCar.getGender());
+		buyCarSave.setName(buyCar.getName());
+		buyCarSave.setLastname(buyCar.getLastname());
+//		buyCarSave.setBuydate(new Date());
 
-		return "index";
+		buyCarService.save(buyCarSave);
+		
+		model.addAttribute("successHeader", "Save Completed !");
+		model.addAttribute("successDetail", "Done! You are successfully add new used car.");
+		return "successAction";
 	}
 
 	@RequestMapping(value = { "/successAction" }, method = RequestMethod.POST)

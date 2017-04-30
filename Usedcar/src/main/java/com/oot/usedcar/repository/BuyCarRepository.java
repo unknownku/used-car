@@ -12,7 +12,6 @@ public interface BuyCarRepository extends JpaRepository<BuyCar, Long> {
 	BuyCar findByGender(String gender);
 	BuyCar findByName(String name);
 	BuyCar findByLastname(String lastname);
-	BuyCar findByDate(Date date);
 	BuyCar findByPrice(BigDecimal price);
 	
 	

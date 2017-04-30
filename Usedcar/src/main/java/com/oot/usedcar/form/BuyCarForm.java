@@ -12,6 +12,10 @@ public class BuyCarForm {
 	private String gender;
 	
 	@NotNull
+    @Size(min=1, message = "Please input identification id card.")
+	private String cusid;
+	
+	@NotNull
     @Size(min=1, max=100, message = "Please input name")
 	private String name;
 	
@@ -19,11 +23,19 @@ public class BuyCarForm {
     @Size(min=1, max=100, message = "Please input lastname")
 	private String lastname;
 	
-	
 	private String address;
+	
+	@NotNull
+    @Size(min=1, message = "Please input phone number")
 	private String phone;
-	private Date date;	
-	private Date licensedate;
+	
+	private Date buydate;	
+
+	
+	@NotNull
+	@Size(min=1, message = "กรุณากรอกวันที่จอง")	
+	private String licensedate;
+	
 	private String licenseNo;
 	private String cartype;
 	private String carstyle;
@@ -46,12 +58,21 @@ public class BuyCarForm {
 	private Integer carseats;
 	private BigDecimal price;
 	
+	private String licenseplate;
+	private BigDecimal kilometer;
 
 	public String getGender() {
 		return gender;
 	}
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+	
+	public String getCusid() {
+		return cusid;
+	}
+	public void setCusid(String cusid) {
+		this.cusid = cusid;
 	}
 	public String getName() {
 		return name;
@@ -77,18 +98,22 @@ public class BuyCarForm {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public Date getDate() {
-		return date;
+
+	
+	public Date getBuydate() {
+		return buydate;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setBuydate(Date buydate) {
+		this.buydate = buydate;
 	}
-	public Date getLicensedate() {
+
+	public String getLicensedate() {
 		return licensedate;
 	}
-	public void setLicensedate(Date licensedate) {
+	public void setLicensedate(String licensedate) {
 		this.licensedate = licensedate;
 	}
+	
 	public String getLicenseNo() {
 		return licenseNo;
 	}
@@ -215,6 +240,17 @@ public class BuyCarForm {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
+	public String getLicenseplate() {
+		return licenseplate;
+	}
+	public void setLicenseplate(String licenseplate) {
+		this.licenseplate = licenseplate;
+	}
+	public BigDecimal getKilometer() {
+		return kilometer;
+	}
+	public void setKilometer(BigDecimal kilometer) {
+		this.kilometer = kilometer;
+	}
 	
-
 }

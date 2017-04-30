@@ -3,11 +3,14 @@ package com.oot.usedcar.domain;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "BuyCar")
@@ -16,11 +19,18 @@ public class BuyCar {
 
 	private Long id;
 	private String gender;
+	private String cusid;
 	private String name;
 	private String lastname;
 	private String address;
 	private String phone;
-	private Date date;	
+	
+
+	@Column(name="buydate", columnDefinition="buydate DEFAULT CURRENT_TIMESTAMP")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date buydate;	
+	
+	
 	private Date licensedate;
 	private String licenseNo;
 	private String cartype;
@@ -42,7 +52,10 @@ public class BuyCar {
 	private String caretc;
 	private Double carweight;
 	private Integer carseats;
+	
+	private String licenseplate;
 	private BigDecimal price;
+	private BigDecimal kilometer;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -56,6 +69,14 @@ public class BuyCar {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	public String getCusid() {
+		return cusid;
+	}
+
+	public void setCusid(String cusid) {
+		this.cusid = cusid;
 	}
 
 	public String getName() {
@@ -90,12 +111,13 @@ public class BuyCar {
 		this.phone = phone;
 	}
 
-	public Date getDate() {
-		return date;
+	
+	public Date getBuydate() {
+		return buydate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setBuydate(Date buydate) {
+		this.buydate = buydate;
 	}
 
 	public Date getLicensedate() {
@@ -278,6 +300,23 @@ public class BuyCar {
 		this.id = id;
 	}
 
+	public String getLicenseplate() {
+		return licenseplate;
+	}
+
+	public void setLicenseplate(String licenseplate) {
+		this.licenseplate = licenseplate;
+	}
+
+	public BigDecimal getKilometer() {
+		return kilometer;
+	}
+
+	public void setKilometer(BigDecimal kilometer) {
+		this.kilometer = kilometer;
+	}
+
+	
 	
 }
 
