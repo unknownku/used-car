@@ -203,24 +203,14 @@
 									<label class="col-md-4 control-label">วันที่จอง</label>
 									<div class="col-md-6">
 										<div class="input-group">
-											<span class="input-group-addon"><i class="fa fa-calendar"></i></span> <input class="form-control" type="text" th:field="*{reservDate}" />
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span> <input class="form-control data-mask" type="text" data-inputmask="'alias': 'dd/mm/yyyy'" th:field="*{reservDate}" />
 										</div>
 										<label class="control-label" th:if="${#fields.hasErrors('reservDate')}" th:errors="*{reservDate}">[error]</label>
 									</div>
 									<div class="col-md-2"></div>
 								</div>   
+							<button type="submit" class="btn btn-primary center-block">Reserve Car</button>
 							
-								<!-- <div class="form-group">
-								<label class="col-md-4 control-label">หมายเลขการจอง</label>
-								<div class="col-md-6">
-									<input class="form-control" type="text" th:field="*{reservNo}" />
-								</div>
-								<div class="col-md-2"></div>
-							</div> -->
-								<button type="submit">xxxx</button>
-							
-							<a class="btn btn-app"> <i class="fa fa-edit"></i> Edit
-							</a>
 						</div>
 					</div>
 				</div>

@@ -30,8 +30,8 @@ public class ReserveForm {
 	@Size(min=1, message = "กรุณากรอกวิธีการชำระเงิน")
     private String payMethod;
 
-	@NotNull
 	@Min(value = 1, message = "กรุณากรอกจำนวนเงินที่จอง")
+	@NotNull(message = "กรุณากรอกจำนวนเงินที่จอง")
     private BigDecimal reservAmount;
 
 	@NotNull
