@@ -2,23 +2,18 @@ package com.oot.usedcar.form;
 
 import java.math.BigDecimal;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
 public class EstimatePriceForm {
 
 	private String brand;
 	private String model;
 	private String subModel;
-	private int year;	
+	private int year;
 
-	@Min(value = 1, message = "The value must be positive")
+	// @Min(value = 1, message = "The value must be positive")
 	private int kilometer;
 	private boolean isFlooding;
 	private boolean isCrashing;
-	private int usingType;
+	private int scratchRate;
 	private BigDecimal estimatePrice;
 
 	public String getBrand() {
@@ -77,20 +72,20 @@ public class EstimatePriceForm {
 		this.isCrashing = isCrashing;
 	}
 
-	public int getUsingType() {
-		return usingType;
-	}
-
-	public void setUsingType(int usingType) {
-		this.usingType = usingType;
-	}
-
 	public BigDecimal getEstimatePrice() {
 		return estimatePrice;
 	}
 
 	public void setEstimatePrice(BigDecimal estimatePrice) {
 		this.estimatePrice = estimatePrice;
+	}
+
+	public int getScratchRate() {
+		return scratchRate;
+	}
+
+	public void setScratchRate(int scratchRate) {
+		this.scratchRate = scratchRate;
 	}
 
 }
