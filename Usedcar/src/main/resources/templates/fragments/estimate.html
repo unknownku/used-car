@@ -86,7 +86,7 @@
 	<div class="form-group">
 		<label>Kilometer usage</label>
 		<div class="input-group">
-			<input  type="text" th:object="${estimatePriceForm}" class="form-control"  th:field="*{kilometer}" placeholder="100,000" /><span class="input-group-addon"><i class="fa fa-car"></i></span>
+			<span class="input-group-addon"><i class="fa fa-dashboard"></i></span> <input th:object="${estimatePriceForm}" class="form-control" type="number" min="0" th:field="*{kilometer}" /><span class="input-group-addon">km</span>
 			<span class="help-block" th:if="${#fields.hasErrors('estimatePriceForm.kilometer')}"  th:errors="*{kilometer}">kilometer error message</span>
 		</div>
 		
