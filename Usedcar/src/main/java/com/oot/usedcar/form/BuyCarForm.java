@@ -294,12 +294,16 @@ public class BuyCarForm {
 	public void setLicenseprovince(String licenseprovince) {
 		this.licenseprovince = licenseprovince;
 	}
+	
 	public int getCaryear() {
+		
 		return caryear;
 	}
 	public void setCaryear(int caryear) {
 		this.caryear = caryear;
 	}
+	
+	
 	public int getKilometer() {
 		return kilometer;
 	}

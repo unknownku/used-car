@@ -116,7 +116,7 @@
 									<label  class="col-sm-3 control-label">Brand</label>
 									<div class="col-sm-3">
 										<select class="form-control"  th:field="*{carbrand}">
-											<option value="TOYOTA">Select Brand</option>
+											<option value="">Select Brand</option>
 											<option th:each="car : ${carList}" th:value="${car.brand}" th:text="${car.brand}" />
 										</select>
 									</div>
@@ -143,8 +143,9 @@
 								<div class="form-group" th:classappend="${#fields.hasErrors('caryear') } ? 'has-error'">
 									<label  class="col-sm-3 control-label">Year</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control"  th:field="*{caryear}"  placeholder="Car year" />
-										<label class="control-label"  th:if="${#fields.hasErrors('caryear')}" th:errors="*{caryear}">[error]</label>
+										<input type="text" class="form-control data-mask"  data-inputmask="'alias': '9999'"   th:field="*{caryear}"  placeholder="Car year" />
+										<input type="text" class="form-control"  th:field="*{caryear}"  ></input>
+										<label class="control-label data-mask"   th:if="${#fields.hasErrors('caryear')}" th:errors="*{caryear}">[error]</label>
 									</div>
 								</div>
 								
@@ -169,7 +170,7 @@
 									<label  class="col-sm-3 control-label">Province</label>
 									<div class="col-sm-3">
 										<select class="form-control"  th:field="*{licenseprovince}" >
-											<option value="กรุงเทพมหานคร">Please select province</option>
+											<option value="">Please select province</option>
 											<option th:each="province : ${provinceList}" th:value="${province.nameth}" th:text="${province.nameth}" />
 										</select>
 									</div>
