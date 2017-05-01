@@ -313,9 +313,15 @@ public class BuySellUsedCarController {
 			Model model) {
 
 		Long id = carReserveSearch.getReserveId();
+		
+		CarReservation car = reserveService.findById(id);
 		System.out.println(id);
 		reserveService.deleteById(id);
-
+		
+		UsedCar updateCar = usedCarService.findById(Long.parseLong(car.getReserveCarId()));
+		updateCar.setStatus("Available");
+		usedCarService.save(updateCar);
+		
 		model.addAttribute("successHeader", "Delete Reserve Completed !");
 		model.addAttribute("successDetail", "Done! You are already delete reservation.");
 		return "successAction";
