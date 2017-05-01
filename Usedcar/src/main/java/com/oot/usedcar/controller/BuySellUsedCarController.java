@@ -228,38 +228,21 @@ public class BuySellUsedCarController {
 		
 		List<Province> provinceList = provinceService.findAll();
 		model.addAttribute("provinceList", provinceList);
-		List<Car> carList = new ArrayList();
 		model.addAttribute("carList", initialDataService.getCarList());
 		
 		if (bindingResult.hasErrors()) {
-			List<FieldError> xxx = bindingResult.getFieldErrors();
-			for (FieldError fieldError : xxx) {
-				System.out.println(fieldError.getField());
-			}
 			model.addAttribute("buyCar", buyCar);
 			// return "redirect:reserveForm/1";
 			return "buycar";
-		} else {
-
-			String licenseplate = buyCar.getLicenseplate();
-			String licenseprovince = buyCar.getLicenseprovince();
-			BuyCar car = buyCarService.findByLicenseplateAndLicenseprovince(licenseplate, licenseprovince);			if (car != null) {
-//				model.addAttribute("validate", "99");
-//				ObjectError objError = new ObjectError("validate", "Duplicate data");
-//				bindingResult.addError(objError);
-				
-//				bindingResult.rejectValue("validate", "Duplicate data");
-				
-			    FieldError objError = new FieldError("licenseplate","licenseplate", "Duplicate data");			    bindingResult.addError(objError);			    
-		
-//				model.addAttribute("validate", objError);
-				model.addAttribute("buyCar", buyCar);
-				return "buycar";
-				
-				
-				
-			} 
 		}
+		
+		String licenseplate = buyCar.getLicenseplate();
+		String licenseprovince = buyCar.getLicenseprovince();
+		UsedCar usedCar = usedCarService.findByCarIdAndProvinceAndStatus(licenseplate, licenseprovince, "Available");		if (usedCar != null) {			
+		    FieldError objError = new FieldError("licenseplate","licenseplate", "Used car was duplicated.");		    bindingResult.addError(objError);		    
+			model.addAttribute("buyCar", buyCar);
+			return "buycar";	
+		} 
 
 		BuyCar buyCarSave = new BuyCar();
 		buyCarSave.setGender(buyCar.getGender());
@@ -301,6 +284,7 @@ public class BuySellUsedCarController {
 		UsedCar usedcar = new UsedCar();
 		usedcar.setBrand(buyCar.getCarbrand());
 		usedcar.setCarId(buyCar.getLicenseplate());
+		usedcar.setProvince(buyCar.getLicenseprovince());
 		usedcar.setColor(buyCar.getCarcolor());
 		usedcar.setKilometer(buyCar.getKilometer());
 		usedcar.setModel(buyCar.getCarmodel());

@@ -85,8 +85,12 @@ public class UsedCarServiceImpl implements UsedCarService {
 
 	@Override
 	public UsedCar findById(Long id) {
-		// TODO Auto-generated method stub
 		return usedCardRepository.findByid(id);
+	}
+
+	@Override
+	public UsedCar findByCarIdAndProvinceAndStatus(String carId, String province, String status) {
+		return usedCardRepository.findByCarIdAndProvinceAndStatus(carId, province, status);
 	}
 
 

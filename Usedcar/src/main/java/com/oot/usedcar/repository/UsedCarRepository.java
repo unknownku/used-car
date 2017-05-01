@@ -14,4 +14,6 @@ public interface UsedCarRepository extends JpaRepository<UsedCar, Long>, JpaSpec
 	UsedCar findByid(Long id);
 
 	List<UsedCar> findByBrandAndModelAndSubmodelAndYear(String brand, String model, String submodel, int year);
+	
+	UsedCar findByCarIdAndProvinceAndStatus(String carId, String province, String status);
 }
