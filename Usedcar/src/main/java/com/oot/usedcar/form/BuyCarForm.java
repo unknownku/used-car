@@ -307,7 +307,6 @@ public class BuyCarForm {
 		this.kilometer = kilometer;
 	}
 	
-	
 	public String getStatus() {
 		return "Available";
 	}
