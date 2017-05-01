@@ -7,6 +7,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +23,7 @@ import com.oot.usedcar.domain.Car;
 import com.oot.usedcar.domain.CarReservation;
 import com.oot.usedcar.domain.PaymentMethod;
 import com.oot.usedcar.domain.Province;
+import com.oot.usedcar.domain.SellCar;
 import com.oot.usedcar.domain.UsedCar;
 import com.oot.usedcar.form.BuyCarForm;
 import com.oot.usedcar.form.EstimatePriceForm;
@@ -211,6 +214,41 @@ public class BuySellUsedCarController {
 			System.out.println("hasError");
 		return "sellcar";
 	}
+	
+	@RequestMapping(value = { "/sell/{uReserveId}" }, method = RequestMethod.GET)
+	public String sellCar(@PathVariable("uReserveId") String uReserveId, Model model) { 
+
+		Long reserveId = Long.parseLong(uReserveId);
+		System.out.println("reserve id = " + uReserveId);
+
+		CarReservation uReservation = reserveService.findById(reserveId);
+		
+		if(uReservation != null){
+			uReservation.setPaymentFlag("1");
+			reserveService.save(uReservation);
+			
+			UsedCar used_car = usedCarService.findById(Long.parseLong(uReservation.getReserveCarId()));
+			SellCar sellcar = new SellCar();
+			sellcar.setReservationId(reserveId);
+			sellcar.setAmount(Double.parseDouble(uReservation.getCarPrice().subtract(uReservation.getReservAmount()).toString()));
+			
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		    String name = auth.getName(); //get logged in username
+			sellcar.setSaleBy(name);
+			
+			sellCarService.save(sellcar);
+			
+			used_car.setStatus("Sold");
+			usedCarService.save(used_car);
+			System.out.println("savesell");
+
+			model.addAttribute("successHeader", "Sold Completed !");
+			model.addAttribute("successDetail", "Done! You are successfully sold a car.");
+			return "successAction";
+		}
+		model.addAttribute("carReserveSearch", new UsedCarReserveSearchForm());
+		return "sellcar";
+	}
 
 	@RequestMapping(value = { "/reserve/{uCarId}" }, method = RequestMethod.GET)
 	public String reserve(Model model, @PathVariable("uCarId") String uCarId) {
@@ -263,7 +301,9 @@ public class BuySellUsedCarController {
 		carReserve.setReservNo(reserveForm.getReservNo());
 
 		carReserve.setReserveCarId(reserveForm.getReserveCar().getId() + "");
-		carReserve.setCarPrice(reserveForm.getReserveCar().getPrice());
+		carReserve.setCarPrice(reserveForm.getActualSalePrice());
+		
+		carReserve.setPaymentFlag("0");
 
 		reserveService.save(carReserve);
 		
@@ -366,6 +406,18 @@ public class BuySellUsedCarController {
 		
 //		model.addAttribute("successHeader", "Reserve Completed !");
 //		model.addAttribute("successDetail", "Done! You are successfully reserve a car.");
+		return "successAction";
+	}
+	
+	@RequestMapping(value = { "/removeReserve" }, method = RequestMethod.POST)
+	public String removeReserve(@ModelAttribute("usedCarReserveSearchForm") UsedCarReserveSearchForm carReserveSearch,Model model) {
+		
+		Long id = carReserveSearch.getReserveId();
+		System.out.println(id);
+		reserveService.deleteById(id);
+	
+		model.addAttribute("successHeader", "Delete Reserve Completed !");
+		model.addAttribute("successDetail", "Done! You are already delete reservation.");
 		return "successAction";
 	}
 }

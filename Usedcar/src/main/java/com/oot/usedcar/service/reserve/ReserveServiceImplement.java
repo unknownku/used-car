@@ -52,6 +52,7 @@ public class ReserveServiceImplement implements ReserveService {
 					predicates.add(cb.and(cb.like(root.get("name"), "%"+name+"%")));
 				}
 				
+				predicates.add(cb.and(cb.notEqual(root.get("paymentFlag"), "1")));
 				Predicate[] predicatesArray = new Predicate[predicates.size()];
 				
 				return cb.and(predicates.toArray(predicatesArray));
@@ -60,5 +61,11 @@ public class ReserveServiceImplement implements ReserveService {
 		   
 	    // using the built in findAll method from Repository with dynamic custom filters 
 	    return reserveRepository.findAll(spec);
+	}
+	
+	@Override
+	public void deleteById(Long reserveId) {
+		// TODO Auto-generated method stub
+		reserveRepository.deleteById(reserveId);
 	}
 }
