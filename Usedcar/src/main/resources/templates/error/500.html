@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="loginlayout">
 <head>
-<title>Error 500 Internal Server Error</title>
+<title>Error 500 Internal Server Error.</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body>
-	<h1>Error 500 Internal Server Error</h1>
+<body class="hold-transition login-page">
+	<div layout:fragment="content">
+		<div class="error-page">
+			<h2 class="headline text-red">500</h2>
+			<div class="error-content">
+				<h3>
+					<i class="fa fa-warning text-red"></i> Oops! Something went wrong.
+				</h3>
+
+				<p>
+					We will work on fixing that right away. Meanwhile, you may <a href="/">return to home</a>
+				</p>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
