@@ -69,7 +69,7 @@ public class UsedCarServiceImpl implements UsedCarService {
 				}
 				
 				if (year > 0) {
-					predicates.add(cb.and(cb.like(root.get("year"), year+"%")));
+					predicates.add(cb.and(cb.equal(root.get("year"), year)));
 				}
 				
 				predicates.add(cb.and(cb.equal(root.get("status"), "Available")));

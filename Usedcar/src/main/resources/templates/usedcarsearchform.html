@@ -3,6 +3,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <head>
 <title>Search Car</title>
+<script>
+	$(document).ready(function() {
+		var elemYear = $('#year');
+
+		if(elemYear.val() == "0"){
+			elemYear.val("");
+		}
+		
+		elemYear.datepicker({
+			autoclose : true,
+			format : 'yyyy',
+			startView : 2,
+			minViewMode : 2,
+			maxViewMode : 2,
+			startDate: '-30y',
+		});
+	});
+</script>
 </head>
 <body>
 	<section layout:fragment="header">
@@ -60,7 +78,7 @@
 							<div class="form-group">
 								<label class="col-sm-3">Year</label>
 								<div class="form-group">
-									<input class="form-control data-mask" data-inputmask="'alias': '9999'"  type="text" th:field="*{year}" />
+									<input class="form-control data-mask" data-inputmask="'alias': '9999'" type="text" th:field="*{year}" />
 								</div>
 							</div>
 
