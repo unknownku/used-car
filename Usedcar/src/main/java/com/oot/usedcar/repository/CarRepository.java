@@ -15,10 +15,6 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 	Car findByYear(int year);
 	Car findByBrandAndModelAndYear(String brand, String model, int year); 
 	Car findByBrandAndModelAndSubModelAndYear(String brand, String model, String subModel, int year); 
-	List<Car> findDistinctCarByBrand(String brand);
-	List<Car> findDistinctCarByBrandAndModel(String brand, String model);
-	List<Car> findDistinctCarByBrandAndModelAndSubModel(String brand, String model, String subModel);
-	List<Car> findDistinctCarByBrandAndModelAndSubModelAndYear(String brand, String model, String subModel, int year);
 	Car findById(Long id); 
 	
 	@Query("SELECT DISTINCT c.brand FROM Car c")

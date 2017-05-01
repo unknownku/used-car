@@ -50,34 +50,13 @@ public class CarServiceImplement implements CarService {
 	}
 
 	@Override
-	public List findAll() {
+	public List<Car> findAll() {
 		return carRepository.findAll();
 	}
 
 	@Override
 	public Car findByBrandAndModelAndSubModelAndYear(String brand, String model, String subModel, int year) {
 		return carRepository.findByBrandAndModelAndSubModelAndYear(brand, model, subModel, year);
-	}
-
-	@Override
-	public List<Car> findDistinctCarByBrand(String brand) {
-		return carRepository.findDistinctCarByBrand(brand);
-	}
-
-	@Override
-	public List<Car> findDistinctCarByBrandAndModel(String brand, String model) {
-		return carRepository.findDistinctCarByBrandAndModel(brand, model);
-	}
-
-	@Override
-	public List<Car> findDistinctCarByBrandAndModelAndSubModel(String brand, String model, String subModel) {
-		return carRepository.findDistinctCarByBrandAndModelAndSubModel(brand, model, subModel);
-	}
-
-	@Override
-	public List<Car> findDistinctCarByBrandAndModelAndSubModelAndYear(String brand, String model, String subModel,
-			int year) {
-		return carRepository.findDistinctCarByBrandAndModelAndSubModelAndYear(brand, model, subModel, year);
 	}
 
 	@Override
@@ -100,5 +79,4 @@ public class CarServiceImplement implements CarService {
 		return carRepository.findYear(brand, model, subModel);
 	}
 
-	
 }

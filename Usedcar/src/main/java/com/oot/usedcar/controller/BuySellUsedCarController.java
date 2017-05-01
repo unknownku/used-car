@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.oot.usedcar.domain.BuyCar;
 import com.oot.usedcar.domain.Car;
 import com.oot.usedcar.domain.CarReservation;
-import com.oot.usedcar.domain.PaymentMethod;
 import com.oot.usedcar.domain.Province;
 import com.oot.usedcar.domain.SellCar;
 import com.oot.usedcar.domain.UsedCar;
@@ -32,7 +32,6 @@ import com.oot.usedcar.form.UsedCarReserveSearchForm;
 import com.oot.usedcar.form.UsedCarSearchForm;
 import com.oot.usedcar.service.InitialDataService;
 import com.oot.usedcar.service.buycar.BuyCarService;
-import com.oot.usedcar.service.buycar.BuyCarServiceImplement;
 import com.oot.usedcar.service.car.CarService;
 import com.oot.usedcar.service.estimate.EstimatePriceService;
 import com.oot.usedcar.service.province.ProvinceService;
@@ -71,7 +70,7 @@ public class BuySellUsedCarController {
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public String index(Model model) {
 		System.out.println("index");
-		return "index";
+		return "redirect:/login";
 	}
 
 	@RequestMapping(value = { "/init" }, method = RequestMethod.GET)
@@ -120,18 +119,26 @@ public class BuySellUsedCarController {
 	@RequestMapping(value = "/estimatePrice", method = RequestMethod.POST)
 	public String estimatePrice(@Valid EstimatePriceForm estimatePriceForm, BindingResult bindingResult, Model model) {
 		System.out.println("post estimatePrice");
+		int kilometer = estimatePriceForm.getKilometer();
+
+		if (kilometer < 0) {
+			ObjectError objError = new ObjectError("kilometer", "กรุณากรอกระยะทางที่ใช้ไปให้มากกว่าหรือเท่ากับศูนย์");
+			bindingResult.addError(objError);
+		}
+
 		if (bindingResult.hasErrors()) {
-			return "estimate";
+			model.addAttribute("price", 0);
+			return "fragments/estimate :: estimate-price";
+
 		}
 		String brand = estimatePriceForm.getBrand();
 		String model2 = estimatePriceForm.getModel();
 		String subModel = estimatePriceForm.getSubModel();
 		int year = estimatePriceForm.getYear();
-		int kilometer = estimatePriceForm.getKilometer();
 		boolean isFlooding = estimatePriceForm.isFlooding();
 		boolean isCrashing = estimatePriceForm.isCrashing();
 		int scratchRate = estimatePriceForm.getScratchRate();
-		System.out.println("scratchRate "+scratchRate);
+		System.out.println("scratchRate " + scratchRate);
 		Car car = carService.findByBrandAndModelAndSubModelAndYear(brand, model2, subModel, year);
 		if (car != null) {
 			BigDecimal middlePrice = car.getMiddlePrice();
@@ -144,7 +151,7 @@ public class BuySellUsedCarController {
 			return "redirect:/estimatePrice";
 		}
 	}
-	
+
 	@RequestMapping(value = { "/buy" }, method = RequestMethod.GET)
 	public String buy(Model model, String t) {
 		System.out.println("buy");
@@ -214,30 +221,31 @@ public class BuySellUsedCarController {
 			System.out.println("hasError");
 		return "sellcar";
 	}
-	
+
 	@RequestMapping(value = { "/sell/{uReserveId}" }, method = RequestMethod.GET)
-	public String sellCar(@PathVariable("uReserveId") String uReserveId, Model model) { 
+	public String sellCar(@PathVariable("uReserveId") String uReserveId, Model model) {
 
 		Long reserveId = Long.parseLong(uReserveId);
 		System.out.println("reserve id = " + uReserveId);
 
 		CarReservation uReservation = reserveService.findById(reserveId);
-		
-		if(uReservation != null){
+
+		if (uReservation != null) {
 			uReservation.setPaymentFlag("1");
 			reserveService.save(uReservation);
-			
+
 			UsedCar used_car = usedCarService.findById(Long.parseLong(uReservation.getReserveCarId()));
 			SellCar sellcar = new SellCar();
 			sellcar.setReservationId(reserveId);
-			sellcar.setAmount(Double.parseDouble(uReservation.getCarPrice().subtract(uReservation.getReservAmount()).toString()));
-			
+			sellcar.setAmount(
+					Double.parseDouble(uReservation.getCarPrice().subtract(uReservation.getReservAmount()).toString()));
+
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		    String name = auth.getName(); //get logged in username
+			String name = auth.getName(); // get logged in username
 			sellcar.setSaleBy(name);
-			
+
 			sellCarService.save(sellcar);
-			
+
 			used_car.setStatus("Sold");
 			usedCarService.save(used_car);
 			System.out.println("savesell");
@@ -302,27 +310,27 @@ public class BuySellUsedCarController {
 
 		carReserve.setReserveCarId(reserveForm.getReserveCar().getId() + "");
 		carReserve.setCarPrice(reserveForm.getActualSalePrice());
-		
+
 		carReserve.setPaymentFlag("0");
 
 		reserveService.save(carReserve);
-		
+
 		// Update Used car status to reseved
 		UsedCar used_car = usedCarService.findById(reserveForm.getReserveCar().getId());
 		used_car.setStatus("Reserved");
 		usedCarService.save(used_car);
-		
+
 		System.out.println("saveReserve");
-		
+
 		model.addAttribute("successHeader", "Reserve Completed !");
 		model.addAttribute("successDetail", "Done! You are successfully reserve a car.");
 		return "successAction";
 	}
 
 	@RequestMapping(value = { "/saveBuycar" }, method = RequestMethod.POST)
-	public String saveBuycar(@Valid @ModelAttribute("buyCar") BuyCarForm buyCar, 
-			BindingResult bindingResult, Model model) {
-		
+	public String saveBuycar(@Valid @ModelAttribute("buyCar") BuyCarForm buyCar, BindingResult bindingResult,
+			Model model) {
+
 		if (bindingResult.hasErrors()) {
 			List<FieldError> xxx = bindingResult.getFieldErrors();
 			for (FieldError fieldError : xxx) {
@@ -331,21 +339,20 @@ public class BuySellUsedCarController {
 			model.addAttribute("buyCar", buyCar);
 			// return "redirect:reserveForm/1";
 			return "buycar";
-		}
-		else {
+		} else {
 
 			String licenseplate = buyCar.getLicenseplate();
 			String licenseprovince = buyCar.getLicenseprovince();
-			BuyCar car  = buyCarService.findByLicenseplateAndLicenseprovince(licenseplate, licenseprovince);
+			BuyCar car = buyCarService.findByLicenseplateAndLicenseprovince(licenseplate, licenseprovince);
 			if (car != null) {
-				
+
 				model.addAttribute("validate", "YYYYYYYYYYY");
 				System.out.println("ERRRRRRRRRRRRRRRRRRRR");
 				model.addAttribute("buyCar", buyCar);
 				return "buycar";
-			} 
+			}
 		}
-		
+
 		BuyCar buyCarSave = new BuyCar();
 		buyCarSave.setGender(buyCar.getGender());
 		buyCarSave.setCusid(buyCar.getCusid());
@@ -353,7 +360,7 @@ public class BuySellUsedCarController {
 		buyCarSave.setLastname(buyCar.getLastname());
 		buyCarSave.setAddress(buyCar.getAddress());
 		buyCarSave.setPhone(buyCar.getPhone());
-//		buyCarSave.setBuydate(new Date());
+		// buyCarSave.setBuydate(new Date());
 
 		buyCarSave.setLicensedate(StringUtil.convertStringToDate(buyCar.getLicensedate()));
 		buyCarSave.setLicenseNo(buyCar.getLicenseNo());
@@ -380,9 +387,9 @@ public class BuySellUsedCarController {
 		buyCarSave.setLicenseplate(buyCar.getLicenseplate());
 		buyCarSave.setLicenseprovince(buyCar.getLicenseprovince());
 		buyCarSave.setPrice(buyCar.getPrice());
-		buyCarSave.setKilometer(buyCar.getKilometer());		
+		buyCarSave.setKilometer(buyCar.getKilometer());
 		buyCarService.save(buyCarSave);
-		
+
 		UsedCar usedcar = new UsedCar();
 		usedcar.setBrand(buyCar.getCarbrand());
 		usedcar.setCarId(buyCar.getLicenseplate());
@@ -394,8 +401,7 @@ public class BuySellUsedCarController {
 		usedcar.setYear(buyCar.getCaryear());
 		usedcar.setStatus(buyCar.getStatus());
 		usedCarService.save(usedcar);
-		
-		
+
 		model.addAttribute("successHeader", "Save Completed !");
 		model.addAttribute("successDetail", "Done! You are successfully add new used car.");
 		return "successAction";
@@ -403,19 +409,21 @@ public class BuySellUsedCarController {
 
 	@RequestMapping(value = { "/successAction" }, method = RequestMethod.POST)
 	public String successAction(Model model) {
-		
-//		model.addAttribute("successHeader", "Reserve Completed !");
-//		model.addAttribute("successDetail", "Done! You are successfully reserve a car.");
+
+		// model.addAttribute("successHeader", "Reserve Completed !");
+		// model.addAttribute("successDetail", "Done! You are successfully
+		// reserve a car.");
 		return "successAction";
 	}
-	
+
 	@RequestMapping(value = { "/removeReserve" }, method = RequestMethod.POST)
-	public String removeReserve(@ModelAttribute("usedCarReserveSearchForm") UsedCarReserveSearchForm carReserveSearch,Model model) {
-		
+	public String removeReserve(@ModelAttribute("usedCarReserveSearchForm") UsedCarReserveSearchForm carReserveSearch,
+			Model model) {
+
 		Long id = carReserveSearch.getReserveId();
 		System.out.println(id);
 		reserveService.deleteById(id);
-	
+
 		model.addAttribute("successHeader", "Delete Reserve Completed !");
 		model.addAttribute("successDetail", "Done! You are already delete reservation.");
 		return "successAction";
