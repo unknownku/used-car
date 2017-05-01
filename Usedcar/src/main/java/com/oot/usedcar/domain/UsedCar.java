@@ -104,12 +104,6 @@ public class UsedCar {
 	public void setKilometer(int kilometer) {
 		this.kilometer = kilometer;
 	}
-	public String getProvince() {
-		return province;
-	}
-	public void setProvince(String province) {
-		this.province = province;
-	}
 
 	public void setProvince(String province) {
 		this.province = province;

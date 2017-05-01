@@ -91,7 +91,6 @@ public class InitialDataService {
 		used_car.setPrice(new BigDecimal("350000.00"));
 		used_car.setKilometer(100000);
 		used_car.setCarId("กข-1234");
-		used_car.setProvince("กรุงเทพมหานคร");
 		used_car.setStatus("Available");
 		used_car.setProvince("กรุงเทพมหานคร");
 		usedCarRepository.save(used_car);
@@ -105,7 +104,6 @@ public class InitialDataService {
 		used_car1.setPrice(new BigDecimal("440000.00"));
 		used_car1.setKilometer(145000);
 		used_car1.setCarId("ภม-5678");
-		used_car1.setProvince("แม่ฮ่องสอน");
 		used_car1.setStatus("Available");
 		used_car1.setProvince("ชลบุรี");
 		usedCarRepository.save(used_car1);
