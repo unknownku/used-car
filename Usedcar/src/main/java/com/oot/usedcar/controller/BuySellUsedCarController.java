@@ -1,44 +1,6 @@
 package com.oot.usedcar.controller;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.oot.usedcar.domain.BuyCar;
-import com.oot.usedcar.domain.Car;
-import com.oot.usedcar.domain.CarReservation;
-import com.oot.usedcar.domain.Province;
-import com.oot.usedcar.domain.SellCar;
-import com.oot.usedcar.domain.UsedCar;
-import com.oot.usedcar.form.BuyCarForm;
-import com.oot.usedcar.form.EstimatePriceForm;
-import com.oot.usedcar.form.ReserveForm;
-import com.oot.usedcar.form.UsedCarReserveSearchForm;
-import com.oot.usedcar.form.UsedCarSearchForm;
-import com.oot.usedcar.service.InitialDataService;
-import com.oot.usedcar.service.buycar.BuyCarService;
-import com.oot.usedcar.service.car.CarService;
-import com.oot.usedcar.service.estimate.EstimatePriceService;
-import com.oot.usedcar.service.province.ProvinceService;
-import com.oot.usedcar.service.reserve.ReserveService;
-import com.oot.usedcar.service.sellcar.SellCarService;
-import com.oot.usedcar.service.usedcar.UsedCarService;
-import com.oot.usedcar.util.StringUtil;
+import java.math.BigDecimal;import java.util.ArrayList;import java.util.List;import javax.validation.Valid;import org.springframework.beans.factory.annotation.Autowired;import org.springframework.security.core.Authentication;import org.springframework.security.core.context.SecurityContextHolder;import org.springframework.stereotype.Controller;import org.springframework.ui.Model;import org.springframework.validation.BindingResult;import org.springframework.validation.FieldError;import org.springframework.validation.ObjectError;import org.springframework.web.bind.annotation.ModelAttribute;import org.springframework.web.bind.annotation.PathVariable;import org.springframework.web.bind.annotation.RequestMapping;import org.springframework.web.bind.annotation.RequestMethod;import com.oot.usedcar.domain.BuyCar;import com.oot.usedcar.domain.Car;import com.oot.usedcar.domain.CarReservation;import com.oot.usedcar.domain.Province;import com.oot.usedcar.domain.SellCar;import com.oot.usedcar.domain.UsedCar;import com.oot.usedcar.form.BuyCarForm;import com.oot.usedcar.form.EstimatePriceForm;import com.oot.usedcar.form.ReserveForm;import com.oot.usedcar.form.UsedCarReserveSearchForm;import com.oot.usedcar.form.UsedCarSearchForm;import com.oot.usedcar.service.InitialDataService;import com.oot.usedcar.service.buycar.BuyCarService;import com.oot.usedcar.service.car.CarService;import com.oot.usedcar.service.estimate.EstimatePriceService;import com.oot.usedcar.service.province.ProvinceService;import com.oot.usedcar.service.reserve.ReserveService;import com.oot.usedcar.service.sellcar.SellCarService;import com.oot.usedcar.service.usedcar.UsedCarService;import com.oot.usedcar.util.StringUtil;
 
 @Controller
 public class BuySellUsedCarController {
@@ -128,10 +90,10 @@ public class BuySellUsedCarController {
 		Car car = carService.findByBrandAndModelAndSubModelAndYear(brand, model2, subModel, year);
 		if (car != null) {
 			BigDecimal middlePrice = car.getMiddlePrice();
-			BigDecimal depreciationPrice = estimatePriceService.calculateDepreciationPrice(year, kilometer, isFlooding,
+			BigDecimal depreciationPrice = estimatePriceService.calculateDepreciationPrice(kilometer, isFlooding,
 					isCrashing, scratchRate);
-			BigDecimal estimatePrice = estimatePriceService.calculateEstimatePrice(middlePrice, depreciationPrice);
-			model.addAttribute("price", estimatePrice.toString());
+			BigDecimal estimatePrice = estimatePriceService.calculateEstimatePrice(middlePrice, depreciationPrice);			if(estimatePrice.compareTo(BigDecimal.ZERO) == -1){				model.addAttribute("price", "Your price is negative.");			} else {
+				model.addAttribute("price", estimatePrice.toString());			}
 			return "fragments/estimate :: estimate-price";
 		} else {
 			return "redirect:/estimatePrice";
@@ -350,17 +312,14 @@ public class BuySellUsedCarController {
 
 			String licenseplate = buyCar.getLicenseplate();
 			String licenseprovince = buyCar.getLicenseprovince();
-			BuyCar car = buyCarService.findByLicenseplateAndLicenseprovince(licenseplate, licenseprovince);
-			if (car != null) {
+			BuyCar car = buyCarService.findByLicenseplateAndLicenseprovince(licenseplate, licenseprovince);			if (car != null) {
 //				model.addAttribute("validate", "99");
 //				ObjectError objError = new ObjectError("validate", "Duplicate data");
 //				bindingResult.addError(objError);
 				
 //				bindingResult.rejectValue("validate", "Duplicate data");
 				
-			    ObjectError objError = new ObjectError("licenseplate", "Duplicate data");
-			    bindingResult.addError(objError);
-			    
+			    FieldError objError = new FieldError("licenseplate","licenseplate", "Duplicate data");			    bindingResult.addError(objError);			    
 		
 //				model.addAttribute("validate", objError);
 				model.addAttribute("buyCar", buyCar);

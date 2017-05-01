@@ -18,7 +18,7 @@ public class EstimatePriceServiceImpl implements EstimatePriceService {
 	}
 
 	@Override
-	public BigDecimal calculateDepreciationPrice(int year, int kilometer, boolean isFlooding, boolean isCrashing,
+	public BigDecimal calculateDepreciationPrice(int kilometer, boolean isFlooding, boolean isCrashing,
 			int scratchRate) {
 
 		BigDecimal depreciationPrice = new BigDecimal(ConstantValue.ZERO);
