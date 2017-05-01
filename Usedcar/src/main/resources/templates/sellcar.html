@@ -18,25 +18,16 @@
 				var table = $('#table-reserve-list').DataTable();
 				$(".data-mask").inputmask();
 
-				// 				 $('#table-reserve-list tbody').on('click', '.btn-row-sell', function () {
-				// 					  var closestRow = $(this).closest('tr');
-				// 				        var data = table.row( closestRow ).data();
-				// 				        alert( 'You clicked on '+data[0]+'\'s row' );
-				// 				    } );
-
-				// 				 $('#table-reserve-list tbody').on('click', '.btn-row-cancel', function () {
-				// 					  var closestRow = $(this).closest('tr');
-				// 				        var data = table.row( closestRow ).data();
-				// 				        alert( 'You clicked on '+data[0]+'\'s row' );
-				// 				    } );
-
 				// Sell Car Modal
 				$('#sellCarModal').on('show.bs.modal', function(e) {
 					var reserveId = $(e.relatedTarget).data('id');
+					var balance = $(e.relatedTarget).data('balance');
+					$("#sp-sell-balance").html(Number(balance).toLocaleString('en'));
 					$("#hf-sell-ReserveId").val(reserveId);
 				});
 
 				$('#sellCarModal').on('hide.bs.modal', function() {
+					$("#sp-sell-balance").html('');
 					$("#hf-sell-ReserveId").val('');
 				})
 
@@ -121,11 +112,11 @@
 										<td th:text="${reservedCar.name}">2.41</td>
 										<td th:text="${reservedCar.phoneNumber}">yes</td>
 										<td th:text="${reservedCar.idCard}">yes</td>
-										<td th:text="${reservedCar.payMethod}">yes</td>
-										<td th:text="${reservedCar.carPrice}">yes</td>
-										<td th:text="${reservedCar.reservAmount}">yes</td>
-										<td th:text="${reservedCar.carPrice}-${reservedCar.reservAmount}">yes</td>
-										<td><button class="btn btn-primary btn-row-sell" data-toggle="modal" data-target="#sellCarModal" th:attr="data-id=${reservedCar.id}">Sell</button></td>
+										<td th:text="${reservedCar.payMethod == 'C' ? 'Cash': 'Finance'}">yes</td>
+										<td th:text="${#numbers.formatDecimal(reservedCar.carPrice, 0, 'COMMA', 2, 'POINT')}">yes</td>
+										<td th:text="${#numbers.formatDecimal(reservedCar.reservAmount, 0, 'COMMA', 2, 'POINT')}">yes</td>
+										<td th:text="${#numbers.formatDecimal(reservedCar.carPrice-reservedCar.reservAmount, 0, 'COMMA', 2, 'POINT')}">yes</td>
+										<td><button class="btn btn-primary btn-row-sell" data-toggle="modal" data-target="#sellCarModal" th:attr="data-id=${reservedCar.id},data-balance=${reservedCar.carPrice}-${reservedCar.reservAmount}">Sell</button></td>
 										<td><button class="btn btn-danger btn-row-cancel" data-toggle="modal" data-target="#cancelReserveModal" th:attr="data-id=${reservedCar.id}">Cancel</button></td>
 									</tr>
 								</tbody>
@@ -149,7 +140,8 @@
 						<h4 class="modal-title" id="sellCarModalLabel">Sell Car</h4>
 					</div>
 					<div class="modal-body">
-						ยืนยันการรับเงินจากลูกค้าเรียบร้อย <input type="hidden" id="hf-sell-ReserveId" value="" />
+						<p>คุณได้รับเงินจากลูกค้าเป็นจำนวน <span id="sp-sell-balance"></span> บาทครบถ้วนเรียบร้อย?</p>
+						<input type="hidden" id="hf-sell-ReserveId" value="" />
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>

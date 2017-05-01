@@ -14,7 +14,6 @@ public interface ReserveRepository
 		extends JpaRepository<CarReservation, Long>, JpaSpecificationExecutor<CarReservation> {
 
 	CarReservation findById(Long id);
-
 	List<CarReservation> findByIdAndName(Long id, String name);
 
 	@Modifying
