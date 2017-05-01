@@ -92,6 +92,7 @@ public class InitialDataService {
 		used_car.setKilometer(100000);
 		used_car.setCarId("กข-1234");
 		used_car.setStatus("Available");
+		used_car.setProvince("กรุงเทพมหานคร");
 		usedCarRepository.save(used_car);
 		
 		UsedCar used_car1 = new UsedCar();
@@ -104,6 +105,7 @@ public class InitialDataService {
 		used_car1.setKilometer(145000);
 		used_car1.setCarId("ภม-5678");
 		used_car1.setStatus("Available");
+		used_car1.setProvince("ชลบุรี");
 		usedCarRepository.save(used_car1);
 		
 		UsedCar used_car2 = new UsedCar();
@@ -116,6 +118,7 @@ public class InitialDataService {
 		used_car2.setKilometer(400000);
 		used_car2.setCarId("ศง-4258");
 		used_car2.setStatus("Available");
+		used_car2.setProvince("กรุงเทพมหานคร");
 		usedCarRepository.save(used_car2);
 	}
 	

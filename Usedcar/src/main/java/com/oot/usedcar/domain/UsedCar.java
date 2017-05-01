@@ -31,6 +31,7 @@ public class UsedCar {
 	private String model;
 	private String submodel;
 	private int kilometer;
+	private String province;
 	public Long getId() {
 		return id;
 	}
@@ -104,7 +105,12 @@ public class UsedCar {
 		this.kilometer = kilometer;
 	}
 
-	
+	public void setProvince(String province) {
+		this.province = province;
+	}
+	public String getProvince() {
+		return province;
+	}
 	
 
 }
