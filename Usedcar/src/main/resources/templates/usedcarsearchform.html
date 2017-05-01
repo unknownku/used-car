@@ -103,8 +103,8 @@
 									<td th:text="${usedCar.carId}">yes</td>
 									<td th:text="${usedCar.year}">yes</td>
 									<td th:text="${usedCar.color}">yes</td>
-									<td th:text="${usedCar.price}">yes</td>
-									<td th:text="${usedCar.kilometer}">yes</td>
+									<td th:text="${#numbers.formatDecimal(usedCar.price, 0, 'COMMA', 2, 'POINT')}">yes</td>
+									<td th:text="${#numbers.formatDecimal(usedCar.kilometer, 0, 'COMMA', 0, 'POINT')}">yes</td>
 									<td><a th:href="@{~/reserve/}+${usedCar.id}"><button class="btn btn-default">Reserve</button></a></td>
 								</tr>
 							</tbody>
