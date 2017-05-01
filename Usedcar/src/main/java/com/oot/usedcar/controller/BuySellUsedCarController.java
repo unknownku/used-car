@@ -209,8 +209,6 @@ public class BuySellUsedCarController {
 	@RequestMapping(value = { "/buycar" }, method = RequestMethod.GET)
 	public String buycar(Model model) {
 		model.addAttribute("buyCar", new BuyCarForm());
-		// List<BuyCar> nameList = buyCarService.findAll();
-		// model.addAttribute("nameList", nameList);
 
 		List<Province> provinceList = provinceService.findAll();
 		model.addAttribute("provinceList", provinceList);
@@ -239,7 +237,10 @@ public class BuySellUsedCarController {
 		String licenseplate = buyCar.getLicenseplate();
 		String licenseprovince = buyCar.getLicenseprovince();
 		UsedCar usedCar = usedCarService.findByCarIdAndProvinceAndStatus(licenseplate, licenseprovince, "Available");		if (usedCar != null) {			
-		    FieldError objError = new FieldError("licenseplate","licenseplate", "Used car was duplicated.");		    bindingResult.addError(objError);		    
+		    FieldError objError = new FieldError("licenseplate","licenseplate", "Used car was duplicated.");		    bindingResult.addError(objError);
+		    
+		    objError = new FieldError("licenseprovince","licenseprovince","Used car was duplicated.");
+		    bindingResult.addError(objError);		    
 			model.addAttribute("buyCar", buyCar);
 			return "buycar";	
 		} 
