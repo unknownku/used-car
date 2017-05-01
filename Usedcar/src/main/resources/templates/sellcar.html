@@ -19,29 +19,52 @@
 				$(".data-mask").inputmask();
 
 				// Sell Car Modal
-				$('#sellCarModal').on('show.bs.modal', function(e) {
-					var reserveId = $(e.relatedTarget).data('id');
-					var balance = $(e.relatedTarget).data('balance');
-					$("#sp-sell-balance").html(Number(balance).toLocaleString('en'));
+				$('#sellCarModal').on('show.bs.modal',function(e) {
+					var reserveId = $(e.relatedTarget).data(
+							'id');
+					var balance = $(e.relatedTarget).data(
+							'balance');
+					var carid = $(e.relatedTarget).data(
+					'carid');
+					$("#sp-sell-balance").html(
+							Number(balance)
+									.toLocaleString('en'));
 					$("#hf-sell-ReserveId").val(reserveId);
+
+					$.post("usedCarDetail", {
+						id : carid
+					}, function(data) {
+						var table = $("#table-usedcar-detail tbody");
+						table.append("<tr><td>Brand</td><td>" + data.brand + "</td></tr>");
+						table.append("<tr><td>Model</td><td>" + data.model + "</td></tr>");
+						table.append("<tr><td>Submodel</td><td>" + data.submodel + "</td></tr>");
+						table.append("<tr><td>Color</td><td>" + data.color + "</td></tr>");
+						table.append("<tr><td>Year</td><td>" + data.year + "</td></tr>");
+						table.append("<tr><td>Kilometer</td><td>" + data.kilometer + "</td></tr>");
+						table.append("<tr><td>CarId</td><td>" + data.carId + "</td></tr>");
+						table.append("<tr><td>Province</td><td>" + data.province + "</td></tr>");
+					}).fail(function(e) {
+						console.log(e);
+					});
 				});
 
 				$('#sellCarModal').on('hide.bs.modal', function() {
 					$("#sp-sell-balance").html('');
 					$("#hf-sell-ReserveId").val('');
+					$("#table-usedcar-detail tbody").html('');
 				})
 
 				$("#btn-sell-confirm").click(function() {
-					window.location = "/sell/" + $("#hf-sell-ReserveId").val();
+					window.location = "/sell/"+ $("#hf-sell-ReserveId").val();
 				});
 
 				// Cancel Reserve Car Modal
-				$('#cancelReserveModal').on('show.bs.modal', function(e) {
+				$('#cancelReserveModal').on('show.bs.modal',function(e) {
 					var reserveId = $(e.relatedTarget).data('id');
 					$("#hf-cancel-ReserveId").val(reserveId);
 				});
 
-				$('#cancelReserveModal').on('hide.bs.modal', function() {
+				$('#cancelReserveModal').on('hide.bs.modal',function() {
 					$("#hf-cancel-ReserveId").val('');
 				});
 			});
@@ -116,7 +139,8 @@
 										<td th:text="${#numbers.formatDecimal(reservedCar.carPrice, 0, 'COMMA', 2, 'POINT')}">yes</td>
 										<td th:text="${#numbers.formatDecimal(reservedCar.reservAmount, 0, 'COMMA', 2, 'POINT')}">yes</td>
 										<td th:text="${#numbers.formatDecimal(reservedCar.carPrice-reservedCar.reservAmount, 0, 'COMMA', 2, 'POINT')}">yes</td>
-										<td><button class="btn btn-primary btn-row-sell" data-toggle="modal" data-target="#sellCarModal" th:attr="data-id=${reservedCar.id},data-balance=${reservedCar.carPrice}-${reservedCar.reservAmount}">Sell</button></td>
+										<td><button class="btn btn-primary btn-row-sell" data-toggle="modal" data-target="#sellCarModal"
+												th:attr="data-id=${reservedCar.id},data-balance=${reservedCar.carPrice}-${reservedCar.reservAmount},data-carid=${reservedCar.reserveCarId}">Sell</button></td>
 										<td><button class="btn btn-danger btn-row-cancel" data-toggle="modal" data-target="#cancelReserveModal" th:attr="data-id=${reservedCar.id}">Cancel</button></td>
 									</tr>
 								</tbody>
@@ -140,7 +164,23 @@
 						<h4 class="modal-title" id="sellCarModalLabel">Sell Car</h4>
 					</div>
 					<div class="modal-body">
-						<p>คุณได้รับเงินจากลูกค้าเป็นจำนวน <span id="sp-sell-balance"></span> บาทครบถ้วนเรียบร้อย?</p>
+						<p>
+							คุณได้รับเงินจากลูกค้าเป็นจำนวน <span id="sp-sell-balance"></span> บาทครบถ้วนเรียบร้อย?
+						</p>
+
+						<div class="row">
+							<div class="col-md-12">
+								<table class="table table-striped" id="table-usedcar-detail">
+									<thead>
+										<tr>
+											<th colspan="2">รายละเอียดรถยนต์</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+						</div>
 						<input type="hidden" id="hf-sell-ReserveId" value="" />
 					</div>
 					<div class="modal-footer">
