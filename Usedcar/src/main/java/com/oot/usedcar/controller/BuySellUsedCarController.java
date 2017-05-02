@@ -295,6 +295,7 @@ public class BuySellUsedCarController {
 		usedcar.setSubmodel(buyCar.getCarmodelsub());
 		usedcar.setYear(buyCar.getCaryear());
 		usedcar.setStatus(buyCar.getStatus());
+		usedcar.setReceivingDate(new Date());
 		usedCarService.save(usedcar);
 
 		model.addAttribute("successHeader", "Save Completed !");
