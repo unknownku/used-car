@@ -1,5 +1,6 @@
 package com.oot.usedcar.util;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,6 +30,19 @@ public class StringUtil {
 	      return null;
 	    }
 		
+	}
+	
+	public static Double convertStringToDouble(String doubleStr) {
+		double d = Double.parseDouble(doubleStr.replaceAll(",", ""));
+		return d;
+	}
+	public static int convertStringToInt(String IntStr) {
+		int d = Integer.parseInt(IntStr.replaceAll(",", ""));
+		return d;
+	}
+	public static BigDecimal convertStringToBigDecimal(String bigDecimalStr) {
+		BigDecimal d =new BigDecimal(bigDecimalStr.replaceAll(",", ""));
+		return d;
 	}
 
 }

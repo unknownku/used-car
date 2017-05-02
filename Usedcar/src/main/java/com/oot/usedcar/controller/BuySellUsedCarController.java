@@ -273,15 +273,15 @@ public class BuySellUsedCarController {
 		buyCarSave.setFueltype(buyCar.getFueltype());
 		buyCarSave.setGascylinno(buyCar.getGascylinno());
 		buyCarSave.setPistonno(buyCar.getPistonno());
-		buyCarSave.setCarcc(buyCar.getCarcc());
-		buyCarSave.setCarhotpower(buyCar.getCarhotpower());
+		buyCarSave.setCarcc(StringUtil.convertStringToInt(buyCar.getCarcc()));
+		buyCarSave.setCarhotpower(StringUtil.convertStringToInt(buyCar.getCarhotpower()));
 		buyCarSave.setCaretc(buyCar.getCaretc());
-		buyCarSave.setCarweight(buyCar.getCarweight());
+		buyCarSave.setCarweight(StringUtil.convertStringToDouble(buyCar.getCarweight()));
 		buyCarSave.setCarseats(buyCar.getCarseats());
 		buyCarSave.setLicenseplate(buyCar.getLicenseplate());
 		buyCarSave.setLicenseprovince(buyCar.getLicenseprovince());
-		buyCarSave.setPrice(buyCar.getPrice());
-		buyCarSave.setKilometer(buyCar.getKilometer());
+		buyCarSave.setPrice(StringUtil.convertStringToBigDecimal(buyCar.getPrice()));
+		buyCarSave.setKilometer(StringUtil.convertStringToInt(buyCar.getKilometer()));
 		buyCarService.save(buyCarSave);
 
 		UsedCar usedcar = new UsedCar();
@@ -289,9 +289,9 @@ public class BuySellUsedCarController {
 		usedcar.setCarId(buyCar.getLicenseplate());
 		usedcar.setProvince(buyCar.getLicenseprovince());
 		usedcar.setColor(buyCar.getCarcolor());
-		usedcar.setKilometer(buyCar.getKilometer());
+		usedcar.setKilometer(StringUtil.convertStringToInt(buyCar.getKilometer()));
 		usedcar.setModel(buyCar.getCarmodel());
-		usedcar.setPrice(buyCar.getPrice());
+		usedcar.setPrice(StringUtil.convertStringToBigDecimal(buyCar.getPrice()));
 		usedcar.setSubmodel(buyCar.getCarmodelsub());
 		usedcar.setYear(buyCar.getCaryear());
 		usedcar.setStatus(buyCar.getStatus());

@@ -7,6 +7,29 @@
 	<script>
 
 		$(document).ready(function() {
+			
+			$(".double6").inputmask( {
+				'alias' : 'decimal', rightAlign : false, digits : 4, 'greedy' : false, repeat: 6, 'groupSeparator': ',', 'autoGroup': true
+/* 				radixPoint: ",", */
+			 });
+			$(".double9").inputmask( {
+				'alias' : 'decimal', rightAlign : false, digits : 4, 'greedy' : false, repeat: 9, 'groupSeparator': ',', 'autoGroup': true
+/* 				radixPoint: ",", */
+			 });
+			
+			$(".numSep6").inputmask( {
+				'alias' : 'decimal', rightAlign : false, digits : 0, 'greedy' : false, repeat: 6, 'groupSeparator': ',','autoGroup': true
+/* 				radixPoint: ",", */
+			 });
+			$(".numSep9").inputmask( {
+				'alias' : 'decimal', rightAlign : false, digits : 0, 'greedy' : false, repeat: 9, 'groupSeparator': ',','autoGroup': true
+/* 				radixPoint: ",", */
+			 });
+
+			var chtoBlank = $(".chtoBlank");
+			if(chtoBlank.val() == "0"){
+				chtoBlank.val("");
+			}
 
 			var elemYear = $('#caryear');
 			if(elemYear.val() == "0"){
@@ -34,7 +57,6 @@
 			
 			$(".nowdate").html(new Date().toISOString().slice(0,10) );
 			
-
 			
 		});
 	</script>
@@ -142,7 +164,7 @@
 								<div class="form-group"  th:classappend="${#fields.hasErrors('carmodel') } ? 'has-error'">
 									<label  class="col-sm-3 control-label">Model</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control"  th:field="*{carmodel}" placeholder="Select model" />
+										<input type="text" maxlength="50" class="form-control"  th:field="*{carmodel}" placeholder="Select model" />
 										<label class="control-label"  th:if="${#fields.hasErrors('carmodel')}" th:errors="*{carmodel}">[error]</label>
 									</div>
 								</div>
@@ -150,7 +172,7 @@
 								<div class="form-group" th:classappend="${#fields.hasErrors('carmodelsub') } ? 'has-error'">
 									<label  class="col-sm-3 control-label">SubModel</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control"  th:field="*{carmodelsub}"  placeholder="Select sub model" />
+										<input type="text" maxlength="50" class="form-control"  th:field="*{carmodelsub}"  placeholder="Select sub model" />
 										<label class="control-label"  th:if="${#fields.hasErrors('carmodelsub')}" th:errors="*{carmodelsub}">[error]</label>
 									</div>
 								</div>
@@ -166,7 +188,7 @@
 								<div class="form-group" th:classappend="${#fields.hasErrors('carcolor') } ? 'has-error'">
 									<label  class="col-sm-3 control-label">Color</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control"  th:field="*{carcolor}"  placeholder="Car color" />
+										<input type="text" maxlength="20" class="form-control"  th:field="*{carcolor}"  placeholder="Car color" />
 										<label class="control-label"  th:if="${#fields.hasErrors('carcolor')}" th:errors="*{carcolor}">[error]</label>
 									</div>
 								</div>
@@ -174,7 +196,7 @@
 								<div class="form-group" th:classappend="${#fields.hasErrors('licenseplate')  } ? 'has-error'">
 									<label  class="col-sm-3 control-label">License Plate</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control"  th:field="*{licenseplate}"  placeholder="Enter license plate" />
+										<input type="text" maxlength="8" class="form-control"  th:field="*{licenseplate}"  placeholder="Enter license plate" />
 										<label class="control-label"  th:if="${#fields.hasErrors('licenseplate')}" th:errors="*{licenseplate}">[error]</label>
 									</div>
 								</div>
@@ -195,7 +217,7 @@
 									<label  class="col-sm-3 control-label">Kilometer</label>
 									<div class="col-sm-8">
 											<div class="input-group">
-													<input type="text" class="form-control"  th:field="*{kilometer}"   placeholder="Enter used car kilometer" />
+													<input type="text" class="form-control  numSep9 chtoBlank"   th:field="*{kilometer}"   placeholder="Enter used car kilometer" />
 													<span class="input-group-addon">Kilometer</span>													
 											</div>
 											<label class="control-label"  th:if="${#fields.hasErrors('kilometer')}" th:errors="*{kilometer}">[error]</label>
@@ -206,7 +228,7 @@
 									<label  class="col-sm-3 control-label">Price</label>
 									<div class="col-sm-8">
 										<div class="input-group">
-												<input type="text" class="form-control"  th:field="*{price}"  placeholder="Enter car buy price" />
+												<input type="text" class="form-control  double9"   th:field="*{price}"  placeholder="Enter car buy price" />
 												<span class="input-group-addon">Baht</span>												
 										</div>
 										<label class="control-label"  th:if="${#fields.hasErrors('price')}" th:errors="*{price}">[error]</label>
@@ -308,21 +330,21 @@
 										<div class="form-group">
 											<div class="col-sm-6">
 												<div class="input-group">
-													<input type="text" class="form-control"  placeholder="Number of piston"   th:field="*{pistonno}" /> <span class="input-group-addon">Piston</span>
+													<input type="text" class="form-control data-mask"  data-inputmask="'mask': '9', 'repeat': 2, 'greedy': false"  placeholder="Number of piston"   th:field="*{pistonno}" /> <span class="input-group-addon">Piston</span>
 												</div>
 											</div>
 											<div class="col-sm-6">
 												<div class="input-group">
-													<input type="text" class="form-control"  placeholder="Number of CC"   th:field="*{carcc}" /> <span class="input-group-addon">CC</span>
+													<input type="text" class="form-control  numSep6"   placeholder="Number of CC"   th:field="*{carcc}" /> <span class="input-group-addon">CC</span>
 												</div>
 											</div>
 											<div class="col-sm-6">
 												<div class="input-group">
-													<input type="text" class="form-control"  placeholder="Number of horsepower"  th:field="*{carhotpower}"  /> <span class="input-group-addon">Horsepower</span>
+													<input type="text" class="form-control  numSep6"   placeholder="Number of horsepower"  th:field="*{carhotpower}"  /> <span class="input-group-addon">Horsepower</span>
 												</div>
 											</div>
 											<div class="col-sm-6">
-												<input type="text" class="form-control"  placeholder="etc."   th:field="*{caretc}" />
+												<input type="text" class="form-control "  placeholder="etc."   th:field="*{caretc}" />
 											</div>
 										</div>
 									</div>
@@ -332,7 +354,7 @@
 									<label  class="col-sm-3 control-label">Weight Gross</label>
 									<div class="col-sm-8">
 										<div class="input-group">
-											<input type="text" class="form-control"  placeholder="Enter weight gross"   th:field="*{carweight}" /> <span class="input-group-addon">Kg.</span>
+											<input type="text" class="form-control  double9"    placeholder="Enter weight gross"   th:field="*{carweight}" /> <span class="input-group-addon">Kg.</span>
 										</div>
 									</div>
 								</div>
@@ -340,7 +362,7 @@
 									<label  class="col-sm-3 control-label">Seats</label>
 									<div class="col-sm-8">
 										<div class="input-group">
-											<input type="text" class="form-control"  placeholder="Enter number of seats"  th:field="*{carseats}"  /> <span class="input-group-addon">person</span>
+											<input type="text" class="form-control data-mask"  data-inputmask="'mask': '9', 'repeat': 3, 'greedy': false"  placeholder="Enter number of seats"  th:field="*{carseats}"  /> <span class="input-group-addon">person</span>
 										</div>
 									</div>
 								</div>

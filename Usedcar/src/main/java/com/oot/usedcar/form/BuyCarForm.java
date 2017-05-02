@@ -3,8 +3,10 @@ package com.oot.usedcar.form;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class BuyCarForm {
@@ -13,7 +15,7 @@ public class BuyCarForm {
 	private String gender;
 	
 	@NotNull
-    @Size(min=1, message = "Please input identification id card.")
+    @Size(min=1, message = "Please input identification card number.")
 	private String cusid;
 	
 	@NotNull
@@ -75,27 +77,35 @@ public class BuyCarForm {
 	private String fueltype;
 	private String gascylinno;
 	private String pistonno;
-	private Integer carcc;
-	private Integer carhotpower;
+	
+	private String carcc;
+	private String carhotpower;
 	private String caretc;
-	private Double carweight;
+	private String carweight;
 	private Integer carseats;
 	
-	@Min(value = 1, message = "Please input used car buying price")
-	@NotNull(message = "Please input buy car price")	
-	private BigDecimal price;
+	
+//	@Min(value = 1, message = "Please input used car buying price")
+//	@NotNull(message = "Please input used car buying price")	
+//	@Digits(integer=9, fraction=0, message = "Please fill not over 9 digits")   
+//	private BigDecimal price;
 	
 	@NotNull
-    @Size(min=1, max=100, message = "Please input license plate number")
+    @Size(min=1, max=15, message = "Please input used car buying price")
+	private String price;
+	
+	@NotNull
+    @Size(min=1, max=10, message = "Please input license plate number")
 	private String licenseplate;
 	
 	@NotNull
     @Size(min=1, max=100, message = "Please input license plate province")
 	private String licenseprovince;
 	
-	@Min(value = 1, message = "Please input used car kilometer")
-	@NotNull(message = "Please input used car kilometer")	
-	private int kilometer;
+//	@Min(value = 1, message = "Please input used car kilometer")
+	@NotNull
+	@Size(min=1, max=15, message = "Please input used car kilometer")
+	private String kilometer;
 
 	
 	private String validate;
@@ -245,16 +255,16 @@ public class BuyCarForm {
 	public void setPistonno(String pistonno) {
 		this.pistonno = pistonno;
 	}
-	public Integer getCarcc() {
+	public String getCarcc() {
 		return carcc;
 	}
-	public void setCarcc(Integer carcc) {
+	public void setCarcc(String carcc) {
 		this.carcc = carcc;
 	}
-	public Integer getCarhotpower() {
+	public String getCarhotpower() {
 		return carhotpower;
 	}
-	public void setCarhotpower(Integer carhotpower) {
+	public void setCarhotpower(String carhotpower) {
 		this.carhotpower = carhotpower;
 	}
 	public String getCaretc() {
@@ -263,10 +273,10 @@ public class BuyCarForm {
 	public void setCaretc(String caretc) {
 		this.caretc = caretc;
 	}
-	public Double getCarweight() {
+	public String getCarweight() {
 		return carweight;
 	}
-	public void setCarweight(Double carweight) {
+	public void setCarweight(String carweight) {
 		this.carweight = carweight;
 	}
 	public Integer getCarseats() {
@@ -275,10 +285,10 @@ public class BuyCarForm {
 	public void setCarseats(Integer carseats) {
 		this.carseats = carseats;
 	}
-	public BigDecimal getPrice() {
+	public String getPrice() {
 		return price;
 	}
-	public void setPrice(BigDecimal price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 	public String getLicenseplate() {
@@ -304,10 +314,10 @@ public class BuyCarForm {
 	}
 	
 	
-	public int getKilometer() {
+	public String getKilometer() {
 		return kilometer;
 	}
-	public void setKilometer(int kilometer) {
+	public void setKilometer(String kilometer) {
 		this.kilometer = kilometer;
 	}
 	
