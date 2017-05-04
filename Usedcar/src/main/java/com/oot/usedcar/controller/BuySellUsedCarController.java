@@ -263,7 +263,7 @@ public class BuySellUsedCarController {
 		buyCarSave.setCarbrand(buyCar.getCarbrand());
 		buyCarSave.setCarmodel(buyCar.getCarmodel());
 		buyCarSave.setCarmodelsub(buyCar.getCarmodelsub());
-		buyCarSave.setCaryear(buyCar.getCaryear());
+		buyCarSave.setCaryear(StringUtil.convertStringToInt(buyCar.getCaryear()));
 		buyCarSave.setCarcolor(buyCar.getCarcolor());
 		buyCarSave.setCarno(buyCar.getCarno());
 		buyCarSave.setCarnoat(buyCar.getCarnoat());
@@ -293,7 +293,7 @@ public class BuySellUsedCarController {
 		usedcar.setModel(buyCar.getCarmodel());
 		usedcar.setPrice(StringUtil.convertStringToBigDecimal(buyCar.getPrice()));
 		usedcar.setSubmodel(buyCar.getCarmodelsub());
-		usedcar.setYear(buyCar.getCaryear());
+		usedcar.setYear(StringUtil.convertStringToInt(buyCar.getCaryear()));
 		usedcar.setStatus(buyCar.getStatus());
 		usedcar.setReceivingDate(new Date());
 		usedCarService.save(usedcar);

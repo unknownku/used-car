@@ -60,9 +60,13 @@ public class BuyCarForm {
 	private String carmodelsub;
 	
 	
-	@Min(value = 1, message = "Please input used car year")
-	@NotNull(message = "Please input used car year")	
-	private int caryear;
+//	@Min(value = 1, message = "Please input used car year")
+//	@NotNull(message = "Please input used car year")	
+//	private int caryear;
+	
+	@NotNull
+    @Size(min=1, max=4, message = "Please input used car year")
+	private String caryear;
 
 	@NotNull
     @Size(min=1, max=100, message = "Please input used car color")
@@ -79,6 +83,8 @@ public class BuyCarForm {
 	private String pistonno;
 	
 	private String carcc;
+	
+	
 	private String carhotpower;
 	private String caretc;
 	private String carweight;
@@ -305,11 +311,11 @@ public class BuyCarForm {
 		this.licenseprovince = licenseprovince;
 	}
 	
-	public int getCaryear() {
+	public String getCaryear() {
 		
 		return caryear;
 	}
-	public void setCaryear(int caryear) {
+	public void setCaryear(String caryear) {
 		this.caryear = caryear;
 	}
 	

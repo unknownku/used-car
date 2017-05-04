@@ -33,15 +33,27 @@ public class StringUtil {
 	}
 	
 	public static Double convertStringToDouble(String doubleStr) {
-		double d = Double.parseDouble(doubleStr.replaceAll(",", ""));
+		double d = 0.00;
+		if (doubleStr!=""){		
+			d = Double.parseDouble(doubleStr.replaceAll(",", ""));
+		}
 		return d;
+
 	}
+	
 	public static int convertStringToInt(String IntStr) {
-		int d = Integer.parseInt(IntStr.replaceAll(",", ""));
+		int d = 0;
+		if (IntStr!="") {
+			d=Integer.parseInt(IntStr.replaceAll(",", ""));
+		}
 		return d;
 	}
-	public static BigDecimal convertStringToBigDecimal(String bigDecimalStr) {
-		BigDecimal d =new BigDecimal(bigDecimalStr.replaceAll(",", ""));
+	
+	public static BigDecimal convertStringToBigDecimal(String bigDecimalStr) {	
+		BigDecimal d = new BigDecimal(0);
+		if (bigDecimalStr!="") {
+			d =new BigDecimal(bigDecimalStr.replaceAll(",", ""));
+		}
 		return d;
 	}
 
